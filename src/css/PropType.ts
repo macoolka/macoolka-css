@@ -1,3 +1,6 @@
+/**
+ * Stand css property type
+ */
 export interface TCssProperty {
   alignContent?: string | number;
   alignItems?: string | number;

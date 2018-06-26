@@ -1,4 +1,6 @@
-import M from '../';
+import {of} from '../Css';
+import {of as ofICss} from '../ICss';
+import {of as ofVariable,compose as composeVariable} from '../VProp';
 export type CssPropertyType = {
     color?: string;
     backgroundColor?: string;
@@ -7,7 +9,7 @@ export type CssPropertyType = {
 };
 export type CssSelector = 'focus' | 'hover';
 
-export const baseCssValue = M.ofCss<CssSelector, CssPropertyType>({
+export const baseCssValue = ofICss<CssSelector, CssPropertyType>({
     cssProperty: [{
         cssName: 'color',
         propertyName: 'color',
@@ -51,7 +53,7 @@ const getVariableValue = (a: NodeValue) => (v1: Variable) => {
     }
     return v1.test.variable.white;
 };
-const vt = M.ofVariable<NodeValue, Variable>({
+const vt = ofVariable<NodeValue, Variable>({
     variable: {
         test: {
             variable: {
@@ -87,7 +89,7 @@ const getVariableValue1 = (a: NodeValue1) => (v1: Variable1) => {
     }
     return v1.test1.variable.height;
 };
-const vt1 = M.ofVariable<NodeValue1, Variable1>({
+const vt1 = ofVariable<NodeValue1, Variable1>({
     variable: {
         test1: {
             variable: {
@@ -99,9 +101,9 @@ const vt1 = M.ofVariable<NodeValue1, Variable1>({
     isNodeValue: (a: any): a is NodeValue1 => a && a.kind && ['width', 'height'].includes(a.kind),
     getVariableValue: getVariableValue1,
 });
-const mergeVariable = M.of<PV1 & PV>()<CssSelector, CssPropertyType, NodeValue | NodeValue1, Variable1 & Variable>(
-    { css: baseCssValue, variable: M.composeVariable(vt, vt1) });
-const baseVariable = M.of<PV>()({ css: baseCssValue, variable: vt });
+const mergeVariable = of<PV1 & PV>()<CssSelector, CssPropertyType, NodeValue | NodeValue1, Variable1 & Variable>(
+    { css: baseCssValue, variable: composeVariable(vt, vt1) });
+const baseVariable = of<PV>()({ css: baseCssValue, variable: vt });
 describe('build variable css with property and selector', () => {
 
     it('get css property with replace props', () => {

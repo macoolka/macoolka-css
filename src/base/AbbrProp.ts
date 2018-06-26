@@ -1,4 +1,9 @@
 
+/**
+ * Abbr redefine css property name.
+ *
+ * @namespace abbr
+ */
 import { merge } from 'mocoolka-fp/lib/object';
 import { AbbrProps, AbbrPropsMerge } from './type';
 export const compose = <P1, A1, P2, A2>

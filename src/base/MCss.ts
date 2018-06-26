@@ -1,3 +1,9 @@
+/**
+ * MCss is module css.
+ * It define a module contain all element(AbbrProp,VProp,ICss,CFProp,CProp)
+ *
+ * @namespace MCss
+ */
 import {
     MCss, MCssMerge, TSelector, TProp, TNodeValue, TVariable, TAbbr, TInputProp,
     TRProp, InputPropBase, InputPropFunctionBase
@@ -8,7 +14,6 @@ import * as variable from './VProp';
 import * as css from './ICss';
 import * as prop from './CProp';
 import * as fprop from './CFProp';
-export * from './type';
 import { validCProps } from './validation';
 import { success, failure } from 'mocoolka-fp/lib/Validation';
 export { success, failure, Validation };

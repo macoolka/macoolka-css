@@ -1,12 +1,13 @@
 import * as t from '../type';
 import { CssPropertyType, baseCssValue } from './icss.spec';
-import M from '../';
+import {of} from '../';
+import {of as ofAbbr} from '../AbbrProp';
 type C1 = t.AbbrProp<'MH', CssPropertyType, 'marginLeft'>;
 type C2 = t.AbbrProp<'C', CssPropertyType, 'color'>;
 type AbbrProps = C1 & C2;
-const abbrs = M.ofAbbr<CssPropertyType, AbbrProps>({ MH: ['marginLeft'], C: ['color'] });
+const abbrs = ofAbbr<CssPropertyType, AbbrProps>({ MH: ['marginLeft'], C: ['color'] });
 // const baseAbbrCss = baseCss.compose()({ abbrs: abbrs });
-const abbrCss = M.of<{}, AbbrProps>()({ css: baseCssValue, abbrs: abbrs });
+const abbrCss = of<{}, AbbrProps>()({ css: baseCssValue, abbrs: abbrs });
 describe('build custmer css with property and selector and replaceProp', () => {
 
     it('get css property with replace props', () => {
@@ -19,7 +20,7 @@ describe('build custmer css with property and selector and replaceProp', () => {
     });
 });
 type ReplaceProps1 = t.AbbrProp<'PH', CssPropertyType, 'marginLeft'>;
-const abbrs1 = M.ofAbbr<CssPropertyType, ReplaceProps1>({ PH: ['marginLeft', 'marginRight'] });
+const abbrs1 = ofAbbr<CssPropertyType, ReplaceProps1>({ PH: ['marginLeft', 'marginRight'] });
 // const abbrMerge = M.composeAbbr(abbrs, abbrs1);
 const abbrMerge = abbrCss.compose<{}, ReplaceProps1 & AbbrProps>()({ css: baseCssValue, abbrs: abbrs1 });
 describe('mix custmer css with property and selector and replaceProp', () => {

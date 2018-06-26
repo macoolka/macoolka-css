@@ -1,7 +1,11 @@
+/**
+ * Valid CProp.
+ *
+ */
 import { isObject, isArray } from 'mocoolka-fp/lib/predicate';
 import { success, failure, Validation } from 'mocoolka-fp/lib/Validation';
 import { filter } from 'mocoolka-fp/lib/Array';
-import { Vertex, Graph, tsort } from '../tsort';
+import { Vertex, Graph, tsort } from '../base/tsort';
 const getPropertyMap = (
     properties: { [name: string]: { [name: string]: any } }
 ): { [key: string]: any } => {
@@ -14,7 +18,7 @@ const getPropertyMap = (
     return map;
 };
 
-const getKeyValueGraph = <K, V>(isKeyValue: {  isKeyValue: (k: any, v: any) => boolean; }) => (
+const getKeyValueGraph = (isKeyValue: {  isKeyValue: (k: any, v: any) => boolean; }) => (
     map: { [key: string]: any }
 ): Graph => {
     const graph: Graph = {};
@@ -42,7 +46,8 @@ const getKeyValueGraph = <K, V>(isKeyValue: {  isKeyValue: (k: any, v: any) => b
     return graph;
 };
 /**
- * sort property.return failure when recursions node be found.
+ * Valid CProp.
+ * Return failure when recursions node be found.
  * @param properties
  */
 export const validCProps = (isKeyValue: {  isKeyValue: (k: any, v: any) => boolean; }) => (

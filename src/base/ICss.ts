@@ -1,6 +1,11 @@
-import * as ord from 'mocoolka-fp/lib/Ord';
-import * as oid from 'mocoolka-fp/lib/Setoid';
-import * as sg from 'mocoolka-fp/lib/Semigroup';
+/**
+ * ICss define stand css property and selector
+ *
+ * @namespace ICss
+ */
+import {contramap, ordString} from 'mocoolka-fp/lib/Ord';
+import {setoidString, setoidBasicType, getRecordSetoid, getArraySetoid} from 'mocoolka-fp/lib/Setoid';
+import {getRecordSemigroup, getArraySemigroup} from 'mocoolka-fp/lib/Semigroup';
 import {
     sort as arraySort,
 } from 'mocoolka-fp/lib/Array';
@@ -10,22 +15,22 @@ import {
 import { withDefaults as _withDefaults } from 'mocoolka-fp/lib/object';
 import { identity } from 'mocoolka-fp/lib/function';
 import { IProperty, ICss, ICssMerge, TSelector, TProp } from './type';
-export const getIPropertySetoid = <P>() => oid.getRecordSetoid<IProperty<P>>({
-    cssName: oid.setoidString,
-    description: oid.setoidBasicType,
-    propertyName: oid.setoidString,
-    unitName: oid.setoidBasicType,
+export const getIPropertySetoid = <P>() => getRecordSetoid<IProperty<P>>({
+    cssName: setoidString,
+    description: setoidBasicType,
+    propertyName: setoidString,
+    unitName: setoidBasicType,
 });
 
-export const getIPropertyOrd = <P>() => ord.contramap((x: IProperty<P>) => x.propertyName, ord.ordString);
+export const getIPropertyOrd = <P>() => contramap((x: IProperty<P>) => x.propertyName, ordString);
 
-export const getICssSetoid = <S extends TSelector, P>() => oid.getRecordSetoid<ICss<S, P>>({
-    cssProperty: oid.getArraySetoid<IProperty<P>>(getIPropertySetoid<P>()),
-    cssSelector: oid.getArraySetoid<string>(oid.setoidString),
+export const getICssSetoid = <S extends TSelector, P>() => getRecordSetoid<ICss<S, P>>({
+    cssProperty: getArraySetoid<IProperty<P>>(getIPropertySetoid<P>()),
+    cssSelector: getArraySetoid<string>(setoidString),
 });
-export const getICssSemigroup = <S extends TSelector, P>() => sg.getRecordSemigroup<ICss<S, P>>({
-    cssProperty: sg.getArraySemigroup<IProperty<P>>(),
-    cssSelector: sg.getArraySemigroup<S>(),
+export const getICssSemigroup = <S extends TSelector, P>() => getRecordSemigroup<ICss<S, P>>({
+    cssProperty: getArraySemigroup<IProperty<P>>(),
+    cssSelector: getArraySemigroup<S>(),
 });
 export const p = <S extends TSelector, P extends TProp>(fa: ICss<S, P>): ICss<S, P>['cssProperty'] => fa.cssProperty;
 export const s = <S extends TSelector, P extends TProp>(fa: ICss<S, P>): ICss<S, P>['cssSelector'] => fa.cssSelector;
@@ -51,7 +56,7 @@ export const extend = <S extends TSelector, A, B>(
 export const reduce = <S extends TSelector, P, B>(fa: ICss<S, P>, b: B, f: (b: B, a: ICss<S, P>) => B): B => f(b, fa);
 
 export const sort = <S extends TSelector, P>(a: ICss<S, P>): ICss<S, P> =>
-    bimap<S, P>(a, arraySort<S>(ord.ordString), arraySort<IProperty<P>>(getIPropertyOrd<P>()));
+    bimap<S, P>(a, arraySort<S>(ordString), arraySort<IProperty<P>>(getIPropertyOrd<P>()));
 
 /** @function */
 export const getMonoid = <S extends TSelector, P>(): Monoid<ICss<S, P>> => (
@@ -66,15 +71,3 @@ export const emptyInputCss = <A extends TSelector, B= {}>(): ICss<A, B> => ({
 
 export const of = <S extends TSelector, P= {}>(a?: Partial<ICss<S, P>>): ICss<S, P> =>
     _withDefaults(emptyInputCss<S, P>())(a);
-/* export const icss = {
-    p,
-    s,
-    compose,
-    map,
-    bimap,
-    extract,
-    extend,
-    reduce,
-    sort,
-    of,
-}; */

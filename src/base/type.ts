@@ -31,7 +31,9 @@ export declare type ICss<S extends TSelector= never, P extends TProp = {}> = {
 };
 export type ICssMerge<S1 extends TSelector, P1 extends TProp, S2 extends TSelector, P2 extends TProp> =
     ICss<S1 | S2, P1 & P2>;
-
+/**
+ * Print Css mean convert to orgin css
+ */
 export declare type PCssProperty<P extends TProp> = {
     kind: 'value';
     css: IProperty<P>;

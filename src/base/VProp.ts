@@ -1,3 +1,9 @@
+/**
+ * VProp define variable property.
+ * It define a variable name and value,normal used in theme.
+ *
+ * @namespace VProp
+ */
 import { withDefaults as _withDefaults } from 'mocoolka-fp/lib/object';
 import { Semigroup, semigroupAny } from 'mocoolka-fp/lib/Semigroup';
 import { Is } from 'mocoolka-fp/lib/predicate';

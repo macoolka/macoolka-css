@@ -1,9 +1,15 @@
+import {IProperty} from '../base/type';
+import { camelCase } from 'mocoolka-fp/lib/string';
+import { TCssProperty } from './PropType';
 export declare type CssProperty = {
     cssName: string;
     description?: string;
     unitName?: string;
 };
 //tslint:disable
+export const getCssProperty = (item: CssProperty): IProperty<TCssProperty> =>
+    ({ propertyName: camelCase(item.cssName) , unitName: item.unitName, cssName: item.cssName}) as IProperty<TCssProperty>;
+
 export const data: CssProperty[] = [
     {
         cssName: 'align-content',

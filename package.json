@@ -1,6 +1,6 @@
 {
   "name": "mocoolka-css",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
@@ -18,13 +18,10 @@
     "coverage": "rimraf coverage && jest --coverage"
   },
   "dependencies": {
-    "color": "^3.0.0",
-    "mocoolka-fp": "^0.1.13"
+    "mocoolka-fp": "^0.1.15"
   },
   "devDependencies": {
-    "@types/color": "^3.0.0",
     "@types/jest": "^22.2.2",
-    "@types/node": "^9.4.6",
     "jest": "^23.1.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^22.0.4",

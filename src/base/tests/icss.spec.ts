@@ -1,4 +1,5 @@
-import M from '../';
+import {of as ofICss} from '../ICss';
+import {of } from '../Css';
 import * as t from '../type';
 export { t };
 export type CssPropertyType = {
@@ -9,7 +10,7 @@ export type CssPropertyType = {
 };
 export type CssSelector = 'focus' | 'hover';
 
-export const baseCssValue = M.ofCss<CssSelector, CssPropertyType>({
+export const baseCssValue = ofICss<CssSelector, CssPropertyType>({
     cssProperty: [{
         cssName: 'color',
         propertyName: 'color',
@@ -27,7 +28,7 @@ export const baseCssValue = M.ofCss<CssSelector, CssPropertyType>({
     }],
     cssSelector: ['focus', 'hover'],
 });
-export const baseCss = M.of()({ css: baseCssValue });
+export const baseCss = of()({ css: baseCssValue });
 
 export type CssSelector1 = 'active1';
 export type CssPropertyType1 = {
@@ -36,7 +37,7 @@ export type CssPropertyType1 = {
     paddingRight?: number | string,
 };
 
-export const mergeCssValue = M.ofCss<CssSelector1, CssPropertyType1>({
+export const mergeCssValue = ofICss<CssSelector1, CssPropertyType1>({
     cssSelector: ['active1'],
     cssProperty: [{
         propertyName: 'paddingLeft',

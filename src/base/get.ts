@@ -1,4 +1,11 @@
-import * as t from './type';
+/**
+ * Type convert getter.
+ */
+import {
+    TSelector, CssMap, PCss, RCss, ICss, AbbrProps, PluginKey, PluginKeyValue,
+    TNodeValue, VProps, CommonSelector, IProperty, InputPropBase, InputPropFunctionBase,
+    TProp, TVariable, MCss, MCssT, TRProp
+} from './type';
 import {
     pcss, pselector, getterString,
 } from './PCss';
@@ -9,10 +16,10 @@ import { Is } from 'mocoolka-fp/lib/predicate';
 import { merge } from 'mocoolka-fp/lib/object';
 export { getterString };
 export const isPropertyValue = (v: any): v is (string | number) => isString(v) || isNumber(v);
-export const getPCssFromRCss = <S extends t.TSelector, P>(map: t.CssMap<S, P>) =>
-    new Getter<t.RCss<S, P>, t.PCss<P>[]>(
+export const getPCssFromRCss = <S extends TSelector, P>(map: CssMap<S, P>) =>
+    new Getter<RCss<S, P>, PCss<P>[]>(
         a => {
-            const items: t.PCss<P>[] = [];
+            const items: PCss<P>[] = [];
             Object.entries(a).map(([k, v]) => {
                 if (map.isS(k)) {
                     items.push(pselector<P>({
@@ -35,17 +42,17 @@ export const getPCssFromRCss = <S extends t.TSelector, P>(map: t.CssMap<S, P>) =
             });
             return items;
         });
-export const getOCssFromICss = <S extends t.TSelector, P>(c: t.ICss<S, P>) => (r: t.RCss<S, P>): string =>
+export const getOCssFromICss = <S extends TSelector, P>(c: ICss<S, P>) => (r: RCss<S, P>): string =>
     getPCssFromRCss(getCssMapFromICsses<S, P>().get(c)).compose(getterString<P>()).get(r);
 
-export const getPluginKeyFromAbbrProps = <P, A>() => new Getter<t.AbbrProps<P, A>, t.PluginKey<P, keyof A>>(
+export const getPluginKeyFromAbbrProps = <P, A>() => new Getter<AbbrProps<P, A>, PluginKey<P, keyof A>>(
     a => ({
         isAKey: (b: any): b is keyof A => !!Object.keys(a).includes(b),
         getKey: (b: keyof A, value: any): P =>
             array.reduce(a[b]!, {}, (r, name) => Object.assign({}, r, { [name]: value })) as P,
     }));
 export const getPluginKeyValueFromCProps = <InputProp extends { [name: string]: any } = {}>() =>
-    new Getter<InputProp, t.PluginKeyValue>(
+    new Getter<InputProp, PluginKeyValue>(
         a => ({
             isKeyValue: (k: any, v: any): boolean => !!(a && a[k] && isFunction(a[k])) || (a && a[k] && a[k][v]),
             parseProps: (input: { [k: string]: any }): { [k: string]: any } => {
@@ -120,8 +127,8 @@ export const getPluginKeyValueFromCProps = <InputProp extends { [name: string]: 
                 return result;
             },
         }));
-export const getRCssFromPluginKey = <S extends t.TSelector, P>(
-    map: t.CssMap<S, P>) => <A>(pa: t.PluginKey<P, keyof A>) => new Getter<t.RCss<S, P | A>, t.RCss<S, P>>(
+export const getRCssFromPluginKey = <S extends TSelector, P>(
+    map: CssMap<S, P>) => <A>(pa: PluginKey<P, keyof A>) => new Getter<RCss<S, P | A>, RCss<S, P>>(
         a => {
             let result: any = {};
             Object.entries(a).map(([k, v]) => {
@@ -138,12 +145,12 @@ export const getRCssFromPluginKey = <S extends t.TSelector, P>(
                     result[k] = v;
                 }
             });
-            return result as t.RCss<S, P>;
+            return result as RCss<S, P>;
         });
 /* export const getRCssFromCProps = <S extends string, P, K extends string, V extends string, Abbr>(
-    map: t.CssMap<S, P>) => <InputProp, Prop>(
-        pa: t.CProps<InputProp, Prop>) => new Getter<t.RCss<S, P & Prop>,
-            t.RCss<S, P & Abbr>>(
+    map: CssMap<S, P>) => <InputProp, Prop>(
+        pa: CProps<InputProp, Prop>) => new Getter<RCss<S, P & Prop>,
+            RCss<S, P & Abbr>>(
                 a => {
                     let result: { [name: string]: any } = {};
                     const input = pa.inputProps as any;
@@ -159,11 +166,11 @@ export const getRCssFromPluginKey = <S extends t.TSelector, P>(
                             result[k] = v;
                         }
                     });
-                    return result as t.RCss<S, P & Abbr>;
+                    return result as RCss<S, P & Abbr>;
                 }); */
-export const getRCssFromVProps = <PV>() => <S extends t.TSelector, P>(
-    map: t.CssMap<S, P>) => <A extends t.TNodeValue, B>(pa: t.VProps<A, B>) =>
-        new Getter<t.RCss<S, P | PV>, t.RCss<S, P>>(
+export const getRCssFromVProps = <PV>() => <S extends TSelector, P>(
+    map: CssMap<S, P>) => <A extends TNodeValue, B>(pa: VProps<A, B>) =>
+        new Getter<RCss<S, P | PV>, RCss<S, P>>(
             a => {
                 let result: any = {};
                 Object.entries(a).map(([k, v]) => {
@@ -188,14 +195,14 @@ export const getRCssFromVProps = <PV>() => <S extends t.TSelector, P>(
                             });
                     }
                 });
-                return result as t.RCss<S, P>;
+                return result as RCss<S, P>;
             }
         );
-const isCommonSelector = <P>(a: any): a is t.CommonSelector<P> => !!(a && a === 'selector');
-export const getCssMapFromICsses = <S extends t.TSelector, P>() =>
-    new Getter<t.ICss<S, P>, t.CssMap<S, P>>(
+const isCommonSelector = <P>(a: any): a is CommonSelector<P> => !!(a && a === 'selector');
+export const getCssMapFromICsses = <S extends TSelector, P>() =>
+    new Getter<ICss<S, P>, CssMap<S, P>>(
         css => {
-            const cssMap: Map<keyof P, t.IProperty<P>> = new Map();
+            const cssMap: Map<keyof P, IProperty<P>> = new Map();
             css.cssProperty.forEach(v => {
                 cssMap.set(v.propertyName, v);
             });
@@ -208,28 +215,28 @@ export const getCssMapFromICsses = <S extends t.TSelector, P>() =>
                 getCssProperty,
             };
         });
-export const getMCssTFromMCss = <VProp, AProp, CProp extends t.InputPropBase,
-    CFProp extends t.InputPropFunctionBase,
+export const getMCssTFromMCss = <VProp, AProp, CProp extends InputPropBase,
+    CFProp extends InputPropFunctionBase,
     AdditionProp>() => <
-        Selector extends t.TSelector,
-        Prop extends t.TProp,
-        NodeValue extends t.TNodeValue,
-        Variable extends t.TVariable,
+        Selector extends TSelector,
+        Prop extends TProp,
+        NodeValue extends TNodeValue,
+        Variable extends TVariable,
         >() =>
-        new Getter<t.MCss<Selector, Prop, NodeValue, Variable, AProp, VProp, CProp, CFProp, AdditionProp>,
-            t.MCssT<Selector, Prop, VProp, AProp, CProp & CFProp & AdditionProp>>(
+        new Getter<MCss<Selector, Prop, NodeValue, Variable, AProp, VProp, CProp, CFProp, AdditionProp>,
+            MCssT<Selector, Prop, VProp, AProp, CProp & CFProp & AdditionProp>>(
                 m => {
                     const map = getCssMapFromICsses<Selector, Prop>().get(m.css);
                     const toCss = getPCssFromRCss(getCssMapFromICsses<Selector, Prop>()
                         .get(m.css)).compose(getterString<Prop>()).get;
-                    const toRCss = (r: t.TRProp<Selector, Prop, VProp, AProp, CProp & CFProp & AdditionProp>)
-                        : t.RCss<Selector, Prop> => {
+                    const toRCss = (r: TRProp<Selector, Prop, VProp, AProp, CProp & CFProp & AdditionProp>)
+                        : RCss<Selector, Prop> => {
                         try {
 
                             const removeProp =
                                 getPluginKeyValueFromCProps
                                     ().get(Object.assign({}, m.propFunctions, m.props, m.variable)).parseProps(r) as
-                                t.RCss<Selector, Prop & VProp & AProp>;
+                                RCss<Selector, Prop & VProp & AProp>;
 
                             const removeAbbrs = getRCssFromPluginKey<Selector, Prop>(map)(
                                 getPluginKeyFromAbbrProps<Prop & VProp, AProp>().get(m.abbrs)).get(removeProp);
@@ -239,7 +246,7 @@ export const getMCssTFromMCss = <VProp, AProp, CProp extends t.InputPropBase,
                             throw new Error(ex);
                         }
                     };
-                    const toTCss = (r: t.TRProp<Selector, Prop, VProp, AProp, CProp & CFProp & AdditionProp>): string =>
+                    const toTCss = (r: TRProp<Selector, Prop, VProp, AProp, CProp & CFProp & AdditionProp>): string =>
                         toCss(toRCss(r));
                     return {
                         toCss,
