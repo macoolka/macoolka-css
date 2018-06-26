@@ -1,182 +1,185 @@
-import Palette from '../src/Palette';
-import * as t from 'mocoolka-fp/lib/Type';
-import * as m from '../src/M';
-import { TCssSelector, TCssProperty, TCss } from '../src/Css';
-import { MCssT } from '../src/M/type';
-
-const cssProperty: m.TInputCss[] = [{
-    cssName: 'color',
-}, {
-    cssName: 'margin-left',
-    unitName: 'px',
-}];
-const cssSelector = ['focus', 'hover'];
-type CssPropertyType = {
+import * as t from '../src/base/type';
+import { of, ofVariable, ofICss,ofAbbr } from '../';
+export type CssPropertyType = {
     color?: string;
     backgroundColor?: string;
     marginLeft?: number | string;
+    paddingLeft?: number | string;
+    width?: number | string;
+    transform?: string;
 };
-type CssSelector = 'focus' | 'hover';
-type CssReplace = 'marginH' | 'marginV';
-const isNode = (a1: any): a1 is CssReplace => ['marginH', 'marginV'].indexOf(a1) >= 0;
-type Css = m.MTemplate<CssSelector, CssPropertyType>['css'];
-const cssE: Css = {
-};
-const css: Css = {
-    hover: {
-        color: '#fff',
-    },
-};
-const css1: Css = {
-    hover1: {
-        color: '#fff',
-    },
-};
-type CssR = m.MOutTemplate<CssSelector, CssPropertyType, CssReplace>['props'];
+export type CssSelector = 'focus' | 'hover';
 
-const cssrE: CssR = {
+export const css = ofICss<CssSelector, CssPropertyType>({
+    cssProperty: [{
+        cssName: 'color',
+        propertyName: 'color',
+    }, {
+        cssName: 'background-color',
+        propertyName: 'backgroundColor',
+    }, {
+        cssName: 'margin-left',
+        propertyName: 'marginLeft',
+        unitName: 'px',
+    }, {
+        cssName: 'padding-left',
+        propertyName: 'paddingLeft',
+        unitName: 'px',
+    }, {
+        cssName: 'width',
+        propertyName: 'width',
+        unitName: 'px',
+    }, {
+        cssName: 'transform',
+        propertyName: 'transform',
+    }],
+    cssSelector: ['focus', 'hover'],
+});
 
+type VariableProp = {
+    color?: string | NodeValue,
+    backgroundColor?: string | NodeValue,
 };
-const cssr: CssR = {
-    hover: {
-        color: '',
-        marginV: 8,
-        marginH: '8em',
-    },
-    marginH: 0,
-};
-type RI = m.MOutTemplate<CssSelector, CssPropertyType, CssReplace>['replaceInputProps'];
-const riE: RI = {};
-const ri: RI = { marginH: ['marginLeft'] };
-const a = (n: string) => {
-    if (isNode(n)) {
-        return ri[n];
+type Variable = {
+    test: {
+        variable: {
+            black: string,
+            white: string,
+        }
     }
 };
-
-// const outerT = m.getOutTheme<CssSelector, cssPropertyType>({ cssProperty, cssSelector });
-
-type PaletteTheme = t.TypeOf<typeof Palette.themeType>;
-type TCssA = MCssT<'focus' | 'hover', { color?: string, margin?: number }>;
-type TProperty1 = TCssA['property'];
-type TCss1 = TCssA['css'];
-type TSelector1 = TCssA['selector'];
-
-const pp: TProperty1 = {
-    color: '#fff',
-    margin: 0,
+type Black = {
+    'kind': 'black',
 };
-const pp0: TProperty1 = {
+type White = {
+    'kind': 'white',
 };
-const pp1: TProperty1 = {
-    color: '#fff',
-    margin: '0',
+type NodeValue = Black | White;
+const getVariableValue = (a: NodeValue) => (v1: Variable) => {
+    if (a.kind === 'black') {
+        return v1.test.variable.black;
+    }
+    return v1.test.variable.white;
 };
-const pp2: TProperty1 = {
-    color1: '#fff',
-};
-
-const ss: TSelector1 = {
-
-};
-const ss0: TSelector1 = {
-    focus: {
-        color: '#fff',
-        hover: {
-            color: '#fff',
-        },
-    },
-};
-const ss1: TSelector1 = {
-    focus: {
-        color: '#fff',
-        hover: {
-            color: '#fff',
-        },
-    },
-    color: '1',
-};
-const ss1: TSelector1 = {
-    focus1: {
-
-    },
-};
-const cs: TCss1 = {
-    focus: {
-        color: '#fff',
-        hover: {
-            color: '#fff',
-        },
-    },
-    color: '1',
-};
-const cs0: TCss1 = {
-
-};
-const cs1: TCss1 = {
-    color1: '1',
-};
-const p1: TCssProperty = {
-    color: 'red',
-    background: 'blue',
-};
-const p2: TCssProperty = {
-    color: 'red',
-    background: 'blue',
-    f: 1,
-};
-const p3: TCssProperty = {
-    color: 'red',
-    background: {},
-};
-const s1: TCssSelector = {
-    focus: {
-        color: 'red',
-        background: 'blue',
-    },
-    hover: {
-        hover: {
-            hover: {
-                color: 'red',
-                t: {
-                    background: '8',
-                },
+const variable = ofVariable<NodeValue, Variable>({
+    variable: {
+        test: {
+            variable: {
+                black: '#000',
+                white: '#fff',
             },
         },
     },
-};
-const s2: TCssSelector = {
-    focus: '1',
-
-};
-const s3: TCssSelector = {
-    focus1: { color: 'blue' },
-
-};
-const c1: TCss = {
-    color: 'red',
-    background: 'blue',
-    focus: {
-        color: 'red',
+    isNodeValue: (a: any): a is NodeValue => !!(a && a.kind && ['black', 'white'].includes(a.kind)),
+    getVariableValue,
+});
+type C1 = t.AbbrProp<'MH', CssPropertyType, 'marginLeft'>;
+type C2 = t.AbbrProp<'C', CssPropertyType, 'color'>;
+type AbbrProps = C1 & C2;
+type Mixed = {
+    variable?: {
+        test?: {
+            variable?: {
+                black?: string,
+                white?: string,
+            }
+        }
     },
-    hover: {
-        hover: {
-            color: 'red',
+}
+const abbrs = ofAbbr<CssPropertyType, AbbrProps>({ MH: ['marginLeft'], C: ['color'] });
+const M = of<VariableProp, AbbrProps, {}, {}, {}, Mixed>()({
+    variable,
+    abbrs,
+    css,
+});
+export type IconSvgProp = {
+    size: 'inherit' | 'small' | 'medium' | 'large',
+};
+export type IconSvgPropF = {
+    rotate: number,
+};
+const M1 = M.addProps<IconSvgProp, IconSvgPropF>(
+    {
+        size: {
+            inherit: {
+                mkstyle: { width: 20 },
+                // iconSize: 'inherit',
+            },
+            small: {
+                mkstyle: {
+                    width: 30,
+                },
+                // backgroundSizeT: 'small',
+            },
+            medium: {
+                mkstyle: {
+                    width: 40,
+                },
+                // backgroundSizeTheme: 'medium',
+            },
+            large: {
+                mkstyle: {
+                    width: 50,
+                },
+
+            },
         },
-    },
-
-};
-const c2: TCss = {
-    color: 'red',
-    t: 'red',
-    background: 'blue',
-    focus: {
-        color: 'red',
-    },
-    hover: {
-        hover: {
-            color: 'red',
+    }, {
+        rotate: (a: number) => ({
+            mkstyle: { transform: `rotate(${a}deg)` },
+        }),
+    }
+);
+M1.toRCss({
+    size: 'medium', rotate: 70, selector: [{
+        name: ':hover',
+        value: {
+            rotate: 20,
+            size: 'small',
+            mkstyle: {
+                marginLeft: 1,
+            },
         },
-    },
+    }],
+})
+//error when  property name not be defined
+M1.toRCss({
+    size: 'medium', rotate: 70, selector: [{
+        name: ':hover',
+        value: {
+            rotate1: 20,
+            size: 'small',
+            mkstyle: {
+                marginLeft: 1,
+            },
+        },
+    }],
+})
 
-};
+//error mkstyle1
+M1.toRCss({
+    size: 'medium', rotate: 70, selector: [{
+        name: ':hover',
+        value: {
+            rotate: 20,
+            size: 'small',
+            mkstyle1: {
+                marginLeft: 1,
+            },
+        },
+    }],
+})
+
+//error property type
+M1.toRCss({
+    size: 'medium', rotate: 70, selector: [{
+        name: ':hover',
+        value: {
+            rotate: 20,
+            size: 'small',
+            mkstyle: {
+                marginLeft: false,
+            },
+        },
+    }],
+})

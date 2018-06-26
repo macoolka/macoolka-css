@@ -56,7 +56,7 @@ export const mergeCssValue = ofICss<CssSelector1, CssPropertyType1>({
 export const mergeCss = baseCss.compose()({
     css: mergeCssValue,
 });
-describe('build css with property and selector', () => {
+describe('Icss', () => {
     it('css property with emprty', () => {
         expect(baseCss.toCss({})).toEqual('');
     });
@@ -96,15 +96,6 @@ describe('build css with property and common selector', () => {
             .toEqual(`& > * {\n  color: red;\n  :hover {\n    color: black;\n  }\n}`);
     });
 });
-/* type T = t.RCss<'focus',
-    Pick<CssPropertyType, 'color' | 'backgroundColor' | 'marginLeft'> & CssPropertyType1 & {
-        a?: string | undefined;
-    }>;
-type T1 = t.RCss<"focus" | "hover" | "active1",
-    Pick<CssPropertyType, "color" | "backgroundColor" | "marginLeft"> & CssPropertyType1 & {
-        a?: string | undefined;
-    }>;
-const a: T1 = { focus: { focus1: { color: 'f' } } }; */
 
 describe('compose two css', () => {
 

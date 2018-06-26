@@ -7,7 +7,7 @@ export type TAbbr = any;
 export type InputPropFunctionBase = { [k: string]: (number | boolean | string | undefined | { [name: string]: any }) };
 export type TInputPropF<P,
     C extends InputPropFunctionBase> = {
-        [name in keyof C]: | ((a: C[name]) => P) | ((a: C[name]) => (b: any) => P)
+        [name in keyof C]:  ((a: C[name]) => P) | ((a: C[name]) => (b: any) => P)
     };
 export type InputPropBase = { [k: string]: string | number };
 export type TInputProp<P,

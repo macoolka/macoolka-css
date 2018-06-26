@@ -1,6 +1,6 @@
 {
   "name": "mocoolka-css",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
@@ -15,6 +15,7 @@
     "build": "rm -rf lib/  && tsc",
     "precommit": "npm run lint",
     "prepush": "npm run test",
+    "prepublishOnly": "npm run clean && npm run reinstall && npm run lint && npm run build && npm run test",
     "coverage": "rimraf coverage && jest --coverage"
   },
   "dependencies": {
@@ -48,5 +49,9 @@
     },
     "testRegex": "(./src/*|\\.(test|spec))\\.(ts|tsx)$"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mocoolka/mocoolka-css.git"
+  }
 }

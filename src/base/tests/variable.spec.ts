@@ -104,7 +104,7 @@ const vt1 = ofVariable<NodeValue1, Variable1>({
 const mergeVariable = of<PV1 & PV>()<CssSelector, CssPropertyType, NodeValue | NodeValue1, Variable1 & Variable>(
     { css: baseCssValue, variable: composeVariable(vt, vt1) });
 const baseVariable = of<PV>()({ css: baseCssValue, variable: vt });
-describe('build variable css with property and selector', () => {
+describe('VProp', () => {
 
     it('get css property with replace props', () => {
         expect(baseVariable.toRCss({})).toEqual({});

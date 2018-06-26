@@ -1,22 +1,12 @@
-# Mocoolka-css
-
-mocoolka-css define **Css Module** include baisc css and variable and abbr and customer property .
-
-## Define Css Module
-
-### Basic Css Property
-Basic Css define stand css property and selector.
-
-```
-import { of, ofVariable, ofICss } from 'mocoolks-css';
-
+import * as t from '../type';
+import { of, ofVariable, ofICss,ofAbbr } from '../';
 export type CssPropertyType = {
     color?: string;
     backgroundColor?: string;
     marginLeft?: number | string;
     paddingLeft?: number | string;
     width?: number | string;
-    transform?:string;
+    transform?: string;
 };
 export type CssSelector = 'focus' | 'hover';
 
@@ -39,19 +29,13 @@ export const css = ofICss<CssSelector, CssPropertyType>({
         cssName: 'width',
         propertyName: 'width',
         unitName: 'px',
-    },{
+    }, {
         cssName: 'transform',
         propertyName: 'transform',
     }],
     cssSelector: ['focus', 'hover'],
 });
-```
 
-### Variable 
-Variable used by theme.
-Auto change style when running time by modify the vairiable.
-
-```
 type VariableProp = {
     color?: string | NodeValue,
     backgroundColor?: string | NodeValue,
@@ -89,20 +73,25 @@ const variable = ofVariable<NodeValue, Variable>({
     isNodeValue: (a: any): a is NodeValue => !!(a && a.kind && ['black', 'white'].includes(a.kind)),
     getVariableValue,
 });
-```
-### Abbr
-
-```
 type C1 = t.AbbrProp<'MH', CssPropertyType, 'marginLeft'>;
 type C2 = t.AbbrProp<'C', CssPropertyType, 'color'>;
 type AbbrProps = C1 & C2;
+type Mixed = {
+    variable?: {
+        test?: {
+            variable?: {
+                black?: string,
+                white?: string,
+            }
+        }
+    },
+}
 const abbrs = ofAbbr<CssPropertyType, AbbrProps>({ MH: ['marginLeft'], C: ['color'] });
-```
-
-### Customer Property
-Custome property define a new property with **Basic Css Property**.
-
-```
+const M = of<VariableProp, AbbrProps, {}, {}, {}, Mixed>()({
+    variable,
+    abbrs,
+    css,
+});
 export type IconSvgProp = {
     size: 'inherit' | 'small' | 'medium' | 'large',
 };
@@ -141,12 +130,9 @@ const M1 = M.addProps<IconSvgProp, IconSvgPropF>(
         }),
     }
 );
-```
-
-## Using Css Module
-
-```
-M1.toTCss({
+describe('Css module', () => {
+    it('toRCss', () => {
+        expect(M1.toRCss({
             size: 'medium', rotate: 70, selector: [{
                 name: ':hover',
                 value: {
@@ -157,13 +143,37 @@ M1.toTCss({
                     },
                 },
             }],
-        })
-result:
-width: 40px;
+        })).toEqual({
+            width: 40, transform: 'rotate(70deg)', selector: [{
+                name: ':hover',
+                value: {
+                    marginLeft: 1,
+                    width: 30,
+                    transform: 'rotate(20deg)',
+                },
+            }],
+        });
+    });
+    it('css property with string', () => {
+        expect(M1.toTCss({
+            size: 'medium', rotate: 70, selector: [{
+                name: ':hover',
+                value: {
+                    rotate: 20,
+                    size: 'small',
+                    mkstyle: {
+                        marginLeft: 1,
+                    },
+                },
+            }],
+        })).toEqual(
+`width: 40px;
 transform: rotate(70deg);
 :hover {
   transform: rotate(20deg);
   width: 30px;
   margin-left: 1px;
-}
-```
+}`
+        );
+    });
+});
