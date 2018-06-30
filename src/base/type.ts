@@ -1,5 +1,6 @@
 import { Is } from 'mocoolka-fp/lib/predicate';
 import { ObjectOverwrite } from 'mocoolka-fp/lib/TypeLevel';
+export type TMixed = any;
 export type TSelector = string;
 export type TProp = { [k: string]: any };
 export type TVariable = { [k: string]: any };
@@ -7,12 +8,16 @@ export type TAbbr = any;
 export type InputPropFunctionBase = { [k: string]: (number | boolean | string | undefined | { [name: string]: any }) };
 export type TInputPropF<P,
     C extends InputPropFunctionBase> = {
-        [name in keyof C]:  ((a: C[name]) => P) | ((a: C[name]) => (b: any) => P)
+        [name in keyof C]: ((a: C[name]) => P) | ((a: C[name]) => (b: any) => P)
     };
 export type InputPropBase = { [k: string]: string | number };
 export type TInputProp<P,
     C extends InputPropBase> = {
-        [name in keyof C]: ({ [key in C[name]]: P })
+        [name in keyof C]: ({ [key in C[name]]: ((b: any) => P) | P })
+    };
+export type TInputPropMixed<P,
+    C extends InputPropBase> = {
+        [name in keyof C]?: ({ [key in C[name]]?: ((b: any) => P) | P })
     };
 export type DefaultValue = number | string;
 export type TNodeValue = {
@@ -92,6 +97,9 @@ export type VPropsMerge<
 export type CProps<Selector extends TSelector, Prop extends TProp, VProp, Abbr extends
     TAbbr, AdditionProp, CProp extends InputPropBase> =
     TInputProp<TRProp<Selector, Prop, VProp, Abbr, AdditionProp>, CProp>;
+export type CMixedProps<Selector extends TSelector, Prop extends TProp, VProp, Abbr extends
+    TAbbr, AdditionProp, CProp extends InputPropBase> =
+    TInputPropMixed<TRProp<Selector, Prop, VProp, Abbr, AdditionProp>, CProp>;
 export type CPropsMerge<Selector extends TSelector, Prop extends TProp, VProp, Abbr extends
     TAbbr, AdditionProp, CProp extends InputPropBase,
     Selector1 extends TSelector, Prop1 extends TProp, VProp1, Abbr1 extends
@@ -203,3 +211,59 @@ export type CommonSelector<P> = {
     }[],
 
 };
+export type CssModule<
+    VProp= {},
+    AProp= {},
+    CProp extends InputPropBase = {},
+    CFProp extends InputPropFunctionBase= {},
+    AdditionProp= {},
+    Mixed = {},
+    Selector extends TSelector = never,
+    Prop extends TProp = {},
+    NodeValue extends TNodeValue = { kind: 'never' },
+    Variable extends TVariable = {}
+    > = {
+        mixed: (mixedObject:{
+            variable?: Mixed, props?:
+            CMixedProps<Selector, Prop, VProp, AProp, ObjectOverwrite<AdditionProp, CProp & CFProp>, CProp>
+        }) => CssModule<VProp, AProp, CProp,
+            CFProp, AdditionProp, Mixed, Selector, Prop, NodeValue, Variable>,
+        compose: <
+            VProp1= {},
+            AProp1= {},
+            CProp1 extends InputPropBase = {},
+            CFProp1 extends InputPropFunctionBase= {},
+            AdditionProp1= {},
+            Mixed1 = {}>() => <
+                Selector1 extends TSelector,
+                Prop1 extends TProp,
+                NodeValue1 extends TNodeValue,
+                Variable1 extends TVariable>(
+                b: Partial<MCss<
+                    Selector | Selector1,
+                    Prop & Prop1,
+                    NodeValue1,
+                    Variable1,
+                    AProp1,
+                    VProp1,
+                    CProp1,
+                    CFProp1,
+                    AdditionProp1
+                    >>
+            ) => CssModule<VProp & VProp1, AProp & AProp1, CProp & CProp1,
+            CFProp & CFProp1, AdditionProp & AdditionProp1,
+            Mixed & Mixed1, Selector | Selector1, Prop & Prop1, NodeValue | NodeValue1, Variable & Variable1>,
+        addProps: <CProp1 extends InputPropBase, CFProp1 extends InputPropFunctionBase= {}>(
+            props:
+                CProps<Selector, Prop, VProp, AProp, ObjectOverwrite<AdditionProp, CProp & CFProp>, CProp1>,
+            propFunctions?:
+                CFProps<Selector, Prop, VProp, AProp, ObjectOverwrite<AdditionProp, CProp & CFProp>, CFProp1>
+        ) =>
+            CssModule<VProp, AProp, CProp & CProp1, CFProp & CFProp1, AdditionProp,
+            Mixed, Selector, Prop, NodeValue, Variable>,
+        value: MCss<Selector, Prop, NodeValue, Variable, AProp, VProp, CProp, CFProp, AdditionProp>,
+        toRCss: (r: TRProp<Selector, Prop, VProp, AProp, CProp & CFProp & AdditionProp>)
+            => RCss<Selector, Prop>,
+        toTCss: (r: TRProp<Selector, Prop, VProp, AProp, CProp & CFProp & AdditionProp>) => string,
+        toCss: (r: RCss<Selector, Prop>) => string,
+    };

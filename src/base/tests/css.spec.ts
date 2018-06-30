@@ -1,5 +1,5 @@
 import * as t from '../type';
-import { of, ofVariable, ofICss,ofAbbr } from '../';
+import { of, ofVariable, ofICss, ofAbbr } from '../';
 export type CssPropertyType = {
     color?: string;
     backgroundColor?: string;
@@ -77,14 +77,12 @@ type C1 = t.AbbrProp<'MH', CssPropertyType, 'marginLeft'>;
 type C2 = t.AbbrProp<'C', CssPropertyType, 'color'>;
 type AbbrProps = C1 & C2;
 type Mixed = {
-    variable?: {
-        test?: {
-            variable?: {
-                black?: string,
-                white?: string,
-            }
+    test?: {
+        variable?: {
+            black?: string,
+            white?: string,
         }
-    },
+    }
 }
 const abbrs = ofAbbr<CssPropertyType, AbbrProps>({ MH: ['marginLeft'], C: ['color'] });
 const M = of<VariableProp, AbbrProps, {}, {}, {}, Mixed>()({
@@ -94,15 +92,38 @@ const M = of<VariableProp, AbbrProps, {}, {}, {}, Mixed>()({
 });
 export type IconSvgProp = {
     size: 'inherit' | 'small' | 'medium' | 'large',
+    color: 'main' | 'accent'
 };
 export type IconSvgPropF = {
     rotate: number,
 };
 const M1 = M.addProps<IconSvgProp, IconSvgPropF>(
     {
+        color: {
+            main: (theme) => {
+                const v = getVariableValue({
+                    'kind': 'black',
+                })(theme);
+
+                if (v === '#000') {
+                    return ({
+                        mkstyle: { color: 'red' },
+
+                    })
+                } else {
+                    return ({
+                        mkstyle: { color: 'green' }
+                    })
+                }
+            },
+            accent: {
+                mkstyle: { color: 'black' }
+            },
+        },
         size: {
             inherit: {
                 mkstyle: { width: 20 },
+
                 // iconSize: 'inherit',
             },
             small: {
@@ -138,6 +159,7 @@ describe('Css module', () => {
                 value: {
                     rotate: 20,
                     size: 'small',
+
                     mkstyle: {
                         marginLeft: 1,
                     },
@@ -149,6 +171,74 @@ describe('Css module', () => {
                 value: {
                     marginLeft: 1,
                     width: 30,
+                    transform: 'rotate(20deg)',
+                },
+            }],
+        });
+    });
+    it('toRCss with function property', () => {
+        expect(M1.toRCss({
+            color: 'main', rotate: 70, selector: [{
+                name: ':hover',
+                value: {
+                    rotate: 20,
+                    color: 'accent',
+                    mkstyle: {
+                        marginLeft: 1,
+                    },
+                },
+            }],
+        })).toEqual({
+            color: 'red', transform: 'rotate(70deg)', selector: [{
+                name: ':hover',
+                value: {
+                    marginLeft: 1,
+                    color: 'black',
+                    transform: 'rotate(20deg)',
+                },
+            }],
+        });
+    });
+    it('toRCss with mixed and function property', () => {
+        expect(M1.mixed({
+            variable: {
+                test: {
+                    variable: {
+                        black: '#111',
+                    },
+                },
+            },
+            props:{
+                size: {
+                    inherit: {
+                        mkstyle: { width: 20 },
+                    },
+                    small: {
+                        mkstyle: {
+                            width: 60,
+                        },
+                    },
+                },
+            }
+        }).toRCss({
+            color: 'main', rotate: 70, selector: [{
+                name: ':hover',
+                value: {
+                    rotate: 20,
+                    color: 'accent',
+                    size:'small',
+                    mkstyle: {
+                        marginLeft: 1,
+                    },
+                },
+            }],
+        })).toEqual({
+            color: 'green', transform: 'rotate(70deg)', selector: [{
+                name: ':hover',
+                value: {
+                    marginLeft: 1,
+                    color: 'black',
+                    width:60,
                     transform: 'rotate(20deg)',
                 },
             }],
@@ -167,7 +257,7 @@ describe('Css module', () => {
                 },
             }],
         })).toEqual(
-`width: 40px;
+            `width: 40px;
 transform: rotate(70deg);
 :hover {
   transform: rotate(20deg);
