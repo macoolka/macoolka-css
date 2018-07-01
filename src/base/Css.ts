@@ -38,12 +38,12 @@ export const of = <
             CMixedProps<Selector, Prop, VProp, AProp, ObjectOverwrite<AdditionProp, CProp & CFProp>, CProp>
         }): CssModule<VProp, AProp, CProp,
         CFProp, AdditionProp, Mixed, Selector, Prop, NodeValue, Variable> => {
-            console.log(value)
             return of<VProp, AProp, CProp, CFProp, AdditionProp, Mixed>()(
-                merge({}, value, { variable: { variable: mixedObject.variable }, props: mixedObject.props }) as
+                merge({}, value, { variable: { variable: mixedObject ? mixedObject.variable : {} },
+                     props: mixedObject ? mixedObject.props : {} }) as
                 Partial<MCss<Selector, Prop, NodeValue, Variable, AProp, VProp, CProp, CFProp, AdditionProp>>
 
-            )
+            );
         };
 
         const addProps = <CProp1 extends InputPropBase, CFProp1 extends InputPropFunctionBase= {}>(

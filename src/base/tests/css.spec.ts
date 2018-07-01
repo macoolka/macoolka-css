@@ -199,7 +199,7 @@ describe('Css module', () => {
             }],
         });
     });
-    it('toRCss with mixed and function property', () => {
+    it('toTCss with mixed', () => {
         expect(M1.mixed({
             variable: {
                 test: {
@@ -220,7 +220,7 @@ describe('Css module', () => {
                     },
                 },
             }
-        }).toRCss({
+        }).toTCss({
             color: 'main', rotate: 70, selector: [{
                 name: ':hover',
                 value: {
@@ -232,19 +232,42 @@ describe('Css module', () => {
                     },
                 },
             }],
-        })).toEqual({
-            color: 'green', transform: 'rotate(70deg)', selector: [{
+        })).toEqual(
+`color: green;
+transform: rotate(70deg);
+:hover {
+  transform: rotate(20deg);
+  color: black;
+  width: 60px;
+  margin-left: 1px;
+}`
+        );
+    });
+    it('toTCss with mixed empty', () => {
+        expect(M1.mixed({}).toTCss({
+            color: 'main', rotate: 70, selector: [{
                 name: ':hover',
                 value: {
-                    marginLeft: 1,
-                    color: 'black',
-                    width:60,
-                    transform: 'rotate(20deg)',
+                    rotate: 20,
+                    color: 'accent',
+                    size:'small',
+                    mkstyle: {
+                        marginLeft: 1,
+                    },
                 },
             }],
-        });
+        })).toEqual(
+`color: red;
+transform: rotate(70deg);
+:hover {
+  transform: rotate(20deg);
+  color: black;
+  width: 30px;
+  margin-left: 1px;
+}`
+        );
     });
-    it('css property with string', () => {
+    it('convert to css string', () => {
         expect(M1.toTCss({
             size: 'medium', rotate: 70, selector: [{
                 name: ':hover',

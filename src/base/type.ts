@@ -223,7 +223,7 @@ export type CssModule<
     NodeValue extends TNodeValue = { kind: 'never' },
     Variable extends TVariable = {}
     > = {
-        mixed: (mixedObject:{
+        mixed: (mixedObject: {
             variable?: Mixed, props?:
             CMixedProps<Selector, Prop, VProp, AProp, ObjectOverwrite<AdditionProp, CProp & CFProp>, CProp>
         }) => CssModule<VProp, AProp, CProp,

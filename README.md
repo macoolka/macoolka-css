@@ -167,3 +167,50 @@ transform: rotate(70deg);
   margin-left: 1px;
 }
 ```
+
+## Mix variable and properties
+
+```
+M1.mixed({
+            variable: {
+                test: {
+                    variable: {
+                        black: '#111',
+                    },
+                },
+            },
+            props:{
+                size: {
+                    inherit: {
+                        mkstyle: { width: 20 },
+                    },
+                    small: {
+                        mkstyle: {
+                            width: 60,
+                        },
+                    },
+                },
+            }
+        }).toRCss({
+            color: 'main', rotate: 70, selector: [{
+                name: ':hover',
+                value: {
+                    rotate: 20,
+                    color: 'accent',
+                    size:'small',
+                    mkstyle: {
+                        marginLeft: 1,
+                    },
+                },
+            }],
+        })
+result:
+color: green;
+transform: rotate(70deg);
+:hover {
+  transform: rotate(20deg);
+  color: black;
+  width: 60px;
+  margin-left: 1px;
+}
+```
