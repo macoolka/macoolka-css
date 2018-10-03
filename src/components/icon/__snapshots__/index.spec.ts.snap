@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`icon parse icon 1`] = `
+Object {
+  "borderColor": "currentColor",
+  "borderWidth": "1px",
+  "display": "inline-flex",
+  "height": "18px",
+  "selector": Object {
+    "& > svg": Object {
+      "height": "18px",
+      "width": "18px",
+    },
+  },
+  "transitionDelay": "0ms",
+  "transitionDuration": "200ms",
+  "transitionProperty": "background-color, color, opacity",
+  "transitionTimingFunction": "cubic-bezier(0.4, 0, 0.2, 1)",
+  "width": "18px",
+}
+`;
+
+exports[`icon parse icon 2`] = `
+Object {
+  "borderColor": "currentColor",
+  "borderWidth": "1px",
+  "display": "inline-flex",
+  "height": "24px",
+  "opacity": "0.38",
+  "selector": Object {
+    "& > svg": Object {
+      "height": "24px",
+      "width": "24px",
+    },
+  },
+  "transitionDelay": "0ms",
+  "transitionDuration": "200ms",
+  "transitionProperty": "background-color, color, opacity",
+  "transitionTimingFunction": "cubic-bezier(0.4, 0, 0.2, 1)",
+  "width": "24px",
+}
+`;

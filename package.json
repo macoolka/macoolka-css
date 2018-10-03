@@ -1,6 +1,6 @@
 {
   "name": "mocoolka-css",
-  "version": "0.2.6",
+  "version": "0.3.5",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
@@ -16,18 +16,22 @@
     "precommit": "npm run lint",
     "prepush": "npm run test",
     "prepublishOnly": "npm run clean && npm run reinstall && npm run lint && npm run build && npm run test",
-    "coverage": "rimraf coverage && jest --coverage"
+    "coverage": "rimraf coverage && jest --coverage",
+    "dtslint": "dtslint dtslint"
   },
   "dependencies": {
-    "mocoolka-fp": "^0.1.15"
+    "@ctrl/tinycolor": "^2.2.1",
+    "mocoolka-fp": "^0.1.17"
   },
   "devDependencies": {
-    "@types/jest": "^22.2.2",
-    "jest": "^23.1.0",
+    "@types/jest": "^23.3.2",
+    "csstype": "^2.5.7",
+    "dtslint": "^0.3.0",
+    "jest": "^23.6.0",
     "rimraf": "^2.6.2",
-    "ts-jest": "^22.0.4",
-    "tslint": "^5.9.1",
-    "typescript": "^2.9.2"
+    "ts-jest": "^23.10.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.1"
   },
   "files": [
     "lib",

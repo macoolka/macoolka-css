@@ -25,7 +25,6 @@
         "no-submodule-imports": [true, "@src", "fp-ts","monocle-ts","io-ts","io-ts-types" ,"next","mocoolka-fp"],
         "no-this-assignment": [true, { "allow-destructuring": true }],
         "no-trailing-whitespace": true,
-        "no-unused-variable": [true, "react"],
         "object-literal-sort-keys": false,
         "object-literal-shorthand": false,
         "max-classes-per-file":false,
@@ -51,7 +50,6 @@
         "triple-equals": [true, "allow-null-check"],
         "typedef": [true,"parameter", "property-declaration"],
         "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case", "allow-leading-underscore"],
-        // tslint-react
         "jsx-no-lambda": false
       },
     "rulesDirectory": []
