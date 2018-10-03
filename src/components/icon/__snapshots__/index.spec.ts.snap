@@ -8,6 +8,7 @@ Object {
   "height": "18px",
   "selector": Object {
     "& > svg": Object {
+      "fill": "currentColor",
       "height": "18px",
       "width": "18px",
     },
@@ -29,6 +30,7 @@ Object {
   "opacity": "0.38",
   "selector": Object {
     "& > svg": Object {
+      "fill": "currentColor",
       "height": "24px",
       "width": "24px",
     },

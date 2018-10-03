@@ -1,4 +1,4 @@
-import { CssNode, map as cssNodeMap, concat as nodeConcat } from './CssNode';
+import { CssNode, map as cssNodeMap, fold as nodeFold} from './CssNode';
 import r from 'mocoolka-fp/lib/Record';
 import { fromPredicate, fromNullable, getMonoid, Option } from 'mocoolka-fp/lib/Option';
 import { ObjectOverwrite, ObjectOmit } from 'mocoolka-fp/lib/TypeLevel';
@@ -97,9 +97,12 @@ export const map = <I extends CssProperties, IEnums extends { [key: string]: str
             const { concat } = getMonoid(propMonoid);
             const ruleKeys = fromNullable(rule).map(a => Object.keys(a)).getOrElse([]);
             const ruleEnumKeys = fromNullable(ruleEnum).map(a => Object.keys(a)).getOrElse([]);
-            const selfValue1 = omit(i, ruleKeys.concat(ruleEnumKeys)) as any as  O;
-            const selfValue = fromNullable(style).map(a => nodeConcat<O>(a, selfValue1)).getOrElse(selfValue1);
+            // customValue is biggest level
+            const customValue = omit(i, ruleKeys.concat(ruleEnumKeys)) as any as  O;
+            // sytleValue is lowest level
+            const styleValue = fromNullable(style).getOrElse(propMonoid.empty);
             const ruleResult = fromNullable(rule).map(a => mapWithPropsRules(a)(theme)(i)) as Option<O>;
             const ruleEnumsResult = fromNullable(ruleEnum).map(a => mapWithPropsRuleEnums(a)(theme)(i)) as Option<O>;
-            return Object.assign({}, selfValue, concat(ruleResult, ruleEnumsResult).getOrElse(propMonoid.empty));
+            const ruleValue = concat(ruleResult, ruleEnumsResult).getOrElse(propMonoid.empty);
+            return nodeFold<O>()([styleValue, ruleValue, customValue]);
         };

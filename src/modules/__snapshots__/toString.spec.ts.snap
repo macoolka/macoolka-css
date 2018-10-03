@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`parse Border toString 1`] = `
-"justify-content: center;
-font-weight: 300;
-text-decoration: inherit;
-text-transform: inherit;
-width: 200px;
-min-height: 100vh;
+"min-height: 100vh;
 max-height: 100vh;
 letter-spacing: -.00833em;
 line-height: 3.75rem;
 font-size: 60px;
+width: 200px;
+justify-content: center;
+font-weight: 300;
+text-decoration: inherit;
+text-transform: inherit;
 @media screen and (max-width: 80em) {
   mk-color: body;
   width: 300;
@@ -24,11 +24,11 @@ font-size: 60px;
   width: 700;
 }
 :hover {
-  font-weight: 300;
-  text-decoration: inherit;
-  text-transform: inherit;
   letter-spacing: -.01562em;
   line-height: 6rem;
   font-size: 96px;
+  font-weight: 300;
+  text-decoration: inherit;
+  text-transform: inherit;
 }"
 `;
