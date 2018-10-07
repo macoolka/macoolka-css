@@ -2,7 +2,7 @@
  * Border
  * @prop
  */
-import { Props } from '../../basic';
+import { UnitProps } from '../../basic';
 import { Rule } from '../../base/rule';
 export type Theme = {
     border: {
@@ -83,7 +83,7 @@ export const theme: Theme = {
 }
 export type Props = SProps&EProps;
 
-export const rule: Rule<SProps, EProps, Props,Theme> = {
+export const rule: Rule<SProps, EProps, UnitProps,Theme> = {
     rule:{
         mkShadow:(a,t)=>({
             boxShadow: t.border.shadows[a]

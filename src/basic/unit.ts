@@ -1,6 +1,6 @@
 /**
- * convert number type to px or precent
- * @getter
+ * convert number type to px or precent type
+ * @rule
  */
 import { BaseProps } from '../base/types';
 import { ObjectGet } from 'mocoolka-fp/lib/TypeLevel';
@@ -38,5 +38,5 @@ const pxArray = pxProps.map((a) => ({
 const pxOrPercentArray = pxOrPercentProps.map((a) => ({
     [a]: (v: any) => ({ [a]: pxOrPercent(v) }),
 }));
-export type Input = RuleInput<Props, BaseProps>;
+export type UnitProps = RuleInput<Props, BaseProps>;
 export const rule = {rule: fold(M)(pxArray.concat(pxOrPercentArray))} as Rule<Props, {}, BaseProps>;

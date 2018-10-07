@@ -1,10 +1,10 @@
 
-import { Rule } from '../../base/rule';
+import { RuleC } from './base/ruleC';
 /**
  * convert number type to px or precent
  * @getter
  */
-import { Props } from '../../modules';
+import { Props } from './mix';
 export type EProp = {
     size: 'small' | 'medium' | 'large' | 'xlarge'
 };
@@ -14,7 +14,7 @@ export type SProp = {
 
 export type Props = EProp & SProp;
 
-export const rule: Rule<SProp, EProp, Props> = {
+export const rule: RuleC<SProp, EProp, Props> = {
     style: {
         mkLayout: 'inlineRow',
         borderColor: 'currentColor',
@@ -44,6 +44,7 @@ export const rule: Rule<SProp, EProp, Props> = {
             medium: {
                 mkSquare: 'medium',
                 borderWidth: 1,
+                mkMedia:[{mkWidth:'small'},{mkWidth:'medium'},{mkWidth:'large'},{mkWidth:'xlarge'}],
                 selector: {
                     '& > svg': {
                         mkSquare: 'medium',
@@ -71,3 +72,23 @@ export const rule: Rule<SProp, EProp, Props> = {
         },
     },
 };
+import { parsePropRule as _parseRule, theme as basicTheme } from './mix';
+const parse = _parseRule(rule)({...basicTheme });
+
+describe('icon', () => {
+    it('parse icon', () => {
+        expect(parse({
+            size: 'small',
+        })).toMatchSnapshot();
+        expect(parse({
+            mkMedia:[{mkWidth:'small'},{mkWidth:'medium'},{mkWidth:'large'},{mkWidth:'xlarge'}],
+            size: 'small',
+        })).toMatchSnapshot();
+         expect(parse({
+            size: 'medium',
+            disabled:true,
+        })).toMatchSnapshot(); 
+        
+    })
+
+});

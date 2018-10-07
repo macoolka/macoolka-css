@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`text parse mkHoverColor 1`] = `
+Object {
+  "selector": Object {
+    "&:hover": Object {
+      "backgroundColor": "#009688",
+      "color": "#fff",
+    },
+  },
+}
+`;
+
+exports[`text parse mkHoverColor 2`] = `
+Object {
+  "selector": Object {
+    "&:hover": Object {
+      "backgroundColor": "#f50057",
+      "color": "#fff",
+    },
+  },
+}
+`;
+
+exports[`text parse mkHoverColor 3`] = `
+Object {
+  "selector": Object {
+    "&:hover": Object {
+      "color": "#009688",
+    },
+  },
+}
+`;
+
+exports[`text parse mkHoverColor 4`] = `
+Object {
+  "selector": Object {
+    "&:hover": Object {
+      "color": "#ffeb3b",
+    },
+  },
+}
+`;

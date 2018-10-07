@@ -1,7 +1,6 @@
 import { omit, pick } from 'mocoolka-fp/lib/object';
 import { isEmpty as _isEmpty } from 'mocoolka-fp/lib/predicate';
 import { Option, getMonoid as _getOptionMonoid, isNone } from 'mocoolka-fp/lib/Option';
-// import { Functor1 } from 'mocoolka-fp/lib/Functor';
 import { fold as _fold, Monoid } from 'mocoolka-fp/lib/Monoid';
 import { fold as selectorFold, CssSelector, map as selectorMap,
      isEmpty as isSelectorEmpty, selector } from './CssSelector';
@@ -19,9 +18,6 @@ import { catOptions } from 'mocoolka-fp/lib/Array';
     }
 } */
 export type CssNode<T extends CssProperties> = T & { selector?: CssSelector<T> };
-export const URI = 'TCssNode';
-
-export type URI = typeof URI;
 
 export const PropsLens = <A extends CssProperties>() => new Lens<CssNode<A>, A>(
     s => omit(s, 'selector'), a => s => Object.assign({}, pick(s, 'selector'), a));
@@ -35,7 +31,7 @@ export const setSelector = <A extends CssProperties>(v: CssSelector<A>) =>
 
 export const empty = <A extends CssProperties>() => ({} as CssNode<A>);
 export const map = <A extends CssProperties, B extends CssProperties>
-(node: CssNode<A>, func: (p: A) => CssNode<B>): CssNode<B> => {
+(node: CssNode<A>, func: (p: A) => B): CssNode<B> => {
     const result = empty<B>();
     const propA = PropsLens<A>().get(node);
     const nodeB = func(propA);
@@ -46,20 +42,8 @@ export const map = <A extends CssProperties, B extends CssProperties>
     const selectorB = _getOptionMonoid(selector<B>()).concat(selectorB1, selectorB2);
     const propResult: CssNode<B> = setProps(nodeB)(result);
     return selectorB.map(a => setSelector(a)(propResult)).getOrElse(propResult);
-
 };
-/* export const map = <A extends CssProperties, B extends CssProperties>
-(node: CssNode<A>, func: (p: A) => B): CssNode<B> => {
-    const result = empty<B>();
-    const propA = PropsLens<A>().get(node);
-    const propB = func(propA);
-    const selectorA: Option<CssSelector<A>> = getSelector(node);
 
-    const selectorB =selectorA.map(a=>selectorMap(a,func));
-    const propResult: CssNode<B> = setProps(propB)(result);
-    return selectorB.map(a=>setSelector(a)(propResult)).getOrElse(propResult);
-
-}; */
 export const concat = <A extends CssProperties>(a: CssNode<A>, b: CssNode<A>): CssNode<A> => {
     const result = empty<A>();
     const propA = getProps(a);
@@ -72,7 +56,8 @@ export const concat = <A extends CssProperties>(a: CssNode<A>, b: CssNode<A>): C
     const propResult = setProps(foldProp)(result);
     return isSelectorEmpty(foldBSelector) ? propResult : setSelector(foldBSelector)(propResult);
 };
-const isEmpty = <A extends CssProperties>(a: CssNode<A>): boolean => isEmpty(getProps(a)) && (isNone(getSelector(a)));
+export const isEmpty = <A extends CssProperties>(a: CssNode<A>): boolean =>
+ _isEmpty(getProps(a)) && (isNone(getSelector(a)));
 /**
  * @function
  * @since 1.0.0
@@ -88,4 +73,4 @@ export const fold = <A extends CssProperties>() => _fold(getMonoid<A>());
 /* export const cssNode: Functor1<URI> = ({
     URI,
     map,
-}); */
+});  */

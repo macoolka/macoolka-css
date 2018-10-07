@@ -26,6 +26,36 @@ Object {
   "borderColor": "currentColor",
   "borderWidth": "1px",
   "display": "inline-flex",
+  "height": "18px",
+  "selector": Object {
+    "& > svg": Object {
+      "fill": "currentColor",
+      "height": "18px",
+      "width": "18px",
+    },
+    "@media screen and (max-width: 120em)": Object {
+      "width": "48px",
+    },
+    "@media screen and (max-width: 80em)": Object {
+      "width": "24px",
+    },
+    "@media screen and (max-width: 93em)": Object {
+      "width": "36px",
+    },
+  },
+  "transitionDelay": "0ms",
+  "transitionDuration": "200ms",
+  "transitionProperty": "background-color, color, opacity",
+  "transitionTimingFunction": "cubic-bezier(0.4, 0, 0.2, 1)",
+  "width": "18px",
+}
+`;
+
+exports[`icon parse icon 3`] = `
+Object {
+  "borderColor": "currentColor",
+  "borderWidth": "1px",
+  "display": "inline-flex",
   "height": "24px",
   "opacity": "0.38",
   "selector": Object {
@@ -33,6 +63,15 @@ Object {
       "fill": "currentColor",
       "height": "24px",
       "width": "24px",
+    },
+    "@media screen and (max-width: 120em)": Object {
+      "width": "48px",
+    },
+    "@media screen and (max-width: 80em)": Object {
+      "width": "24px",
+    },
+    "@media screen and (max-width: 93em)": Object {
+      "width": "36px",
     },
   },
   "transitionDelay": "0ms",

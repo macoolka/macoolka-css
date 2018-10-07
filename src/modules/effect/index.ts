@@ -3,7 +3,7 @@
  * Border
  * @prop
  */
-import { Props } from '../../basic';
+import { UnitProps } from '../../basic';
 import { Rule } from '../../base/rule';
 import {isString} from 'mocoolka-fp/lib/predicate';
 import {fromPredicate} from 'mocoolka-fp/lib/Either';
@@ -129,7 +129,7 @@ type EProps = {
 
 };
 export type Props = EProps & SProps;
-export const rule: Rule<SProps, EProps, Props,Theme> = {
+export const rule: Rule<SProps, EProps, UnitProps,Theme> = {
     ruleEnum: {
         mkFlip: {
             horizontal: {

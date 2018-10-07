@@ -1,0 +1,78 @@
+import { CssNode, map as cssNodeMap, fold as nodeFold } from '../CssNode';
+import r from 'mocoolka-fp/lib/Record';
+import { fromPredicate, fromNullable, getMonoid, Option } from 'mocoolka-fp/lib/Option';
+import { ObjectOverwrite, ObjectOmit } from 'mocoolka-fp/lib/TypeLevel';
+import { isFunction, isObject, isString, isArray } from 'mocoolka-fp/lib/predicate';
+import { mapValues, omit } from 'mocoolka-fp/lib/object';
+import { parseProps, CssProperties, properties } from '../CssProperties';
+import { headArrayOption } from 'mocoolka-fp/lib/Array';
+import { or } from 'mocoolka-fp/lib/function';
+
+
+
+
+/**
+ * The define how covert from a properties type to another properties
+ */
+type ObjectUpdateFunction<O, P, T, U extends keyof O> =
+    { [k in U]: (O[k] | ((a: P, b: T) => O[k])) } & ObjectOmit<O, U>;
+type ObjectUpdateAll<O, P, T, > = ObjectUpdateFunction<O, P, T, keyof O>;
+
+export type RuleStand<I extends CssProperties, O extends CssProperties, T= any> = {
+    [name in keyof I]: (
+        NodeFunction<I,name,O,T>
+        | (CssNode<ObjectUpdateAll<O, I[name], T>>)
+        | keyof O | Array<keyof O>
+    )
+};
+export const map=()=>{
+    
+}
+export type NodeFunction<I ,Name extends keyof I,O extends CssProperties,T>=(a: I[Name], theme: T) => CssNode<O>;
+
+const mapNodeFunction=<I ,Name extends keyof I,A extends CssProperties,T,B  extends CssProperties>
+(a: NodeFunction<I,Name,A,T>, func: (p: A) => B): NodeFunction<I,Name,B,T> =>
+ (v: I[Name], theme: T)=>  cssNodeMap(a(v,theme),func)
+
+type RuleNode<I ,Name extends keyof I,O extends CssProperties,T>=(CssNode<ObjectUpdateAll<O, I[Name], T>>)
+
+const mapRuleNode=<I ,Name extends keyof I,A extends CssProperties,T,B  extends CssProperties>
+(a: RuleNode<I,Name,A,T>, func: (p: A) => B) =>
+    cssNodeMap(a, b => fromPredicate(isFunction)(b).map(f=>(a1: I[Name], b1: T) =>
+     func(f(a1,b1))).getOrElse(func(b as any))
+);
+
+const processRuleFunction = <A, T, R>(value: A, theme: T) =>
+    (func: (value: A, theme: T) => R) => func(value, theme);
+const processNode = <A, T>(value: A, theme: T) => <P>(node: CssNode<P>) =>
+    cssNodeMap(node, (a: P) =>
+        mapValues((a as {}), v =>
+            fromPredicate(isFunction)(v).map(processRuleFunction(value, theme)).getOrElse(value))
+    );
+export const map = <I extends CssProperties,A extends CssProperties, B extends CssProperties,T=any>
+(rule: RuleStand<I,A,T>, func: (p: A) => B): RuleStand<I,B,T> => {
+
+    let result: any = {};
+    Object.keys(rule).forEach(key => {
+        const ruleValue = rule[key];
+        fromPredicate(isFunction)(ruleValue).map(a=>mapNodeFunction(a,func));
+        const result1 = headArrayOption([
+            fromPredicate(or(isString, isArray))(ruleValue).map(parseProps<I>(func)),
+            fromPredicate(isFunction)(ruleValue).map(mapNodeFunction(func)),
+            fromPredicate(isObject)(ruleValue).map(processNode(value, theme))]).getOrElse({});
+        result = { ...result, ...result1 };
+    });
+
+    return result;
+
+    const result = empty<B>();
+    const propA = PropsLens<A>().get(node);
+    const nodeB = func(propA);
+    const selectorB1: Option<CssSelector<B>> = getSelector(nodeB);
+    const selectorA: Option<CssSelector<A>> = getSelector(node);
+
+    const selectorB2 = selectorA.map(a => selectorMap(a, func));
+    const selectorB = _getOptionMonoid(selector<B>()).concat(selectorB1, selectorB2);
+    const propResult: CssNode<B> = setProps(nodeB)(result);
+    return selectorB.map(a => setSelector(a)(propResult)).getOrElse(propResult);
+};

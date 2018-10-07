@@ -1,7 +1,6 @@
-import {rule} from './rule';
-import { parse as basicParse,theme as basicTheme } from '../../basic';
-import {theme} from './theme'
-const parse = basicParse(rule)({...theme,...basicTheme});
+import { parseUnitRule as _parse} from '../../basic';
+import {theme,rule} from './index'
+const parse = _parse(rule)(theme);
 
 describe('parse color', () => {
     it('parse fgColor', () => {
@@ -15,6 +14,9 @@ describe('parse color', () => {
         })).toEqual({
             color: '#f50057'
         });
+        expect(parse({
+            mkTextColor: 'yellow',
+        })).toEqual({"color": "#ffeb3b"});
     })
     it('parse bgColor', () => {
         expect(parse({
@@ -27,6 +29,9 @@ describe('parse color', () => {
         })).toEqual({
             "backgroundColor": "#f50057", "color": "#fff"
         });
+        expect(parse({
+            mkColor: 'yellow',
+        })).toEqual({"backgroundColor": "#ffeb3b", "color": "rgba(0, 0, 0, 0.87)"});
     })
 });
 

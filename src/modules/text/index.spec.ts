@@ -1,19 +1,10 @@
-import { parse as basicParse,theme as basicTheme } from '../../basic';
-import rule,{theme} from './index'
-const parse = basicParse(rule)({...theme,...basicTheme});
+import { parseUnitRule as _parse} from '../../basic';
+import { theme as colorTheme } from '../color';
+import {theme,rule} from './index'
+const parse = _parse(rule)({...theme,...colorTheme});
 
 describe('text', () => {
     it('parse text', () => {
-        expect(parse({
-            mkTypography: 'h2',
-        })).toEqual({
-            fontWeight: 300,
-            letterSpacing: '-.00833em',
-            lineHeight: '3.75rem',
-            fontSize: '60px',
-            textDecoration: 'inherit',
-            textTransform: 'inherit',
-        });
         expect(parse({
             mkFontWeight: 'light',
         })).toEqual({
@@ -29,7 +20,77 @@ describe('text', () => {
         })).toEqual({
             fontSize: '48px',
         });
-      
+        expect(parse({
+            mkTextNoWrap: true,
+        })).toEqual({
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+        });
+        expect(parse({
+            mkTextGutterBottom: true,
+        })).toEqual({
+            marginBottom: '20px',
+        });
+        expect(parse({
+            mkTextNoWrap: false,
+        })).toEqual({
+          
+        });
+        expect(parse({
+            mkTextGutterBottom: false,
+        })).toEqual({
+        });
+        expect(parse({
+            mkTextParagraph: true,
+        })).toEqual({
+            marginBottom: '0.35em',
+        });
+        expect(parse({
+            mkTextParagraph: false,
+        })).toEqual({
+        });
+        expect(parse({
+            mkTextAlign: 'center',
+        })).toEqual({
+            textAlign: 'center',
+        });
+        expect(parse({
+            mkTextTransform: 'capitalize',
+        })).toEqual({
+            textTransform: 'capitalize',
+        });
+        expect(parse({
+            mkTextDirection: 'ltr',
+        })).toEqual({
+            direction: 'ltr',
+        });
+        expect(parse({
+            mkTextDecoration: 'overline',
+        })).toEqual({
+            textDecoration: 'overline',
+        });
+        expect(parse({
+            mkTextUnderlined: true,
+        })).toEqual({
+            borderBottomStyle: 'dotted',
+            borderBottomWidth: '1px',
+            borderBottomColor: '#e0e0e0',
+        });
+        expect(parse({
+            mkTextUnderlined: false,
+        })).toEqual({
+        });
+        expect(parse({
+            mkTextSemantic: 'em',
+        })).toEqual({
+            fontStyle: 'italic',
+        });
+        expect(parse({
+            mkTextSemantic: 'strong',
+        })).toEqual({
+            fontWeight:700,
+        });        
     })
 
 });

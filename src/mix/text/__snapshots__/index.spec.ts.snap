@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`text parse mkTypography 1`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "96px",
+  "fontWeight": 300,
+  "letterSpacing": "-.01562em",
+  "lineHeight": "6rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 2`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "60px",
+  "fontWeight": 300,
+  "letterSpacing": "-.00833em",
+  "lineHeight": "3.75rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 3`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "48px",
+  "fontWeight": 400,
+  "letterSpacing": "0em",
+  "lineHeight": "3.125rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 4`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "32px",
+  "fontWeight": 400,
+  "letterSpacing": ".00735em",
+  "lineHeight": "2.5rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 5`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "24px",
+  "fontWeight": 400,
+  "letterSpacing": "0em",
+  "lineHeight": "2rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 6`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "20px",
+  "fontWeight": 500,
+  "letterSpacing": ".0125em",
+  "lineHeight": "2rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 7`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "16px",
+  "fontWeight": 400,
+  "letterSpacing": ".00937em",
+  "lineHeight": "1.75rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 8`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "14px",
+  "fontWeight": 500,
+  "letterSpacing": ".00714em",
+  "lineHeight": "1.375rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 9`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "16px",
+  "fontWeight": 500,
+  "letterSpacing": ".03125em",
+  "lineHeight": "1.5rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 10`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "14px",
+  "fontWeight": 400,
+  "letterSpacing": ".01786em",
+  "lineHeight": "1.25rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 11`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "14px",
+  "fontWeight": 500,
+  "letterSpacing": ".08929em",
+  "lineHeight": "2.25rem",
+  "textDecoration": "none",
+  "textTransform": "uppercase",
+}
+`;
+
+exports[`text parse mkTypography 12`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "12px",
+  "fontWeight": 400,
+  "letterSpacing": ".03333em",
+  "lineHeight": "1.25rem",
+  "textDecoration": "inherit",
+  "textTransform": "inherit",
+}
+`;
+
+exports[`text parse mkTypography 13`] = `
+Object {
+  "fontFamily": "Roboto,Open Sans, Helvetica Neue, Helvetica,Arial, sans-serif",
+  "fontSize": "10px",
+  "fontWeight": 500,
+  "letterSpacing": ".16667em",
+  "lineHeight": "2rem",
+  "textDecoration": "inherit",
+  "textTransform": "uppercase",
+}
+`;

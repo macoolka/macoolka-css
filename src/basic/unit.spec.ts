@@ -1,5 +1,5 @@
 import {foldUnit,rule} from './unit';
-import { parse as _parse } from '../base';
+import { parseRule as _parse } from '../base';
 const parse = _parse(rule)({});
 describe('unit', () => {
     it('parse to object', () => {

@@ -1,4 +1,4 @@
-import Color,{ alpha } from './utils';
+import { alpha,isDark } from './utils';
 describe('color utils', () => {
     it('alpha', () => {
         expect(alpha(0.5)('rgba(255, 255, 255, 0.87)')).toEqual(
@@ -7,7 +7,7 @@ describe('color utils', () => {
                 'rgba(255, 255, 255, 0.5)');
     });
     it('alpha', () => {
-        expect(Color.isDark('#fff')).toEqual(false);
-        expect(Color.isDark('#000')).toEqual(true);
+        expect(isDark('#fff')).toEqual(false);
+        expect(isDark('#000')).toEqual(true);
     });
 });

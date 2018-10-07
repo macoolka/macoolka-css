@@ -1,25 +1,28 @@
-import { CssNode, map } from '../base/CssNode';
-import { parse as _parse } from '../base/';
-import { Rule, map as ruleMap, Input as RuleInput} from '../base/rule';
-import { Props as UnitProps, Input as UnitInput, rule as unit } from './unit';
-import * as media from './media';
+import { CssNode } from '../base/CssNode';
+import { Rule, Input as RuleInput, parse as parseRule } from '../base/rule';
+import {  UnitProps, rule as unit } from './unit';
+import { Props as MediaProps, theme as mediaTheme, rule as mediaRule, Theme as MediaTheme } from './media';
 import { BaseProps } from '../base/types';
 import { compose } from 'mocoolka-fp/lib/function';
-const theme = media.theme;
-type Theme= media.Theme;
+const theme = mediaTheme;
+type Theme = MediaTheme;
 export {
     theme,
     Theme,
+    MediaProps,
+    UnitProps,
 };
-const unitMap = ruleMap(unit)({});
-export type Props= RuleInput<UnitProps, BaseProps>;
-export const parse = <I, IEnum extends {[key: string]: string}, T= any,
->(rules: Rule<I, IEnum, UnitProps, T>) => (t: T&media.Theme) =>
-    (i: CssNode<RuleInput<
-        media.Props<RuleInput<I&IEnum, UnitInput>>, RuleInput<I&IEnum, UnitInput>>>): CssNode<BaseProps> => {
-        type inputType= RuleInput<I&IEnum, UnitInput>;
-        const mapRule = ruleMap<I, IEnum, UnitInput, T>(rules)(t);
-        const meidaMap = ruleMap<media.Props<inputType>, {}, inputType, T&media.Theme>(media.rule<inputType>())(t);
-        return map(i,  compose(unitMap, mapRule, meidaMap));
-
-    };
+export const parseUnitRule = <I, IEnum extends { [key: string]: string }, T= any,
+    >(rules: Rule<I, IEnum, UnitProps, T>) =>
+     (t: T) =>
+        (i: CssNode<UnitOutput<I&IEnum>>): CssNode<BaseProps> => {
+            return compose(parseRule(unit)(t), parseRule(rules)(t))(i);
+        };
+export type MediaInput<P>= RuleInput<MediaProps<P>, P >;
+export type UnitOutput<P>= RuleInput<P, UnitProps>;
+export const parseUnit = <P, T= any>(t: T) =>
+(i: CssNode<UnitOutput<P>>): CssNode<BaseProps> =>
+ parseRule(unit)(t)(i);
+export const parseMedia = <P, T= any>(t: T & MediaTheme) =>
+ (i: CssNode<MediaInput<P>>): CssNode<P> =>
+  parseRule(mediaRule<P>())(t)(i);

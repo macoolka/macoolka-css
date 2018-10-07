@@ -1,11 +1,15 @@
-import { fold,getProps,getSelector,setProps,setSelector,map} from './CssNode';
+import { fold,getProps,getSelector,setProps,setSelector,map,isEmpty} from './CssNode';
 import {none,some} from 'mocoolka-fp/lib/Option'
 
 describe('CssNode ', () => {
     const prop={color:'red'};
     const selector={focus:{color:'black'}};
     const basic={...prop,selector}
-
+    it('get isEmpty', () => {
+        expect(isEmpty({})).toEqual(true)
+        expect(isEmpty({a:1})).toEqual(false)
+        expect(isEmpty({selector:{}})).toEqual(false)
+    });
     it('get empty', () => {
         const cssNode={};
         expect(getProps(cssNode)).toEqual({})

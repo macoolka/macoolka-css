@@ -2,7 +2,7 @@
  * convert number type to px or precent
  * @getter
  */
-import { Props } from '../../basic';
+import { UnitProps as _Props } from '../../basic';
 import { Rule, concatRule } from '../../base/rule';
 
 export type FlexContainerProps = {
@@ -63,7 +63,7 @@ export type FlexItemProps = {
 
 export type Props = FlexContainerProps & FlexItemProps;
 
-export const flexContainerRule: Rule<FlexContainerProps, {}, Props> = {
+export const flexContainerRule: Rule<FlexContainerProps, {}, _Props> = {
     rule: {
         mkFlexWrap: 'flexWrap',
         mkFlexDirection: 'flexDirection',
@@ -73,7 +73,7 @@ export const flexContainerRule: Rule<FlexContainerProps, {}, Props> = {
     },
 };
 
-export const flexItemRule: Rule<FlexItemProps, {}, Props> = {
+export const flexItemRule: Rule<FlexItemProps, {}, _Props> = {
     rule: {
         mkFlexItemAlign: 'justifySelf',
         mkFlexItemAlignV: 'alignSelf',
@@ -83,4 +83,4 @@ export const flexItemRule: Rule<FlexItemProps, {}, Props> = {
         mkFlexItemOrder: 'order',
     },
 };
-export const rule = concatRule(flexContainerRule, flexItemRule) as Rule<Props, {}, Props>;
+export const rule = concatRule(flexContainerRule, flexItemRule) as Rule<Props, {}, _Props>;

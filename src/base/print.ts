@@ -24,7 +24,7 @@ const printSelectorNode = (i: number) =>
 const printProperties = (i: number) => <T>(a: T): string => toPairs(a as {}).map(printProperty(i)).join(CRLF);
 const printSelector = (i: number) =>
     <T>(a: CssSelector<T>): string => toPairs(a).map(printSelectorNode(i)).join(CRLF);
-const printNode = (i: number = 0) => <T> (node: CssNode<T>) =>
+const printNode = (i: number) => <T> (node: CssNode<T>) =>
     `${printProperties(i)(getProps(node))}${getSelector(node).map(a => `${CRLF}${printSelector(i)(a)}`).getOrElse('')}`;
 // export const printCss = (i: number = 0) => (css: CommonCss) => toPairs(css).map(printCssNode(i)).join(CRLF);
 export const cssNodeToStringGetter = <T>(i: number = 0) => new Getter<CssNode<T>, string>(printNode(i));

@@ -2,7 +2,7 @@
  * Border
  * @prop
  */
-import { Props } from '../../basic';
+import { UnitProps } from '../../basic';
 import { Rule } from '../../base/rule';
 export type Theme = {
     width: {
@@ -77,7 +77,7 @@ type EProps = {
     mkPosition: 'fixedLeftTop' | 'fixedRightTop' | 'fixedTop',
 };
 export type Props = SProps & EProps;
-export const rule: Rule<SProps, EProps, Props, Theme> = {
+export const rule: Rule<SProps, EProps, UnitProps, Theme> = {
     rule: {
         mkZIndex: (value, t) => ({ zIndex: t.zIndex[value] }),
     },
@@ -147,6 +147,7 @@ export const rule: Rule<SProps, EProps, Props, Theme> = {
             },
             row: {
                 display: 'flex',
+                alignItems: 'center',
             },
             inlineCenter: {
                 display: 'inline-flex',

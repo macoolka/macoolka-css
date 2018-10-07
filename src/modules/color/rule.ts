@@ -2,9 +2,8 @@
 import { Props as UnitProps } from '../../basic/unit';
 import { Rule } from '../../base/rule';
 import { selector, Theme } from './theme';
-import { isString } from 'mocoolka-fp/lib/predicate';
 import R from 'mocoolka-fp/lib/Record';
-type PaletteColor = 'red' |
+export type PaletteColor = 'red' |
     'pink' |
     'purple' |
     'deepPurple' |
@@ -20,24 +19,25 @@ type PaletteColor = 'red' |
     'amber' |
     'orange' |
     'deepOrange';
-
+export type MainColor= 'accent'|'main'|'hint';
+export type MonoColor= 'primary' | 'secondary';
+export type StateColor= 'disabled';
+export type EmColor= 'success' | 'warning' | 'alert';
+export type Color= PaletteColor|MainColor;
 export type Props = {
     /**
      * text color
      */
-    mkTextColor: 'accent' | 'alert' | 'disabled'
-    | 'main' | 'primary' | 'secondary' | 'success' | 'warning' | 'hint' | PaletteColor
-    ,
+    mkTextColor: Color|StateColor|MonoColor|EmColor;
     /**
      * border color
      */
-    mkborderColor: 'accent' | 'alert' | 'disabled'
-    | 'main' | 'primary' | 'secondary' | 'success' | 'warning' | 'hint' | 'inherit' | PaletteColor,
+    mkBorderColor: Color|StateColor|MonoColor|EmColor;
     /**
      * background color
      */
-    mkColor: 'body' | 'surface' | 'divider' | 'accent' | 'alert' | 'mini' | 'small' | 'medium' | 'large'
-    | 'main' | 'success' | 'warning' | 'transparent' | 'inherit' | PaletteColor,
+    mkColor: 'body' | 'surface' | 'divider' | 'mini' | 'small' | 'medium' | 'large'
+    | 'transparent' | 'inherit' | Color | EmColor,
 };
 
 const paletteColor = (propName: string) => (colorName: PaletteColor) => (t: Theme) => {
@@ -70,9 +70,9 @@ const palette: PaletteColor[] = ['red',
     'deepOrange'];
 
 const foldAll = R();
-const paletteList = (propName: string) => foldAll(palette.map(paletteColor(propName)));
-const bgColor = (a: ((t: Theme) => string) | string) => (t: Theme) => {
-    const value = isString(a) ? a : a(t);
+const paletteList = (propName: string) => foldAll(palette.map(a => ({[a]: paletteColor(propName)(a)})));
+const bgColor = (a: ((t: Theme) => string)) => (t: Theme) => {
+    const value =  a(t);
     return ({
         backgroundColor: value,
         color: selector.getLightOrDarkColor(value)(t),
@@ -111,7 +111,7 @@ export const rule: Rule<{}, Props, UnitProps, Theme> = {
             },
             ...paletteList('color'),
         },
-        mkborderColor: {
+        mkBorderColor: {
             main: {
                 borderColor: selector.getColor({ name: 'primary', level: 'normal' }),
             },
@@ -134,10 +134,10 @@ export const rule: Rule<{}, Props, UnitProps, Theme> = {
                 borderColor: selector.getColorText('divider'),
             },
             primary: {
-                borderColor: selector.getColorText('primary'),
+                borderColor: selector.getColorBg('medium'),
             },
             secondary: {
-                borderColor: selector.getColorText('secondary'),
+                borderColor: selector.getColorBg('large'),
             },
             ...paletteList('borderColor'),
         },

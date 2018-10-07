@@ -1,4 +1,4 @@
-import {theme,parse as _parse}from './index';
+import {theme,parseModule as _parse}from './index';
 const parse = _parse(theme);
 describe('parse Border', () => {
     it('none', () => {
@@ -22,8 +22,7 @@ describe('parse Border', () => {
         expect(parse({
             mkHeight: 'full',
         })).toEqual({
-            minHeight: '100vh',
-            maxHeight: '100vh',
+            height: '100%',
         });
     })
     it('parse single', () => {
@@ -116,6 +115,7 @@ describe('parse Border', () => {
         expect(parse({
             mkLayout: 'row',
         })).toEqual({
+            alignItems:'center',
             display: 'flex',
         });
         expect(parse({
@@ -180,16 +180,6 @@ describe('parse Border', () => {
         });
     })
     it('parse text', () => {
-        expect(parse({
-            mkTypography: 'h2',
-        })).toEqual({
-            fontWeight: 300,
-            letterSpacing: '-.00833em',
-            lineHeight: '3.75rem',
-            fontSize: '60px',
-            textDecoration: 'inherit',
-            textTransform: 'inherit',
-        });
         expect(parse({
             mkFontWeight: 'light',
         })).toEqual({

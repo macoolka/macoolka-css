@@ -1,6 +1,6 @@
-import { parse as basicParse, theme as basicTheme } from '../../basic';
-import rule, { theme } from './index'
-const parse = basicParse(rule)({ ...theme, ...basicTheme });
+import { parseUnitRule as _parse} from '../../basic';
+import {theme,rule} from './index'
+const parse = _parse(rule)(theme);
 
 describe('effect', () => {
     it('parse effect', () => {

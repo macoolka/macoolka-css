@@ -8,13 +8,6 @@ import { CssProperties } from './CssProperties';
  * The provide css selector's type
  * @type
  */
-/* declare module 'fp-ts/lib/HKT' {
-    interface URI2HKT<A> {
-        CssSelector: CssSelector<A>;
-    }
-} */
-// export const URI = 'CssSelector';
-// export type URI = typeof URI;
 export type CssSelector<T extends CssProperties> = { [key: string]: T };
 export const map = <A extends CssProperties, B extends CssProperties>
 (a: CssSelector<A>, func: (p: A) => B): CssSelector<B> => mapValues(a, func);

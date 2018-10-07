@@ -1,34 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parse Border toString 1`] = `
-"min-height: 100vh;
-max-height: 100vh;
-letter-spacing: -.00833em;
-line-height: 3.75rem;
-font-size: 60px;
+exports[`parse module toString 1`] = `
+"height: 100%;
 width: 200px;
+color: #fff;
+background-color: #f44336;
 justify-content: center;
-font-weight: 300;
-text-decoration: inherit;
-text-transform: inherit;
 @media screen and (max-width: 80em) {
-  mk-color: body;
-  width: 300;
+  width: 300px;
+  background-color: #fafafa;
+  color: rgba(0, 0, 0, 0.87);
 }
 @media screen and (max-width: 93em) {
-  mk-color: body;
-  width: 500;
+  width: 500px;
+  background-color: #fafafa;
+  color: rgba(0, 0, 0, 0.87);
 }
 @media screen and (max-width: 120em) {
   font-size: 40px;
-  width: 700;
+  width: 700px;
 }
 :hover {
-  letter-spacing: -.01562em;
-  line-height: 6rem;
   font-size: 96px;
-  font-weight: 300;
-  text-decoration: inherit;
-  text-transform: inherit;
 }"
 `;

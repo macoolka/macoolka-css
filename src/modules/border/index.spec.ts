@@ -1,6 +1,6 @@
 import {theme,rule}from './index';
-import { parse as _parse,theme as basicTheme } from '../../basic';
-const parse = _parse(rule)({...theme,...basicTheme});
+import { parseUnitRule as _parse} from '../../basic';
+const parse = _parse(rule)(theme);
 describe('parse Border', () => {
     it('none', () => {
         expect(parse({ mkBorder: 'none' })).toEqual({ 'borderWidth': '0px' });
@@ -13,6 +13,9 @@ describe('parse Border', () => {
     });
     it('rounded', () => {
         expect(parse({ mkRounded: true })).toEqual({borderRadius: '50%'});
+    });
+    it('rounded', () => {
+        expect(parse({ mkRounded: false })).toEqual({});
     });
 });
 

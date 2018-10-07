@@ -1,7 +1,7 @@
 
 /**
- * convert number type to px or precent
- * @getter
+ * convert media props type to props
+ * @rule
  */
 import { CssProperties } from '../base/CssProperties';
 import { Rule } from '../base/rule';
@@ -38,6 +38,6 @@ export type Props<P extends CssProperties> = {
 
 export const rule = <P extends CssProperties>(): Rule<Props<P>, {}, P> => ({
     rule: {
-        mkMedia: (value: P[], t: Theme= theme) => media<P>(value)(getBreakpoints(t)),
+        mkMedia: (value: P[], t: Theme) => media<P>(value)(getBreakpoints(t)),
     },
 });

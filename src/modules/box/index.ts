@@ -2,7 +2,7 @@
  * convert number type to px or precent
  * @getter
  */
-import { Props } from '../../basic/';
+import { UnitProps } from '../../basic/';
 import { Rule } from '../../base/rule';
 
 export type Theme = {
@@ -100,12 +100,20 @@ type SProps = {
 
 };
 type EProps = {
-    mkWidth: 'full' | 'content' | 'nav' | 'gutter' | 'third' | 'small' | 'medium' | 'large' | 'xlarge';
-    mkHeight: 'full' |'small' | 'medium' | 'large' | 'xlarge';
+    mkWidth: 'full' | 'fullScreen' | 'content' | 'nav' | 'gutter'
+     | 'third' | 'small' | 'medium' | 'large' | 'xlarge';
+    mkMinWidth: 'full' | 'fullScreen' | 'content' | 'nav' | 'gutter'
+     | 'third' | 'small' | 'medium' | 'large' | 'xlarge';
+    mkMaxWidth: 'full' | 'fullScreen' | 'content' | 'nav'
+     | 'gutter' | 'third' | 'small' | 'medium' | 'large' | 'xlarge';
+    mkHeight: 'full' | 'fullScreen' | 'small' | 'medium' | 'large' | 'xlarge';
+    mkMinHeight: 'full' | 'fullScreen' | 'small' | 'medium' | 'large' | 'xlarge';
+    mkMaxHeight: 'full' | 'fullScreen' | 'small' | 'medium' | 'large' | 'xlarge';
+
     mkSquare: 'small' | 'medium' | 'large' | 'xlarge';
 };
 export type Props = EProps & SProps;
-export const rule: Rule<SProps, EProps, Props, Theme> = {
+export const rule: Rule<SProps, EProps, UnitProps, Theme> = {
     rule: {
         /**
          * The property is used to setting the margin properties in one declaration
@@ -167,9 +175,11 @@ export const rule: Rule<SProps, EProps, Props, Theme> = {
     },
     ruleEnum: {
         mkWidth: {
+            fullScreen: {
+                width: '100vw',
+            },
             full: {
                 width: '100%',
-                maxWidth: '100%',
             },
             content: {
                 width: (t) => t.box.width.content,
@@ -196,10 +206,76 @@ export const rule: Rule<SProps, EProps, Props, Theme> = {
                 width: (t) => t.box.size.xlarge,
             },
         },
-        mkHeight: {
+        mkMinWidth: {
+            fullScreen: {
+                minWidth: '100vw',
+            },
             full: {
-                minHeight: '100vh',
-                maxHeight: '100vh',
+                minWidth: '100%',
+            },
+            content: {
+                minWidth: (t) => t.box.width.content,
+            },
+            nav: {
+                minWidth: (t) => t.box.width.nav,
+            },
+            gutter: {
+                minWidth: (t) => t.box.width.gutter,
+            },
+            third: {
+                minWidth: (t) => t.box.width.third,
+            },
+            small: {
+                minWidth: (t) => t.box.size.small,
+            },
+            medium: {
+                minWidth: (t) => t.box.size.medium,
+            },
+            large: {
+                minWidth: (t) => t.box.size.large,
+            },
+            xlarge: {
+                minWidth: (t) => t.box.size.xlarge,
+            },
+        },
+        mkMaxWidth: {
+            fullScreen: {
+                maxWidth: '100vw',
+            },
+            full: {
+                maxWidth: '100%',
+            },
+            content: {
+                maxWidth: (t) => t.box.width.content,
+            },
+            nav: {
+                maxWidth: (t) => t.box.width.nav,
+            },
+            gutter: {
+                maxWidth: (t) => t.box.width.gutter,
+            },
+            third: {
+                maxWidth: (t) => t.box.width.third,
+            },
+            small: {
+                maxWidth: (t) => t.box.size.small,
+            },
+            medium: {
+                maxWidth: (t) => t.box.size.medium,
+            },
+            large: {
+                maxWidth: (t) => t.box.size.large,
+            },
+            xlarge: {
+                maxWidth: (t) => t.box.size.xlarge,
+            },
+        },
+        mkHeight: {
+            fullScreen: {
+                height: '100vh',
+            },
+            full: {
+                height: '100%',
             },
             small: {
                 height: (t) => t.box.size.small,
@@ -212,6 +288,48 @@ export const rule: Rule<SProps, EProps, Props, Theme> = {
             },
             xlarge: {
                 height: (t) => t.box.size.xlarge,
+
+            },
+        },
+        mkMaxHeight: {
+            fullScreen: {
+                maxHeight: '100vh',
+            },
+            full: {
+                maxHeight: '100%',
+            },
+            small: {
+                maxHeight: (t) => t.box.size.small,
+            },
+            medium: {
+                maxHeight: (t) => t.box.size.medium,
+            },
+            large: {
+                maxHeight: (t) => t.box.size.large,
+            },
+            xlarge: {
+                maxHeight: (t) => t.box.size.xlarge,
+
+            },
+        },
+        mkMinHeight: {
+            fullScreen: {
+                minHeight: '100vh',
+            },
+            full: {
+                minHeight: '100%',
+            },
+            small: {
+                minHeight: (t) => t.box.size.small,
+            },
+            medium: {
+                minHeight: (t) => t.box.size.medium,
+            },
+            large: {
+                minHeight: (t) => t.box.size.large,
+            },
+            xlarge: {
+                minHeight: (t) => t.box.size.xlarge,
 
             },
         },

@@ -1,5 +1,5 @@
 import { theme,rule } from './media';
-import { parse as _parse, BaseProps } from '../base';
+import { parseRule as _parse, BaseProps } from '../base';
 const parse = _parse(rule<BaseProps>())(theme);
 describe('unit', () => {
     it('parse to object', () => {

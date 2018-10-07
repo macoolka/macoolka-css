@@ -1,12 +1,12 @@
 import {Rule} from '../base';
-import {BasicProps} from './index';
-import {parse as basicParse} from './index';
-export const flexItemRule: Rule<{A:number}, {}, BasicProps> = {
+import {UnitProps} from './index';
+import {parseUnitRule } from './index';
+export const flexItemRule: Rule<{A:number}, {}, UnitProps> = {
     rule: {
         A: 'width',
     }
 };
-const parse=basicParse(flexItemRule)({});
+const parse=parseUnitRule(flexItemRule)({});
 describe('unit', () => {
     it('parse to object', () => {
         expect(parse({})).toEqual({})

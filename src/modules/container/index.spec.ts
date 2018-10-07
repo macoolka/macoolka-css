@@ -1,6 +1,6 @@
-import { parse as basicParse,theme as basicTheme } from '../../basic';
+import { parseUnitRule as _parse} from '../../basic';
 import {theme,rule} from './index'
-const parse = basicParse(rule)({...theme,...basicTheme});
+const parse = _parse(rule)(theme);
 
 describe('container', () => {
     it('parse container', () => {
@@ -31,6 +31,7 @@ describe('container', () => {
         expect(parse({
             mkLayout: 'row',
         })).toEqual({
+            "alignItems": "center",
             display: 'flex',
         });
         expect(parse({
