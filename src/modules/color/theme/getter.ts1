@@ -1,0 +1,50 @@
+import {Getter} from 'mocoolka-fp/lib/Monocle';
+import ColorTheme,{lightThemeLens,darkThemeLens} from './type';
+import {ColorValueTheme} from './resultType';
+import {getColor} from './selector';
+const mapColorValue=()=>['light','normal','dark'].map(a=>getColor({name:}))
+export const colorThemeGetter=new Getter<ColorTheme,ColorValueTheme>(a=>{
+    lightThemeLens.get
+    return ({
+    color: {
+        light: {
+            text: {
+                primary: {
+                    light:getColor({name:'main',level:'light'}),
+                    normal:getColor({name:'main',level:'normal'}),
+                    dark:getColor({name:'main',level:'dark'}),
+                },
+                secondary: ColorValue,
+                divider: ColorValue,
+                main:  {
+                    light:getColor({name:'main',level:'light'}),
+                    normal:getColor({name:'main',level:'normal'}),
+                    dark:getColor({name:'main',level:'dark'}),
+                },
+                accent: ColorValue,
+                disabled: ColorValue,
+                success: ColorValue;
+                info: ColorValue;
+                warning: ColorValue;
+                alert: ColorValue;
+            },
+            background: {
+                body: ColorValue,
+                surface: ColorValue,
+                mini: ColorValue,
+                small: ColorValue,
+                medium: ColorValue,
+                large: ColorValue,
+                main: ColorValue,
+                accent: ColorValue,
+                disabled: ColorValue,
+                success: ColorValue;
+                info: ColorValue;
+                warning: ColorValue;
+                alert: ColorValue;
+            },
+           
+        },
+        dark: TColorsValue,
+    }
+})})

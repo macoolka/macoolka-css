@@ -1,10 +1,10 @@
 
-import { RuleC } from './base/ruleC';
+import { Rule,OutputProps,parseRuleJSS,parseRule,theme } from '.';
+
 /**
  * convert number type to px or precent
  * @getter
  */
-import { Props } from './mix';
 export type EProp = {
     size: 'small' | 'medium' | 'large' | 'xlarge'
 };
@@ -12,12 +12,13 @@ export type SProp = {
     disabled: boolean
 };
 
-export type Props = EProp & SProp;
+export type Props = OutputProps<EProp & SProp>;
 
-export const rule: RuleC<SProp, EProp, Props> = {
+export const rule: Rule<SProp, EProp> = {
     style: {
         mkLayout: 'inlineRow',
         borderColor: 'currentColor',
+        width:20,
         mkTransition:  'background-color, color, opacity',
         selector: {
             '& > svg': {
@@ -27,12 +28,12 @@ export const rule: RuleC<SProp, EProp, Props> = {
     },
     rule: {
         disabled: (a: boolean) => ({
-            opacity: `${a ? 0.38 : 1}`,
+            opacity: a ? 0.38 : 1,
         }),
     },
     ruleEnum: {
         size: {
-            small: {
+            small: ()=>({
                 mkSquare: 'small',
                 borderWidth: 1,
                 selector: {
@@ -40,8 +41,8 @@ export const rule: RuleC<SProp, EProp, Props> = {
                         mkSquare: 'small',
                     },
                 },
-            },
-            medium: {
+            }),
+            medium:()=>({
                 mkSquare: 'medium',
                 borderWidth: 1,
                 mkMedia:[{mkWidth:'small'},{mkWidth:'medium'},{mkWidth:'large'},{mkWidth:'xlarge'}],
@@ -50,8 +51,8 @@ export const rule: RuleC<SProp, EProp, Props> = {
                         mkSquare: 'medium',
                     },
                 },
-            },
-            large: {
+            }),
+            large: ()=>({
                 borderWidth: 2,
                 mkSquare: 'large',
                 selector: {
@@ -59,8 +60,8 @@ export const rule: RuleC<SProp, EProp, Props> = {
                         mkSquare: 'large',
                     },
                 },
-            },
-            xlarge: {
+            }),
+            xlarge: ()=>({
                 borderWidth: 2,
                 mkSquare: 'xlarge',
                 selector: {
@@ -68,13 +69,13 @@ export const rule: RuleC<SProp, EProp, Props> = {
                         mkSquare: 'xlarge',
                     },
                 },
-            },
+            }),
         },
     },
 };
-import { parsePropRule as _parseRule, theme as basicTheme } from './mix';
-const parse = _parseRule(rule)({...basicTheme });
 
+const parse = parseRuleJSS(rule)(theme);
+const parseString = parseRule(rule)(theme);
 describe('icon', () => {
     it('parse icon', () => {
         expect(parse({
@@ -88,7 +89,17 @@ describe('icon', () => {
             size: 'medium',
             disabled:true,
         })).toMatchSnapshot(); 
-        
+        expect(parseString({
+            size: 'small',
+        })).toMatchSnapshot();
+        expect(parseString({
+            mkMedia:[{mkWidth:'small'},{mkWidth:'medium'},{mkWidth:'large'},{mkWidth:'xlarge'}],
+            size: 'small',
+        })).toMatchSnapshot();
+         expect(parseString({
+            size: 'medium',
+            disabled:true,
+        })).toMatchSnapshot();        
     })
 
 });

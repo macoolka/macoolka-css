@@ -1,5 +1,5 @@
 
-import { Rule,OutputProps,parseRuleJSS,theme } from '.';
+import { Rule,OutputProps,parseRuleJSS,theme } from '../src';
 /**
  * convert number type to px or precent
  * @getter
@@ -30,19 +30,19 @@ export const rule: Rule<SProp, EProp> = {
     },
     ruleEnum: {
         size: {
-            small: _=>({
+            small: {
                 mkMargin: 2,
                 mkTextColor:'main',
-            }),
-            medium: _=>({
+            },
+            medium: {
                 mkMargin: 4,
-            }),
-            large: _=>({
+            },
+            large: {
                 mkMargin: 6,
-            }),
-            xlarge: _=>({
+            },
+            xlarge: {
                 mkMargin: 8,
-            }),
+            },
         },
     },
 };

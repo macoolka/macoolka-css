@@ -52,8 +52,19 @@ export type SProps = {
      */
     mkZIndex: 'moon' | 'tooltip' | 'alertDesktop' | 'popup' | 'modal' | 'overlay'
     | 'dropdown' | 'alertMobile' | 'nav' | 'bar' | 'base',
+    /**
+     * The property specifies  the element position is absolute and center in parent.
+     */
+    mkAbsoluteCenter: {
+        width: number,
+        height: number,
+    },
+    /**
+     * The property specifies  the element position is absolute and full in parent.
+     */
+    mkAbsoluteFull: boolean
 };
-type EProps = {
+export type EProps = {
     /**
      * scroll bar
      */
@@ -75,41 +86,63 @@ type EProps = {
      * position
      */
     mkPosition: 'fixedLeftTop' | 'fixedRightTop' | 'fixedTop',
+
 };
 export type Props = SProps & EProps;
 export const rule: Rule<SProps, EProps, UnitProps, Theme> = {
     rule: {
         mkZIndex: (value, t) => ({ zIndex: t.zIndex[value] }),
+        mkAbsoluteCenter: ({width, height}) => ({
+            position: 'absolute',
+            width,
+            height,
+            top: '50%',
+            left: '50%',
+            padding: 0,
+            marginTop: -height / 2,
+            marginLeft: -width / 2,
+            marginBottom: 0,
+            marginRight: 0,
+        }),
+        mkAbsoluteFull: a => a ? {
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            top: 0,
+            left: 0,
+            margin: 0,
+            padding: 0,
+        } : {},
     },
     ruleEnum: {
         mkScrollBar: {
-            horizontal: {
+            horizontal: _ => ({
                 overflowX: 'auto',
                 overflowY: 'hidden',
-            },
-            vertical: {
+            }),
+            vertical: _ => ({
                 overflowX: 'hidden',
                 overflowY: 'auto',
-            },
-            both: {
+            }),
+            both: _ => ({
                 overflowX: 'auto',
                 overflowY: 'auto',
-            },
-            none: {
+            }),
+            none: _ => ({
                 overflowX: 'hidden',
                 overflowY: 'hidden',
-            },
+            }),
         },
 
         mkVisibility: {
-            hidden: {
+            hidden: _ => ({
                 visibility: 'hidden',
-            },
-            none: {
+            }),
+            none: _ => ({
                 display: 'none',
                 visibility: 'hidden',
-            },
-            elementInvisible: {
+            }),
+            elementInvisible: _ => ({
                 position: 'fixed',
                 opacity: 0,
                 pointerEvents: 'none',
@@ -117,71 +150,73 @@ export const rule: Rule<SProps, EProps, UnitProps, Theme> = {
                 padding: '0',
                 width: '0',
                 height: '0',
-            },
-            hiddenWidth: {
+            }),
+            hiddenWidth: _ => ({
                 width: 0,
-            },
-            hiddenHeight: {
+            }),
+            hiddenHeight: _ => ({
                 height: 0,
-            },
+            }),
         },
         mkAlign: {
-            imageCenter: {
+            imageCenter: _ => ({
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-            },
-            center: {
+            }),
+            center: _ => ({
                 margin: 'auto',
 
-            },
+            }),
         },
         mkLayout: {
-            center: {
+            center: _ => ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-            },
-            column: {
+            }),
+            column: _ => ({
                 display: 'flex',
                 flexDirection: 'column',
-            },
-            row: {
+            }),
+            row: _ => ({
                 display: 'flex',
                 alignItems: 'center',
-            },
-            inlineCenter: {
+            }),
+            inlineCenter: _ => ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-            },
-            inlineRow: {
+            }),
+            inlineRow: _ => ({
                 display: 'inline-flex',
-            },
-            inlineColumn: {
+                alignItems: 'center',
+            }),
+            inlineColumn: _ => ({
                 display: 'inline-flex',
                 flexDirection: 'column',
-            },
+            }),
         },
         mkPosition: {
-            fixedLeftTop: {
+            fixedLeftTop: _ => ({
                 position: 'fixed',
                 left: '0',
                 top: '0',
 
-            },
-            fixedRightTop: {
+            }),
+            fixedRightTop: _ => ({
                 position: 'fixed',
                 top: '0',
                 right: '0',
 
-            },
-            fixedTop: {
+            }),
+            fixedTop: _ => ({
                 position: 'fixed',
                 left: '0',
                 top: '0',
                 right: '0',
 
-            },
+            }),
+
         },
     },
 };

@@ -2,6 +2,7 @@
 
 exports[`icon parse icon 1`] = `
 Object {
+  "alignItems": "center",
   "borderColor": "currentColor",
   "borderWidth": "1px",
   "display": "inline-flex",
@@ -23,6 +24,7 @@ Object {
 
 exports[`icon parse icon 2`] = `
 Object {
+  "alignItems": "center",
   "borderColor": "currentColor",
   "borderWidth": "1px",
   "display": "inline-flex",
@@ -53,11 +55,12 @@ Object {
 
 exports[`icon parse icon 3`] = `
 Object {
+  "alignItems": "center",
   "borderColor": "currentColor",
   "borderWidth": "1px",
   "display": "inline-flex",
   "height": "24px",
-  "opacity": "0.38",
+  "opacity": 0.38,
   "selector": Object {
     "& > svg": Object {
       "fill": "currentColor",
@@ -80,4 +83,77 @@ Object {
   "transitionTimingFunction": "cubic-bezier(0.4, 0, 0.2, 1)",
   "width": "24px",
 }
+`;
+
+exports[`icon parse icon 4`] = `
+"transition-duration: 200ms;
+transition-delay: 0ms;
+width: 18px;
+display: inline-flex;
+align-items: center;
+transition-property: background-color, color, opacity;
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+border-color: currentColor;
+height: 18px;
+border-width: 1px;
+& > svg {
+  fill: currentColor;
+  width: 18px;
+  height: 18px;
+}"
+`;
+
+exports[`icon parse icon 5`] = `
+"transition-duration: 200ms;
+transition-delay: 0ms;
+width: 18px;
+display: inline-flex;
+align-items: center;
+transition-property: background-color, color, opacity;
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+border-color: currentColor;
+height: 18px;
+border-width: 1px;
+& > svg {
+  fill: currentColor;
+  width: 18px;
+  height: 18px;
+}
+@media screen and (max-width: 80em) {
+  width: 24px;
+}
+@media screen and (max-width: 93em) {
+  width: 36px;
+}
+@media screen and (max-width: 120em) {
+  width: 48px;
+}"
+`;
+
+exports[`icon parse icon 6`] = `
+"transition-duration: 200ms;
+transition-delay: 0ms;
+width: 24px;
+display: inline-flex;
+align-items: center;
+transition-property: background-color, color, opacity;
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+border-color: currentColor;
+height: 24px;
+border-width: 1px;
+opacity: 0.38;
+& > svg {
+  fill: currentColor;
+  width: 24px;
+  height: 24px;
+}
+@media screen and (max-width: 80em) {
+  width: 24px;
+}
+@media screen and (max-width: 93em) {
+  width: 36px;
+}
+@media screen and (max-width: 120em) {
+  width: 48px;
+}"
 `;

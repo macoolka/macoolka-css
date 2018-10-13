@@ -1,18 +1,13 @@
 
-import { RuleC } from './base/ruleC';
-/**
- * convert number type to px or precent
- * @getter
- */
-import { Props ,parsePropRule as _parseRule, theme as basicTheme } from './mix';
+import { Rule,OutputProps,parseRuleJSS,theme } from '.';
 
 export type SProp = {
     disabled: boolean
 };
 
-export type Props = SProp;
+export type Props = OutputProps<SProp>;
 
-export const rule: RuleC<SProp, {}, Props> = {
+export const rule: Rule<SProp> = {
     style: {
         mkTypography: 'h1',
     },
@@ -23,7 +18,7 @@ export const rule: RuleC<SProp, {}, Props> = {
     },
 };
 
-const parse = _parseRule(rule)({...basicTheme });
+const parse = parseRuleJSS(rule)(theme);
 
 describe('check order', () => {
     it('parse prop', () => {

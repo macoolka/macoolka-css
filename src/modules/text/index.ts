@@ -64,7 +64,7 @@ export const theme: Theme = {
         },
     },
 };
-type SProps = {
+export type SProps = {
 
     /**
      * fontWeight
@@ -82,7 +82,7 @@ type SProps = {
     /**
      * noWrap
      */
-    mkTextNoWrap?: boolean,
+    mkTextNoWrap: boolean,
     mkTextGutterBottom: boolean,
     mkTextParagraph: boolean,
 
@@ -92,7 +92,7 @@ type SProps = {
     mkTextDecoration: 'none' | 'underline' | 'overline' | 'line-through' | 'inherit',
     mkTextUnderlined: boolean,
 };
-type EProps = {
+export type EProps = {
     mkTextSemantic: 'em' | 'strong',
 };
 export type Props = EProps & SProps;
@@ -100,12 +100,12 @@ export type Props = EProps & SProps;
 export const rule: Rule<SProps, EProps, UnitProps, Theme & ColorTheme> = {
     ruleEnum: {
         mkTextSemantic: {
-            em: {
-                fontStyle: 'italic',
-            },
-            strong: {
-                fontWeight: (t) => t.font.weight.bold,
-            },
+            em: _ => ({
+                    fontStyle: 'italic',
+                } ),
+            strong: t => ({
+                fontWeight: t.font.weight.bold,
+            }),
         },
     },
     rule: {
@@ -139,7 +139,7 @@ export const rule: Rule<SProps, EProps, UnitProps, Theme & ColorTheme> = {
         mkTextUnderlined: (a: boolean, t) => a ? ({
             borderBottomStyle: 'dotted',
             borderBottomWidth: 1,
-            borderBottomColor: selector.getColorBg('medium')(t),
+            borderBottomColor: selector.getColorBg()('medium')(t),
         }) : {},
     },
 };

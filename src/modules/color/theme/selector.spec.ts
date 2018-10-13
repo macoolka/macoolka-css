@@ -4,19 +4,19 @@ import { theme, selector } from './index';
 const darkTheme = merge({}, theme, { color: { type: "dark" } });
 describe('get palette theme variable value', () => {
     it('Color', () => {
-        expect(selector.getColor({ name: 'primary', level: 'normal' })(theme)).toEqual(
+        expect(selector.getColor('normal')('main')(theme)).toEqual(
             theme.palette.colorPalette.teal['500']);
-        expect(selector.getColor({ name: 'primary' })(theme)).toEqual(
+        expect(selector.getColor()('main')(theme)).toEqual(
             theme.palette.colorPalette.teal['500']);
-        expect(selector.getColor({ name: 'primary', level: 'dark', })(theme)).toEqual(
+        expect(selector.getColor('dark')('main')(theme)).toEqual(
             theme.palette.colorPalette.teal['700']);
-        expect(selector.getColor({ name: 'primary', level: 'light', })(theme)).toEqual(
+        expect(selector.getColor('light')('main')(theme)).toEqual(
             theme.palette.colorPalette.teal['300']);
     });
     it('getPColorPaletteType', () => {
-        expect(selector.getPColorPaletteType({ name: 'red', level: 'normal' })(theme)).toEqual(
+        expect(selector.getPColorPaletteType('normal')('red')(theme)).toEqual(
             theme.palette.colorPalette.red['500']);
-        expect(selector.getPColorPaletteType({ name: 'red' })(theme)).toEqual(
+        expect(selector.getPColorPaletteType()('red')(theme)).toEqual(
             theme.palette.colorPalette.red['500']);
     });
     it('ColorAccent', () => {
@@ -50,28 +50,28 @@ describe('get palette theme variable value', () => {
             'rgba(0, 0, 0, 0.4)');
     });
     it('getColorText', () => {
-        expect(selector.getColorText('primary')(theme)).toEqual(
+        expect(selector.getColorText()('primary')(theme)).toEqual(
             'rgba(0, 0, 0, 0.87)');
-        expect(selector.getColorText('secondary')(theme)).toEqual(
+        expect(selector.getColorText()('secondary')(theme)).toEqual(
             'rgba(0, 0, 0, 0.54)');
-        expect(selector.getColorText('primary')(darkTheme)).toEqual(
+        expect(selector.getColorText()('primary')(darkTheme)).toEqual(
             '#fff');
-        expect(selector.getColorText('secondary')(darkTheme)).toEqual(
+        expect(selector.getColorText()('secondary')(darkTheme)).toEqual(
             'rgba(255, 255, 255, 0.7)');
 
     });
     it('getColorBg', () => {
-        expect(selector.getColorBg('body')(theme)).toEqual(
+        expect(selector.getColorBg()('body')(theme)).toEqual(
             '#fafafa');
-        expect(selector.getColorBg('surface')(theme)).toEqual(
+        expect(selector.getColorBg()('surface')(theme)).toEqual(
             '#fff');
-        expect(selector.getColorBg('body')(darkTheme)).toEqual(
+        expect(selector.getColorBg()('body')(darkTheme)).toEqual(
             '#000');
-        expect(selector.getColorBg('surface')(darkTheme)).toEqual(
+        expect(selector.getColorBg()('surface')(darkTheme)).toEqual(
             '#424242');
     });
     it('getLightOrDarkColor', () => {
-        const a = selector.getColorBg('body')(theme);
+        const a = selector.getColorBg()('body')(theme);
         expect(selector.getLightOrDarkColor(a)(theme)).toEqual(
             'rgba(0, 0, 0, 0.87)');
         expect(selector.getLightOrDarkColor('#fff')(theme)).toEqual(

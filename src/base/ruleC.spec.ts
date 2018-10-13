@@ -2,12 +2,12 @@ import { RuleC,parseRuleC } from './ruleC';
 import { BaseProps } from './types';
 const parse =parseRuleC();
 describe('rule', () => {
-    it('ruleEnum style using object and theme ', () => {
+    it('ruleEnum style using function and theme ', () => {
         const rule: RuleC<{}, { A: 'center' | 'left' }, BaseProps, { a: number, b: number }> = {
             ruleEnum: {
                 A: {
-                    center: { width: (theme)=>`${theme.a}px` },
-                    left: { width: (theme)=>`${theme.b}px` },
+                    center: (theme)=>({ width: `${theme.a}px` }),
+                    left: (theme)=>({ width: `${theme.b}px` }),
                 }
             },
             style:{
@@ -20,9 +20,9 @@ describe('rule', () => {
     it('rule result merge style ', () => {
         const rule: RuleC<{}, { A: 'center' | 'left' }, BaseProps> = {
             ruleEnum: {
-                A: {
-                    center: { color: 'blue' },
-                    left: { color: 'green' },
+                A:{
+                    center: _=>( { color: 'blue' }),
+                    left: _=>({ color: 'green' }),
                 }
             },
             style:{

@@ -16,7 +16,7 @@ describe('text', () => {
             mkHoverTextColor: 'main',
         })).toMatchSnapshot();
         expect(parse({
-            mkHoverTextColor: 'yellow',
+            mkHoverTextColors: 'yellow',
         })).toMatchSnapshot();
     });  
 

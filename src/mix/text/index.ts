@@ -4,24 +4,24 @@
  * @prop
  */
 import { Rule } from '../../base/rule';
-import { Theme, Props as _Props } from '../../modules';
+import { Theme, ModuleProps } from '../../modules';
 
-type SProps = {
+export type SProps = {
 };
-type EProps = {
+export type EProps = {
     /**
      * typography
      */
-    mkTypography: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' |
+     mkTypography: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' |
     'subtitle1' | 'subtitle2' | 'body1' | 'body2' | 'caption' | 'button' | 'overline'
 
 };
 export type Props = EProps & SProps;
 
-export const rule: Rule<SProps, EProps, _Props, Theme> = {
+export const rule: Rule<SProps, EProps, ModuleProps, Theme> = {
     ruleEnum: {
        mkTypography: {
-            h1: {
+            h1: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'light',
                 letterSpacing: '-.01562em',
@@ -30,8 +30,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
 
-            },
-            h2: {
+            }),
+            h2: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'light',
                 mkFontSize: 'h2',
@@ -40,8 +40,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
 
-            },
-            h3: {
+            }),
+            h3: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'h3',
@@ -49,8 +49,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 lineHeight: '3.125rem',
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
-            },
-            h4: {
+            }),
+            h4: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'h4',
@@ -58,8 +58,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 lineHeight: '2.5rem',
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
-            },
-            h5: {
+            }),
+            h5: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'h5',
@@ -67,8 +67,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 lineHeight: '2rem',
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
-            },
-            h6: {
+            }),
+            h6: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'medium',
                 mkFontSize: 'h6',
@@ -76,8 +76,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 lineHeight: '2rem',
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
-            },
-            subtitle1: {
+            }),
+            subtitle1: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'subtitle',
@@ -85,8 +85,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 lineHeight: '1.75rem',
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
-            },
-            subtitle2: {
+            }),
+            subtitle2: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'medium',
                 mkFontSize: 'p',
@@ -95,8 +95,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
 
-            },
-            body1: {
+            }),
+            body1: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'medium',
                 mkFontSize: 'subtitle',
@@ -105,8 +105,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
 
-            },
-            body2: {
+            }),
+            body2: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'p',
@@ -115,8 +115,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
 
-            },
-            button: {
+            }),
+            button: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'medium',
                 mkFontSize: 'p',
@@ -124,8 +124,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 lineHeight: '2.25rem',
                 textDecoration: 'none',
                 textTransform: 'uppercase',
-            },
-            caption: {
+            }),
+            caption: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'caption',
@@ -133,8 +133,8 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 lineHeight: '1.25rem',
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
-            },
-            overline: {
+            }),
+            overline: _ => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'medium',
                 mkFontSize: 'overline',
@@ -143,7 +143,7 @@ export const rule: Rule<SProps, EProps, _Props, Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'uppercase',
 
-            },
+            }),
         },
     },
     rule: {

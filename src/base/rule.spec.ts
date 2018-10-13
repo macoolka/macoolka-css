@@ -1,22 +1,6 @@
-import { Rule,parse,parseRule } from './rule';
-import { BaseProps } from './types';
+import { Rule,parse } from './rule';
+import { UnitProps as BaseProps } from '../basic';
 describe('rule', () => {
-    it('rule using string', () => {
-        const rule: Rule<{ A: number }, {}, BaseProps> = {
-            rule: {
-                A: 'width',
-            }
-        };
-        expect(parse(rule)({})({ A: 1 })).toEqual({ width: 1 });
-    });
-    it('rule using string', () => {
-        const rule: Rule<{ A: number }, {}, BaseProps> = {
-            rule: {
-                A: 'width',
-            }
-        };
-        expect(parseRule<{ A: number },{},BaseProps>()(rule)({})({ A: 1 })).toEqual({ width: 1 });
-    });
     it('rule using function', () => {
         const rule: Rule<{ A: number }, {}, BaseProps> = {
             rule: {
@@ -35,7 +19,7 @@ describe('rule', () => {
         };
         expect(parse(rule)({ a: 2 })({ A: 5 })).toEqual({ width: 10 });
     });
-    it('rule using object', () => {
+/*     it('rule using object', () => {
         const rule: Rule<{ A: number }, {}, BaseProps> = {
             rule: {
                 A: { width: ((value) => `${value}px`) },
@@ -50,19 +34,19 @@ describe('rule', () => {
             }
         };
         expect(parse(rule)({ a: 2 })({ A: 1 })).toEqual({ width: '2px' });
-    });
-    it('ruleEnum using object', () => {
+    }); */
+/*     it('ruleEnum using object', () => {
         const rule: Rule<{}, { A: 'center' | 'left' }, BaseProps, {}> = {
             ruleEnum: {
                 A: {
-                    center: { width: '20px' },
-                    left: { width: '50px' },
+                    center: _=>({ width: '20px' }),
+                    left: _=>({ width: '50px' }),
                 }
             }
         };
         expect(parse(rule)({})({ A: 'center' })).toEqual({ width: '20px' });
         expect(parse(rule)({})({ A: 'left' })).toEqual({ width: '50px' });
-    });
+    }); */
     it('ruleEnum using function and theme', () => {
         const rule: Rule<{}, { A: 'center' | 'left' }, BaseProps, { a: number, b: number }> = {
             ruleEnum: {
@@ -75,7 +59,7 @@ describe('rule', () => {
         expect(parse(rule)({ a: 1, b: 2 })({ A: 'center' })).toEqual({ width: 1 });
         expect(parse(rule)({ a: 1, b: 2 })({ A: 'left' })).toEqual({ width: 2 });
     });
-    it('ruleEnum using object and theme', () => {
+/*     it('ruleEnum using object and theme', () => {
         const rule: Rule<{}, { A: 'center' | 'left' }, BaseProps, { a: number, b: number }> = {
             ruleEnum: {
                 A: {
@@ -86,6 +70,6 @@ describe('rule', () => {
         };
         expect(parse(rule)({ a: 1, b: 2 })({ A: 'center' })).toEqual({ width: '1px' });
         expect(parse(rule)({ a: 1, b: 2 })({ A: 'left' })).toEqual({ width: '2px' });
-    });
+    }); */
 });
 

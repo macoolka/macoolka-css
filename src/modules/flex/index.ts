@@ -60,27 +60,50 @@ export type FlexItemProps = {
      */
     mkFlexItemOrder: number,
 };
-
-export type Props = FlexContainerProps & FlexItemProps;
+export type EProps= {};
+export type SProps= FlexContainerProps & FlexItemProps;
+export type Props = SProps& EProps;
 
 export const flexContainerRule: Rule<FlexContainerProps, {}, _Props> = {
     rule: {
-        mkFlexWrap: 'flexWrap',
-        mkFlexDirection: 'flexDirection',
-        mkFlexAlign: 'justifyContent',
-        mkFlexAlignV: 'alignItems',
-        mkFlexAlignLines: 'alignContent',
+        mkFlexWrap: a => ({
+            flexWrap: a,
+        }),
+        mkFlexDirection: a => ({
+            flexDirection: a,
+        }),
+        mkFlexAlign: a => ({
+            justifyContent: a,
+        }),
+        mkFlexAlignV: a => ({
+            alignItems: a,
+        }),
+        mkFlexAlignLines: a => ({
+            alignContent: a,
+        }),
     },
 };
 
 export const flexItemRule: Rule<FlexItemProps, {}, _Props> = {
     rule: {
-        mkFlexItemAlign: 'justifySelf',
-        mkFlexItemAlignV: 'alignSelf',
-        mkFlexItemWidth: 'flexBasis',
-        mkFlexItemGrow: 'flexGrow',
-        mkFlexItemShrink: 'flexShrink',
-        mkFlexItemOrder: 'order',
+        mkFlexItemAlign: a => ({
+            justifySelf: a,
+        }),
+        mkFlexItemAlignV: a => ({
+            alignSelf: a,
+        }),
+        mkFlexItemWidth: a => ({
+            flexBasis: a,
+        }),
+        mkFlexItemGrow: a => ({
+            flexGrow: a,
+        }),
+        mkFlexItemShrink: a => ({
+            flexShrink: a,
+        }),
+        mkFlexItemOrder: a => ({
+            order: a,
+        }),
     },
 };
 export const rule = concatRule(flexContainerRule, flexItemRule) as Rule<Props, {}, _Props>;

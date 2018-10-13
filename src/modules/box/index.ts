@@ -4,24 +4,46 @@
  */
 import { UnitProps } from '../../basic/';
 import { Rule } from '../../base/rule';
-
+import { Lens } from 'mocoolka-fp/lib/Monocle';
+type Width = {
+    content: number,
+    gutter: number;
+    nav: number;
+    third: number;
+};
+type Size = {
+    small: number,
+    medium: number,
+    large: number,
+    xlarge: number,
+};
+type Box = {
+    width: Width,
+    size: Size
+};
 export type Theme = {
-    box: {
-        width: {
-            content: number,
-            gutter: number;
-            nav: number;
-            third: number;
-        },
-        size: {
-            small: number,
-            medium: number,
-            large: number,
-            xlarge: number,
-        }
-    }
+    box: Box
 
 };
+const box = Lens.fromProp<Theme, 'box'>('box');
+const width = Lens.fromProp<Box, 'width'>('width');
+const size = Lens.fromProp<Box, 'size'>('size');
+const content = Lens.fromProp<Width, 'content'>('content');
+const gutter = Lens.fromProp<Width, 'gutter'>('gutter');
+const nav = Lens.fromProp<Width, 'nav'>('nav');
+const third = Lens.fromProp<Width, 'third'>('third');
+const small = Lens.fromProp<Size, 'small'>('small');
+const medium = Lens.fromProp<Size, 'medium'>('medium');
+const large = Lens.fromProp<Size, 'large'>('large');
+const xlarge = Lens.fromProp<Size, 'xlarge'>('xlarge');
+const contentTheme = box.compose(width).compose(content);
+const gutterTheme = box.compose(width).compose(gutter);
+const navTheme = box.compose(width).compose(nav);
+const thirdTheme = box.compose(width).compose(third);
+const smallTheme = box.compose(size).compose(small);
+const mediumTheme = box.compose(size).compose(medium);
+const largeTheme = box.compose(size).compose(large);
+const xlargeTheme = box.compose(size).compose(xlarge);
 export const theme: Theme = {
     box: {
         width: {
@@ -40,7 +62,7 @@ export const theme: Theme = {
 
 };
 type SUnit = 0 | 1 | 2 | 4 | 6 | 8 | 12 | 16 | 24 | 36 | 48 | 64 | 124;
-type SProps = {
+export type SProps = {
     /**
      * The property is used to setting the margin properties in one declaration
      */
@@ -99,13 +121,13 @@ type SProps = {
     mkPaddingV: SUnit,
 
 };
-type EProps = {
+export type EProps = {
     mkWidth: 'full' | 'fullScreen' | 'content' | 'nav' | 'gutter'
-     | 'third' | 'small' | 'medium' | 'large' | 'xlarge';
+    | 'third' | 'small' | 'medium' | 'large' | 'xlarge';
     mkMinWidth: 'full' | 'fullScreen' | 'content' | 'nav' | 'gutter'
-     | 'third' | 'small' | 'medium' | 'large' | 'xlarge';
+    | 'third' | 'small' | 'medium' | 'large' | 'xlarge';
     mkMaxWidth: 'full' | 'fullScreen' | 'content' | 'nav'
-     | 'gutter' | 'third' | 'small' | 'medium' | 'large' | 'xlarge';
+    | 'gutter' | 'third' | 'small' | 'medium' | 'large' | 'xlarge';
     mkHeight: 'full' | 'fullScreen' | 'small' | 'medium' | 'large' | 'xlarge';
     mkMinHeight: 'full' | 'fullScreen' | 'small' | 'medium' | 'large' | 'xlarge';
     mkMaxHeight: 'full' | 'fullScreen' | 'small' | 'medium' | 'large' | 'xlarge';
@@ -118,239 +140,197 @@ export const rule: Rule<SProps, EProps, UnitProps, Theme> = {
         /**
          * The property is used to setting the margin properties in one declaration
          */
-        mkMargin: 'margin',
+        mkMargin: a => ({
+            margin: a,
+        }),
         /**
          * The property is used to setting the top margin of an element.
          */
-        mkMarginTop: ('marginTop'),
+        mkMarginTop: a => ({
+            marginTop: a,
+        }),
         /**
          * The property is used to setting the bottom margin of an element.
          */
-        mkMarginBottom: ('marginBottom'),
+        mkMarginBottom: a => ({
+            marginBottom: a,
+        }),
         /**
          * The property is used to setting the left margin of an element.
          */
-        mkMarginLeft: ('marginLeft'),
+        mkMarginLeft: a => ({
+            marginLeft: a,
+        }),
         /**
          * The property is used to setting the right margin of an element.
          */
-        mkMarginRight: ('marginRight'),
+        mkMarginRight: a => ({
+            marginRight: a,
+        }),
         /**
          * The property is used to setting the x margin of an element.
          */
-        mkMarginH: (['marginLeft', 'marginRight']),
+        mkMarginH: a => ({
+            marginLeft: a,
+            marginRight: a,
+        }),
         /**
          * The property is used to setting the y margin of an element.
          */
-        mkMarginV: (['marginTop', 'marginBottom']),
+        mkMarginV: a => ({
+            marginTop: a,
+            marginBottom: a,
+        }),
         /**
          * The property is used to setting the padding of an element.
          */
-        mkPadding: ('padding'),
+        mkPadding: a => ({
+            padding: a,
+        }),
         /**
          * The property is used to setting the top padding of an element.
          */
-        mkPaddingTop: ('paddingTop'),
+        mkPaddingTop: a => ({
+            paddingTop: a,
+        }),
         /**
          * The property is used to setting the bottom padding of an element.
          */
-        mkPaddingBottom: ('paddingBottom'),
+        mkPaddingBottom: a => ({
+            paddingBottom: a,
+        }),
         /**
          * The property is used to setting the left padding of an element.
          */
-        mkPaddingLeft: ('paddingLeft'),
+        mkPaddingLeft: a => ({
+            paddingLeft: a,
+        }),
         /**
          * The property is used to setting the right padding of an element.
          */
-        mkPaddingRight: ('paddingRight'),
+        mkPaddingRight: a => ({
+            paddingRight: a,
+        }),
         /**
          * The property is used to setting the x padding of an element.
          */
-        mkPaddingH: ['paddingLeft', 'paddingRight'],
+        mkPaddingH: a => ({
+            paddingLeft: a,
+            paddingRight: a,
+        }),
         /**
          * The property is used to setting the y padding of an element.
          */
-        mkPaddingV: (['paddingTop', 'paddingBottom']),
+        mkPaddingV: a => ({
+            paddingTop: a,
+            paddingBottom: a,
+        }),
 
     },
     ruleEnum: {
         mkWidth: {
-            fullScreen: {
+            fullScreen: a => a ? ({
                 width: '100vw',
-            },
-            full: {
+            }) : {},
+            full: a => a ? ({
                 width: '100%',
-            },
-            content: {
-                width: (t) => t.box.width.content,
-            },
-            nav: {
-                width: (t) => t.box.width.nav,
-            },
-            gutter: {
-                width: (t) => t.box.width.gutter,
-            },
-            third: {
-                width: (t) => t.box.width.third,
-            },
-            small: {
-                width: (t) => t.box.size.small,
-            },
-            medium: {
-                width: (t) => t.box.size.medium,
-            },
-            large: {
-                width: (t) => t.box.size.large,
-            },
-            xlarge: {
-                width: (t) => t.box.size.xlarge,
-            },
+            }) : {},
+            content: t => ({ width: contentTheme.get(t) }),
+            nav: t => ({ width: navTheme.get(t) }),
+            gutter: t => ({ width: gutterTheme.get(t) }),
+            third: t => ({ width: thirdTheme.get(t) }),
+            small: t => ({ width: smallTheme.get(t) }),
+            medium: t => ({ width: mediumTheme.get(t) }),
+            large: t => ({ width: largeTheme.get(t) }),
+            xlarge: t => ({ width: xlargeTheme.get(t) }),
         },
         mkMinWidth: {
-            fullScreen: {
+            fullScreen: a => a ? ({
                 minWidth: '100vw',
-            },
-            full: {
+            }) : {},
+            full: a => a ? ({
                 minWidth: '100%',
-            },
-            content: {
-                minWidth: (t) => t.box.width.content,
-            },
-            nav: {
-                minWidth: (t) => t.box.width.nav,
-            },
-            gutter: {
-                minWidth: (t) => t.box.width.gutter,
-            },
-            third: {
-                minWidth: (t) => t.box.width.third,
-            },
-            small: {
-                minWidth: (t) => t.box.size.small,
-            },
-            medium: {
-                minWidth: (t) => t.box.size.medium,
-            },
-            large: {
-                minWidth: (t) => t.box.size.large,
-            },
-            xlarge: {
-                minWidth: (t) => t.box.size.xlarge,
-            },
+            }) : {},
+            content: t => ({ minWidth: contentTheme.get(t) }),
+            nav: t => ({ minWidth: navTheme.get(t) }),
+            gutter: t => ({ minWidth: gutterTheme.get(t) }),
+            third: t => ({ minWidth: thirdTheme.get(t) }),
+            small: t => ({ minWidth: smallTheme.get(t) }),
+            medium: t => ({ minWidth: mediumTheme.get(t) }),
+            large: t => ({ minWidth: largeTheme.get(t) }),
+            xlarge: t => ({ minWidth: xlargeTheme.get(t) }),
+
         },
         mkMaxWidth: {
-            fullScreen: {
+            fullScreen: a => a ? ({
                 maxWidth: '100vw',
-            },
-            full: {
+            }) : {},
+            full: a => a ? ({
                 maxWidth: '100%',
-            },
-            content: {
-                maxWidth: (t) => t.box.width.content,
-            },
-            nav: {
-                maxWidth: (t) => t.box.width.nav,
-            },
-            gutter: {
-                maxWidth: (t) => t.box.width.gutter,
-            },
-            third: {
-                maxWidth: (t) => t.box.width.third,
-            },
-            small: {
-                maxWidth: (t) => t.box.size.small,
-            },
-            medium: {
-                maxWidth: (t) => t.box.size.medium,
-            },
-            large: {
-                maxWidth: (t) => t.box.size.large,
-            },
-            xlarge: {
-                maxWidth: (t) => t.box.size.xlarge,
-            },
+            }) : {},
+            content: t => ({ maxWidth: contentTheme.get(t) }),
+            nav: t => ({ maxWidth: navTheme.get(t) }),
+            gutter: t => ({ maxWidth: gutterTheme.get(t) }),
+            third: t => ({ maxWidth: thirdTheme.get(t) }),
+            small: t => ({ maxWidth: smallTheme.get(t) }),
+            medium: t => ({ maxWidth: mediumTheme.get(t) }),
+            large: t => ({ maxWidth: largeTheme.get(t) }),
+            xlarge: t => ({ maxWidth: xlargeTheme.get(t) }),
         },
         mkHeight: {
-            fullScreen: {
+            fullScreen: a => a ? ({
                 height: '100vh',
-            },
-            full: {
+            }) : {},
+            full: a => a ? ({
                 height: '100%',
-            },
-            small: {
-                height: (t) => t.box.size.small,
-            },
-            medium: {
-                height: (t) => t.box.size.medium,
-            },
-            large: {
-                height: (t) => t.box.size.large,
-            },
-            xlarge: {
-                height: (t) => t.box.size.xlarge,
-
-            },
+            }) : {},
+            small: t => ({ height: smallTheme.get(t) }),
+            medium: t => ({ height: mediumTheme.get(t) }),
+            large: t => ({ height: largeTheme.get(t) }),
+            xlarge: t => ({ height: xlargeTheme.get(t) }),
         },
         mkMaxHeight: {
-            fullScreen: {
+            fullScreen: a => a ? ({
                 maxHeight: '100vh',
-            },
-            full: {
+            }) : {},
+            full: a => a ? ({
                 maxHeight: '100%',
-            },
-            small: {
-                maxHeight: (t) => t.box.size.small,
-            },
-            medium: {
-                maxHeight: (t) => t.box.size.medium,
-            },
-            large: {
-                maxHeight: (t) => t.box.size.large,
-            },
-            xlarge: {
-                maxHeight: (t) => t.box.size.xlarge,
-
-            },
+            }) : {},
+            small: t => ({ maxHeight: smallTheme.get(t) }),
+            medium: t => ({ maxHeight: mediumTheme.get(t) }),
+            large: t => ({ maxHeight: largeTheme.get(t) }),
+            xlarge: t => ({ maxHeight: xlargeTheme.get(t) }),
         },
         mkMinHeight: {
-            fullScreen: {
+            fullScreen: a => a ? ({
                 minHeight: '100vh',
-            },
-            full: {
+            }) : {},
+            full: a => a ? ({
                 minHeight: '100%',
-            },
-            small: {
-                minHeight: (t) => t.box.size.small,
-            },
-            medium: {
-                minHeight: (t) => t.box.size.medium,
-            },
-            large: {
-                minHeight: (t) => t.box.size.large,
-            },
-            xlarge: {
-                minHeight: (t) => t.box.size.xlarge,
-
-            },
+            }) : {},
+            small: t => ({ minHeight: smallTheme.get(t) }),
+            medium: t => ({ minHeight: mediumTheme.get(t) }),
+            large: t => ({ minHeight: largeTheme.get(t) }),
+            xlarge: t => ({ minHeight: xlargeTheme.get(t) }),
         },
         mkSquare: {
-            small: {
-                width: (t) => t.box.size.small,
-                height: (t) => t.box.size.small,
-            },
-            medium: {
-                width: (t) => t.box.size.medium,
-                height: (t) => t.box.size.medium,
-            },
-            large: {
-                width: (t) => t.box.size.large,
-                height: (t) => t.box.size.large,
-            },
-            xlarge: {
-                width: (t) => t.box.size.xlarge,
-                height: (t) => t.box.size.xlarge,
+            small: t => ({
+                width: smallTheme.get(t),
+                height: smallTheme.get(t),
+            }),
+            medium: t => ({
+                width: mediumTheme.get(t),
+                height: mediumTheme.get(t),
+            }),
+            large: t => ({
+                width: largeTheme.get(t),
+                height: largeTheme.get(t),
+            }),
+            xlarge: t => ({
+                width: xlargeTheme.get(t),
+                height: xlargeTheme.get(t),
+            }),
 
-            },
         },
     },
 

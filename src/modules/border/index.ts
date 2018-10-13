@@ -4,6 +4,7 @@
  */
 import { UnitProps } from '../../basic';
 import { Rule } from '../../base/rule';
+import {constant} from 'mocoolka-fp/lib/function';
 export type Theme = {
     border: {
         shadows: {
@@ -70,18 +71,20 @@ export const theme: Theme = {
         //tslint:enabled
     },
 }
- type SProps={
+export type SProps={
     mkShadow:keyof Theme['border']['shadows'],
-    mkRounded?: boolean,
+    mkRounded: boolean,
 }
- type EProps={
+export type EProps={
     /**
      * The property specifies border style
      */
     mkBorder: 'none' | 'bordered' | 'top' | 'bottom' | 'left' |
     'right' | 'topBar' | 'bottomBar' | 'leftBar' | 'rightBar',
 }
-export type Props = SProps&EProps;
+export interface Props extends SProps,EProps{
+
+};
 
 export const rule: Rule<SProps, EProps, UnitProps,Theme> = {
     rule:{
@@ -92,45 +95,45 @@ export const rule: Rule<SProps, EProps, UnitProps,Theme> = {
     },
     ruleEnum: {
         mkBorder: {
-            none: {
+            none:constant<UnitProps>({
                 borderWidth: 0,
-            },
-            bordered: {
+            }),
+            bordered: constant<UnitProps>({
                 borderStyle: 'solid',
                 borderWidth: 1,
-            },
-            top: {
+            }),
+            top: constant<UnitProps>({
                 borderTopStyle: 'solid',
                 borderTopWidth: 1,
-            },
-            bottom: {
+            }),
+            bottom: constant<UnitProps>({
                 borderBottomStyle: 'solid',
                 borderBottomWidth: 1,
-            },
-            left: {
+            }),
+            left: constant<UnitProps>({
                 borderLeftStyle: 'solid',
                 borderLeftWidth: 1,
-            },
-            right: {
+            }),
+            right: constant<UnitProps>({
                 borderRightStyle: 'solid',
                 borderRightWidth: 1,
-            },
-            topBar: {
+            }),
+            topBar: constant<UnitProps>({
                 borderTopStyle: 'solid',
                 borderTopWidth: 4,
-            },
-            bottomBar: {
+            }),
+            bottomBar: constant<UnitProps>({
                 borderBottomStyle: 'solid',
                 borderBottomWidth: 4,
-            },
-            leftBar: {
+            }),
+            leftBar: constant<UnitProps>({
                 borderLeftStyle: 'solid',
                 borderLeftWidth: 4,
-            },
-            rightBar: {
+            }),
+            rightBar: constant<UnitProps>({
                 borderRightStyle: 'solid',
                 borderRightWidth: 4,
-            },
+            }),
         }
     }
 };

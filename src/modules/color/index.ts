@@ -1,8 +1,7 @@
-import { Props, rule } from './rule';
+export { Props, rule, SProps, EProps } from './rule';
 import { theme, Theme, selector } from './theme';
 export {
-    rule,
-    Props,
+
     theme,
     Theme,
     selector

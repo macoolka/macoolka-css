@@ -5,11 +5,13 @@
  */
 import { UnitProps } from '../../basic';
 import { Rule } from '../../base/rule';
-import {isString} from 'mocoolka-fp/lib/predicate';
-import {fromPredicate} from 'mocoolka-fp/lib/Either';
-
+import { isString } from 'mocoolka-fp/lib/predicate';
+import { fromPredicate } from 'mocoolka-fp/lib/Either';
+import { Animations } from './animations';
+const selectAnimation = (a: Animations) => (t: Theme) => t.effect.animations[a] ? t.effect.animations[a] : a;
 export type Theme = {
     effect: {
+        animations: { [k in Animations]?: string },
         ease: {
             easeInOut: string,
             easeOut: string,
@@ -25,6 +27,9 @@ export type Theme = {
             complex: number,
             enteringScreen: number,
             leavingScreen: number,
+            long: number,
+            longer: number,
+            longest: number,
         },
         shadows: {
             0: string,
@@ -58,6 +63,7 @@ export type Theme = {
 };
 export const theme: Theme = {
     effect: {
+        animations: {},
         ease: {
             easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
             easeOut: 'cubic-bezier(0.0, 0, 0.2, 1)',
@@ -73,6 +79,9 @@ export const theme: Theme = {
             complex: 375,
             enteringScreen: 225,
             leavingScreen: 195,
+            long: 450,
+            longer: 650,
+            longest: 1000,
         },
         // tslint:disable
         shadows: {
@@ -106,21 +115,28 @@ export const theme: Theme = {
     },
 }
 
-type SProps = {
+export type SProps = {
 
     /**
      * rotate
      */
     mkRotate: number,
-    mkTransition: string|{
+    mkTransition: string | {
         property: string,
-        duration: keyof Theme['effect']['duration'],
-        ease: keyof Theme['effect']['ease'],
-        delay: keyof Theme['effect']['duration'],
+        duration?: keyof Theme['effect']['duration'],
+        ease?: keyof Theme['effect']['ease'],
+        delay?: keyof Theme['effect']['duration'],
+    };
+    mkAnimation: string | {
+        name: Animations,
+        duration?: keyof Theme['effect']['duration'],
+        ease?: keyof Theme['effect']['ease'],
+        delay?: keyof Theme['effect']['duration'],
+        count?: number | 'infinite',
     };
     mkShadow: keyof Theme['effect']['shadows'],
 };
-type EProps = {
+export type EProps = {
     /**
      * flip
      */
@@ -129,37 +145,66 @@ type EProps = {
 
 };
 export type Props = EProps & SProps;
-export const rule: Rule<SProps, EProps, UnitProps,Theme> = {
+export const rule: Rule<SProps, EProps, UnitProps, Theme> = {
     ruleEnum: {
         mkFlip: {
-            horizontal: {
+            horizontal: a=>a?({
                 transform: 'scale(-1, 1)',
-            },
-            vertical: {
+            }):{},
+            vertical: a=>a?({
                 transform: 'scale(1, -1)',
-            },
+            }):{},
         }
     },
     rule: {
         mkRotate: (a: number) => ({ transform: `rotate(${a}deg)` }),
-        mkTransition:(a,t) => fromPredicate(isString,c=>c)(a).fold((l:{
+        mkTransition: (a, t) => fromPredicate(isString, c => c)(a).fold(({
+            property,
+            duration='shorter',
+            ease='easeInOut',
+            delay='none',
+        }: {
             property: string,
             duration: keyof Theme['effect']['duration'],
             ease: keyof Theme['effect']['ease'],
             delay: keyof Theme['effect']['duration'],
-        })=>({
-            transitionProperty: `${l.property}`,
-            transitionDuration: `${t.effect.duration[l.duration]}ms`,
-            transitionTimingFunction: `${t.effect.ease[l.ease]}`,
-            transitionDelay: `${t.effect.duration[l.delay]}ms`,
-        }),(r:string)=>({
-            
+        }) => ({
+            transitionProperty: `${property}`,
+            transitionDuration: t.effect.duration[duration],
+            transitionTimingFunction: `${t.effect.ease[ease]}`,
+            transitionDelay: t.effect.duration[delay],
+        }), (r: string) => ({
             transitionProperty: r,
-            transitionDuration: `${t.effect.duration.shorter}ms`,
-            transitionTimingFunction: `${t.effect.ease.easeInOut}`,
-            transitionDelay: `${t.effect.duration.none}ms`,
+            transitionDuration: t.effect.duration.shorter,
+            transitionTimingFunction: t.effect.ease.easeInOut,
+            transitionDelay: t.effect.duration.none,
         })),
-        mkShadow:(a,t)=>({boxShadow:t.effect.shadows[a]})
+        mkAnimation: (a, t) => fromPredicate(isString, c => c)(a).fold(({
+            name,
+            duration='shorter',
+            ease='easeInOut',
+            delay='none',
+            count=1,
+        }: {
+            name: Animations,
+            duration: keyof Theme['effect']['duration'],
+            ease: keyof Theme['effect']['ease'],
+            delay: keyof Theme['effect']['duration'],
+            count: number | 'infinite'
+        }) => ({
+            animationName: selectAnimation(name)(t),
+            animationDuration: t.effect.duration[duration],
+            animationTimingFunction: t.effect.ease[ease],
+            animationDelay: t.effect.duration[delay],
+            animationIterationCount: count
+        }), (r: Animations) => ({
+            animationName: selectAnimation(r)(t),
+            animationDuration: t.effect.duration.shorter,
+            animationTimingFunction: t.effect.ease.easeInOut,
+            animationDelay: t.effect.duration.none,
+            animationIterationCount: 1
+        })),
+        mkShadow: (a, t) => ({ boxShadow: t.effect.shadows[a] })
     }
 };
 
