@@ -3,9 +3,9 @@
  * convert media props type to props
  * @rule
  */
-import { CssProperties } from '../base/CssProperties';
-import { Rule } from '../base/rule';
-import {media} from '../base/helper';
+import { CssProperties, Rule, CssNode } from '../css';
+
+import {media} from './helper';
 export type Theme= {
     breakpointUnit: number,
 breakpoints: {
@@ -32,12 +32,15 @@ const getBreakpoints = (t: Theme): number[] =>
  * @getter
  */
 
-export type Props<P extends CssProperties> = {
-    mkMedia: P[],
-};
+export interface Props<P extends CssProperties>  {
+    mkMedia?: CssNode<P>[];
+}
 
-export const rule = <P extends CssProperties>(): Rule<Props<P>, {}, P> => ({
+export const rule = <P extends CssProperties, T extends Theme>(): Rule<Props<P>, {}, P, T> => ({
     rule: {
-        mkMedia: (value: P[], t: Theme) => media<P>(value)(getBreakpoints(t)),
+        mkMedia: ({value, theme : t}) => {
+           const result = media<P>(value)(getBreakpoints(t));
+           return result;
+        },
     },
 });

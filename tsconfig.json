@@ -31,7 +31,7 @@
     ]
   },
   "include": [
-    "./src/**/*", 
+    "src/**/*", "../mocoolka-fp/src/data-structures/tree/PropLeafTree.spec.t../mocoolka-fp/src/data-structures/tree/PropLeafTree.tsee.ts", "../mocoolka-fp/src/data-structures/tree/KeyTree..ts", 
   ],
   "exclude": [
     "node_modules",

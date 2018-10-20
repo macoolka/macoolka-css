@@ -94,28 +94,7 @@ export const mini = Lens.fromPath<TBaseColors, 'background', 'mini'>(['backgroun
 export const small = Lens.fromPath<TBaseColors, 'background', 'small'>(['background', 'small']);
 export const medium = Lens.fromPath<TBaseColors, 'background', 'medium'>(['background', 'medium']);
 export const large = Lens.fromPath<TBaseColors, 'background', 'large'>(['background', 'large']);
-export interface ColorThemeMixed {
-  color?: {
-    type?: 'light' | 'dark';
-    light?: {
-      accentLevel?: Partial<AccentTemplate>;
-      colorLevel?: Partial<ColorTemplate>;
-      colors?: Partial<ColorsTemplate>;
-      accent?: keyof ColorPalette;
-      mono?: keyof MonoPalette;
-      opacity?: Partial<ColorOpacity>
 
-    };
-    dark?: {
-      accentLevel?: Partial<AccentTemplate>;
-      colorLevel?: Partial<ColorTemplate>;
-      colors?: Partial<ColorsTemplate>;
-      accent?: keyof ColorPalette;
-      mono?: keyof MonoPalette;
-      opacity?: Partial<ColorOpacity>
-    }
-  };
-}
 export const lightThemeLens = Lens.fromPath<ColorTheme, 'color', 'light'>(['color', 'light']);
 export const darkThemeLens = Lens.fromPath<ColorTheme, 'color', 'dark'>(['color', 'dark']);
 

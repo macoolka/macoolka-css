@@ -1,6 +1,8 @@
-import { theme,rule } from './media';
-import { parseRule as _parse, BaseProps } from '../base';
-const parse = _parse(rule<BaseProps>())(theme);
+import { theme,rule,Theme } from './media';
+import {parse as _parse,BaseProps} from '../css'
+const parse = _parse(rule<BaseProps,Theme>(),theme);
+
+
 describe('unit', () => {
     it('parse to object', () => {
         expect(parse({})).toEqual({})

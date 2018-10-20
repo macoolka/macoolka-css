@@ -1,10 +1,10 @@
-import {theme,parseMixerString,parseMediaMixer}from './index';
+import {parseMediaJss,parseMedia}from './index';
 describe('parse module', () => {
      it('toString',()=>{
-        expect(parseMixerString(theme)({
+        expect(parseMedia({
             mkHeight:'full',
             mkFlexAlign: 'center',
-            mkMedia:[{mkColors:'red',width:200},{mkColor:'body',width:300},{mkColor:'body',width:500},{fontSize:'40px',width:700}],
+            mkMedia:[{mkColor:'surface',width:200},{mkColor:'body',width:300},{mkColor:'body',width:500},{fontSize:'40px',width:700}],
             selector:{
                 ':hover':{
                     mkFontSize: 'h1',
@@ -12,9 +12,9 @@ describe('parse module', () => {
             }
         })).toMatchSnapshot();
     })
-    it('parse media', () => {
-        expect(parseMediaMixer(theme)({})).toEqual({})
-        expect(parseMediaMixer(theme)({ mkMedia: [{ width: '10px' }, { width: '100%' }, { width: '300px' }] })).
+     it('parse media', () => {
+        expect(parseMedia({})).toEqual('')
+        expect(parseMediaJss({ mkMedia: [{ width: '10px' }, { width: '100%' }, { width: '300px' }] })).
             toEqual({
                 "selector": {
                     "@media screen and (max-width: 80em)":
@@ -24,7 +24,7 @@ describe('parse module', () => {
                 },
                 "width": "10px"
             })
-    })
+    }) 
 });
 
 

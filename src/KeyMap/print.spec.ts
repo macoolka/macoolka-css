@@ -1,4 +1,4 @@
-import { cssNodeToStringGetter } from './print';
+import { nodeToStringGetter } from './print';
 const p1 = {
     color: 'red',
     marginTop: '12px',
@@ -20,6 +20,6 @@ const selector =
 
 describe('css print', () => {
     it('commonToStringGetter', () => {
-        expect(cssNodeToStringGetter<any>().get({...p1,selector})).toMatchSnapshot();
+        expect(nodeToStringGetter<any>().get({...p1,selector})).toMatchSnapshot();
     });
 });

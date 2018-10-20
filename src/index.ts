@@ -1,22 +1,39 @@
-import { RuleC } from './base/ruleC';
-import { CssNode } from './base/CssNode';
-import { parse as parseMixer, parsePropRule, MixProps, Theme, theme,
-     ModuleOutput, parsePropRuleString, parseMixerString } from './mix';
-import {  MediaInput } from './basic';
-export const parse = parseMixerString;
-export const parseRule = parsePropRuleString;
-export const parseJSS = parseMixer;
-export const parseRuleJSS = parsePropRule;
-export type Rule<SProp, EProp  extends { [key: string]: string }= {}>= RuleC<SProp, EProp, MixProps, Theme>;
-export type OutputProps<T>= ModuleOutput<T>;
-export type OutputPropsMedia <T>= MediaInput<ModuleOutput<T>>;
-import {Animations, animations} from './modules/effect/animations';
-export type Props= MixProps;
+
+import {
+    parse, Props, Theme, theme, parseJss,
+    OutProps, parseRuleJSS, parseMediaJss, parseMediaRule,
+     parseRule, parseRuleMap, OutRule, parseMedia, parseMediaRuleMap,
+    parseMediaRuleJss,
+} from './mix';
+import { MediaInput } from './basic';
+import { CssProperties, InputNode, CssNode } from './css';
+
+export type OutputPropsMedia<T extends CssProperties> = MediaInput<OutProps<T>>;
+import { Animations, animations } from './modules/effect/animations';
+
 export {
     Theme,
     theme,
     Animations,
     animations,
     CssNode,
+    Props,
+    OutProps,
+    OutRule,
+    InputNode,
+
+    parseRule,
+    parseRuleJSS,
+
+    parseMediaRuleMap,
+    parseRuleMap,
+
+    parse,
+    parseJss,
+
+    parseMedia,
+    parseMediaJss,
+
+    parseMediaRule,
+    parseMediaRuleJss
 };
-// todo:add absolute ms defaultvalue

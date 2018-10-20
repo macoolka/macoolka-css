@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`flex print flex 1`] = `
-"justify-content: center;
-align-items: center;
-align-content: center;
-flex-wrap: wrap;
-flex-direction: row;"
-`;

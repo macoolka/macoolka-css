@@ -1,7 +1,7 @@
-import { parseUnitRule as _parse} from '../../basic';
+import { parseUnitProp as _parse} from '../../basic';
 import {theme,rule} from './index';
 import {merge} from 'mocoolka-fp/lib/object';
-const parse = _parse(rule)(theme);
+const parse = _parse(rule,theme);
 
 describe('effect', () => {
     it('should parse prop mkFlip ', () => {
@@ -129,7 +129,7 @@ describe('effect', () => {
     })
     it('should parse customer mkAnimation', () => {
        
-        const parse1 = _parse(rule)(merge({},theme,{effect:{animations:{hide:'hide1'}}}));
+        const parse1 = _parse(rule,merge({},theme,{effect:{animations:{hide:'hide1'}}}));
         expect(parse1({
             mkAnimation: 'hide',
 

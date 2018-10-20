@@ -19,7 +19,6 @@ export type AccentPaletteItem = {
     A700: PaletteInputColorType,
 };
 export type ColorPaletteItem = MonoPaletteItem & AccentPaletteItem;
-export type ColorPaletteItemMixed = Partial<MonoPaletteItem> & Partial<AccentPaletteItem>;
 export type CommonPaletteItem = {
     dark: PaletteInputColorType,
     light: PaletteInputColorType,
@@ -59,11 +58,5 @@ export type ColorPaletteItemsTheme = {
 type ColorPaletteTheme = {
     palette: ColorPaletteItemsTheme,
 };
-export type ColorPaletteThemeMixed = {
-    palette?: {
-            colorPalette?: Partial<TColorPalette<ColorPaletteItemMixed>>,
-            monoPalette?: Partial<TMonoPalette<Partial<MonoPaletteItem>>>,
-            commonPalette?: Partial<CommonPaletteItem>,
-    },
-};
+
 export default ColorPaletteTheme;

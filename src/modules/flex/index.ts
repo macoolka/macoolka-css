@@ -2,108 +2,107 @@
  * convert number type to px or precent
  * @getter
  */
-import { UnitProps as _Props } from '../../basic';
-import { Rule, concatRule } from '../../base/rule';
-
+import { OutRule, UnitProps } from '../../basic';
+import {foldRule} from '../../css';
 export type FlexContainerProps = {
     /**
      * The property specifies  the flex items should wrap or not.
      */
-    mkFlexWrap: 'nowrap' | 'wrap' | 'wrap-reverse' | 'inherit',
+    mkFlexWrap?: 'nowrap' | 'wrap' | 'wrap-reverse' | 'inherit',
     /**
      *  The property specifies the column direction the container wants to stack the flex items.
      */
-    mkFlexDirection: 'row' | 'row-reverse' | 'column' | 'column-reverse' | 'inherit',
+    mkFlexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse' | 'inherit',
     /**
      * The property is used to align the flex items
      */
-    mkFlexAlign: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'inherit',
+    mkFlexAlign?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'inherit',
     /**
      * The property is used to align the flex items vertically.
      */
-    mkFlexAlignV: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline' | 'inherit',
+    mkFlexAlignV?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline' | 'inherit',
     /**
      * The property is used to align the flex lines.
      */
-    mkFlexAlignLines: 'space-around' | 'space-between' | 'space-evenly' | 'stretch'
+    mkFlexAlignLines?: 'space-around' | 'space-between' | 'space-evenly' | 'stretch'
     | 'center' | 'end' | 'flex-end' | 'flex-start' | 'start' | 'inherit',
 
 };
-export type FlexContainerPropsP = Partial<FlexContainerProps>;
+
 export type FlexItemProps = {
     /**
      * The property specifies the alignment for the selected item inside the flexible container.
      * The property overrides the default alignment set by the container's align property.
      */
-    mkFlexItemAlign: 'center' | 'end' | 'flex-end' | 'flex-start' | 'self-end' |
+    mkFlexItemAlign?: 'center' | 'end' | 'flex-end' | 'flex-start' | 'self-end' |
     'self-start' | 'start' | 'auto' | 'baseline' | 'left' | 'normal' | 'right' | 'stretch' | 'inherit',
     /**
      * The property specifies the alignment vertically for the selected item inside the flexible container.
      * The property overrides the default alignment set by the container's alignV property.
      */
-    mkFlexItemAlignV: 'center' | 'end' | 'flex-end' | 'flex-start' |
+    mkFlexItemAlignV?: 'center' | 'end' | 'flex-end' | 'flex-start' |
      'self-end' | 'self-start' | 'start' | 'auto' | 'baseline' | 'normal' | 'stretch' | 'inherit',
     /**
      * The property specifies the initial length of a flex item.
      */
-    mkFlexItemWidth: number | string,
+    mkFlexItemWidth?: number | string,
     /**
      * The property specifies how much a flex item will shrink relative to the rest of the flex items.
      */
-    mkFlexItemShrink: number,
+    mkFlexItemShrink?: number,
     /**
      * The property specifies how much a flex item will grow relative to the rest of the flex items.
      */
-    mkFlexItemGrow: number,
+    mkFlexItemGrow?: number,
     /**
      * The order property specifies the order of the flex items.
      */
-    mkFlexItemOrder: number,
+    mkFlexItemOrder?: number,
 };
 export type EProps= {};
 export type SProps= FlexContainerProps & FlexItemProps;
 export type Props = SProps& EProps;
 
-export const flexContainerRule: Rule<FlexContainerProps, {}, _Props> = {
+export const flexContainerRule: OutRule<FlexContainerProps, {}> = {
     rule: {
-        mkFlexWrap: a => ({
-            flexWrap: a,
+        mkFlexWrap: ({value}) => ({
+            flexWrap: value,
         }),
-        mkFlexDirection: a => ({
-            flexDirection: a,
+        mkFlexDirection: ({value})  => ({
+            flexDirection: value,
         }),
-        mkFlexAlign: a => ({
-            justifyContent: a,
+        mkFlexAlign: ({value})  => ({
+            justifyContent: value,
         }),
-        mkFlexAlignV: a => ({
-            alignItems: a,
+        mkFlexAlignV: ({value})  => ({
+            alignItems: value,
         }),
-        mkFlexAlignLines: a => ({
-            alignContent: a,
+        mkFlexAlignLines: ({value})  => ({
+            alignContent: value,
         }),
     },
 };
 
-export const flexItemRule: Rule<FlexItemProps, {}, _Props> = {
+export const flexItemRule: OutRule<FlexItemProps, {}> = {
     rule: {
-        mkFlexItemAlign: a => ({
-            justifySelf: a,
+        mkFlexItemAlign: ({value})  => ({
+            justifySelf: value,
         }),
-        mkFlexItemAlignV: a => ({
-            alignSelf: a,
+        mkFlexItemAlignV: ({value})  => ({
+            alignSelf: value,
         }),
-        mkFlexItemWidth: a => ({
-            flexBasis: a,
+        mkFlexItemWidth: ({value})  => ({
+            flexBasis: value,
         }),
-        mkFlexItemGrow: a => ({
-            flexGrow: a,
+        mkFlexItemGrow: ({value})  => ({
+            flexGrow: value,
         }),
-        mkFlexItemShrink: a => ({
-            flexShrink: a,
+        mkFlexItemShrink: ({value})  => ({
+            flexShrink: value,
         }),
-        mkFlexItemOrder: a => ({
-            order: a,
+        mkFlexItemOrder: ({value})  => ({
+            order: value,
         }),
     },
 };
-export const rule = concatRule(flexContainerRule, flexItemRule) as Rule<Props, {}, _Props>;
+export const rule = foldRule<Props, {}, UnitProps>()([flexContainerRule, flexItemRule]) ;

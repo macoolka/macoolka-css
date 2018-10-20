@@ -3,8 +3,7 @@
  * Text
  * @prop
  */
-import { Rule } from '../../base/rule';
-import { Theme, ModuleProps } from '../../modules';
+import {  Theme, OutRule } from '../../modules';
 
 export type SProps = {
 };
@@ -12,13 +11,13 @@ export type EProps = {
     /**
      * typography
      */
-     mkTypography: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' |
+     mkTypography?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' |
     'subtitle1' | 'subtitle2' | 'body1' | 'body2' | 'caption' | 'button' | 'overline'
 
 };
 export type Props = EProps & SProps;
 
-export const rule: Rule<SProps, EProps, ModuleProps, Theme> = {
+export const rule: OutRule<SProps, EProps,  Theme> = {
     ruleEnum: {
        mkTypography: {
             h1: _ => ({

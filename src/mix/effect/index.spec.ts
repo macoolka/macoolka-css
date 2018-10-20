@@ -1,6 +1,6 @@
-import { parseModuleRule as _parse,theme} from '../../modules';
+import { parseModuleProp as _parse,theme} from '../../modules';
 import {rule} from './index'
-const parse = _parse(rule)(theme);
+const parse = _parse(rule,theme);
 
 describe('text', () => {
     it('parse mkHoverColor', () => {

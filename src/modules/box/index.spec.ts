@@ -1,6 +1,6 @@
-import { parseUnitRule as _parse} from '../../basic';
+import { parseUnitProp as _parse} from '../../basic';
 import {theme,rule} from './index'
-const parse = _parse(rule)(theme);
+const parse = _parse(rule,theme);
 describe('box', () => {
 
     it('parse height',()=>{
@@ -15,26 +15,7 @@ describe('box', () => {
         })).toEqual({
             height: '100%',
         });
-        expect(parse({
-            mkHeight: 'small',
-        })).toEqual({
-            height: '18px',
-        });
-        expect(parse({
-            mkHeight: 'medium',
-        })).toEqual({
-            height: '24px',
-        });
-        expect(parse({
-            mkHeight: 'large',
-        })).toEqual({
-            height: '36px',
-        });
-        expect(parse({
-            mkHeight: 'xlarge',
-        })).toEqual({
-            height: '48px',
-        });
+ 
 
         expect(parse({
             mkMaxHeight: 'fullScreen',
@@ -46,26 +27,7 @@ describe('box', () => {
         })).toEqual({
             maxHeight: '100%',
         });
-        expect(parse({
-            mkMaxHeight: 'small',
-        })).toEqual({
-            maxHeight: '18px',
-        });
-        expect(parse({
-            mkMaxHeight: 'medium',
-        })).toEqual({
-            maxHeight: '24px',
-        });
-        expect(parse({
-            mkMaxHeight: 'large',
-        })).toEqual({
-            maxHeight: '36px',
-        });
-        expect(parse({
-            mkMaxHeight: 'xlarge',
-        })).toEqual({
-            maxHeight: '48px',
-        });
+ 
 
         expect(parse({
             mkMinHeight: 'fullScreen',
@@ -77,51 +39,20 @@ describe('box', () => {
         })).toEqual({
             minHeight: '100%',
         });
-        expect(parse({
-            mkMinHeight: 'small',
-        })).toEqual({
-            minHeight: '18px',
-        });
-        expect(parse({
-            mkMinHeight: 'medium',
-        })).toEqual({
-            minHeight: '24px',
-        });
-        expect(parse({
-            mkMinHeight: 'large',
-        })).toEqual({
-            minHeight: '36px',
-        });
-        expect(parse({
-            mkMinHeight: 'xlarge',
-        })).toEqual({
-            minHeight: '48px',
-        });
+
     })
     it('parse mkSquare',()=>{
         expect(parse({
-            mkSquare: 'small',
+            mkSquare: 'full',
         })).toEqual({
-            width: '18px',
-            height: '18px',
+            width: '100%',
+            height: '100%',
         });
         expect(parse({
-            mkSquare: 'medium',
+            mkSquare: 40,
         })).toEqual({
-            width: '24px',
-            height: '24px',
-        });
-        expect(parse({
-            mkSquare: 'large',
-        })).toEqual({
-            width: '36px',
-            height: '36px',
-        });
-        expect(parse({
-            mkSquare: 'xlarge',
-        })).toEqual({
-            width: '48px',
-            height: '48px',
+            width: '40px',
+            height: '40px',
         });
     })
     it('parse mkWidth', () => {
@@ -155,26 +86,7 @@ describe('box', () => {
         })).toEqual({
             "width": theme.box.width.third+'px'
         });
-        expect(parse({
-            mkWidth: 'small',
-        })).toEqual({
-            "width": theme.box.size.small+'px'
-        });
-        expect(parse({
-            mkWidth: 'medium',
-        })).toEqual({
-            "width": theme.box.size.medium+'px'
-        });
-        expect(parse({
-            mkWidth: 'large',
-        })).toEqual({
-            "width": theme.box.size.large+'px'
-        });
-        expect(parse({
-            mkWidth: 'xlarge',
-        })).toEqual({
-            "width": theme.box.size.xlarge+'px'
-        });
+       
     })
     it('parse mkMinWidth', () => {
         expect(parse({
@@ -207,26 +119,7 @@ describe('box', () => {
         })).toEqual({
             "minWidth": theme.box.width.third+'px'
         });
-        expect(parse({
-            mkMinWidth: 'small',
-        })).toEqual({
-            "minWidth": theme.box.size.small+'px'
-        });
-        expect(parse({
-            mkMinWidth: 'medium',
-        })).toEqual({
-            "minWidth": theme.box.size.medium+'px'
-        });
-        expect(parse({
-            mkMinWidth: 'large',
-        })).toEqual({
-            "minWidth": theme.box.size.large+'px'
-        });
-        expect(parse({
-            mkMinWidth: 'xlarge',
-        })).toEqual({
-            "minWidth": theme.box.size.xlarge+'px'
-        });
+        
     })
     it('parse mkMaxWidth', () => {
         expect(parse({
@@ -259,39 +152,20 @@ describe('box', () => {
         })).toEqual({
             "maxWidth": theme.box.width.third+'px'
         });
-        expect(parse({
-            mkMaxWidth: 'small',
-        })).toEqual({
-            "maxWidth": theme.box.size.small+'px'
-        });
-        expect(parse({
-            mkMaxWidth: 'medium',
-        })).toEqual({
-            "maxWidth": theme.box.size.medium+'px'
-        });
-        expect(parse({
-            mkMaxWidth: 'large',
-        })).toEqual({
-            "maxWidth": theme.box.size.large+'px'
-        });
-        expect(parse({
-            mkMaxWidth: 'xlarge',
-        })).toEqual({
-            maxWidth: theme.box.size.xlarge+'px'
-        });
+        
     })
     it('parse padding margin single', () => {
         expect(parse({
-            mkMargin: 4,
-            mkMarginTop: 4,
-            mkMarginBottom: 4,
-            mkMarginLeft: 4,
-            mkMarginRight: 4,
-            mkPadding: 4,
-            mkPaddingTop: 4,
-            mkPaddingBottom: 4,
-            mkPaddingLeft: 4,
-            mkPaddingRight: 4,
+            mkMargin: 'small',
+            mkMarginTop: 'small',
+            mkMarginBottom: 'small',
+            mkMarginLeft: 'small',
+            mkMarginRight: 'small',
+            mkPadding: 'small',
+            mkPaddingTop: 'small',
+            mkPaddingBottom: 'small',
+            mkPaddingLeft: 'small',
+            mkPaddingRight:'small',
         })).toEqual({
             "margin": "4px",
             "marginBottom": "4px",
@@ -307,10 +181,10 @@ describe('box', () => {
     })
     it('parse padding margin  x y', () => {
         expect(parse({
-            mkMarginH: 8,
-            mkMarginV: 4,
-            mkPaddingH: 4,
-            mkPaddingV: 4,
+            mkMarginH: 'medium',
+            mkMarginV: 'small',
+            mkPaddingH:'small',
+            mkPaddingV: 'small',
         })).toEqual({
             "marginLeft": "8px", "marginRight": "8px",
             "marginTop": "4px",
@@ -318,6 +192,18 @@ describe('box', () => {
             "paddingBottom": "4px", "paddingLeft": "4px", "paddingRight": "4px", "paddingTop": "4px"
         });
     })
-
+    it('parse padding margin  x y', () => {
+        expect(parse({
+            marginH: 8,
+            marginV: 4,
+            paddingH:4,
+            paddingV: 4,
+        })).toEqual({
+            "marginLeft": "8px", "marginRight": "8px",
+            "marginTop": "4px",
+            "marginBottom": "4px",
+            "paddingBottom": "4px", "paddingLeft": "4px", "paddingRight": "4px", "paddingTop": "4px"
+        });
+    })
 });
 

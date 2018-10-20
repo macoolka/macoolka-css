@@ -1,5 +1,5 @@
-import {theme,parseModule as _parse}from './index';
-const parse = _parse(theme);
+import {parseModuleProp as _parse,theme}from './index';
+const parse = _parse({},theme);
 describe('parse Border', () => {
     it('none', () => {
         expect(parse({ mkBorder: 'none' })).toEqual({ 'borderWidth': '0px' });
@@ -25,44 +25,7 @@ describe('parse Border', () => {
             height: '100%',
         });
     })
-    it('parse single', () => {
-        expect(parse({
-            mkMargin: 4,
-            mkMarginTop: 4,
-            mkMarginBottom: 4,
-            mkMarginLeft: 4,
-            mkMarginRight: 4,
-            mkPadding: 4,
-            mkPaddingTop: 4,
-            mkPaddingBottom: 4,
-            mkPaddingLeft: 4,
-            mkPaddingRight: 4,
-        })).toEqual({
-            "margin": "4px",
-            "marginBottom": "4px",
-            "marginLeft": "4px",
-            "marginRight": "4px",
-            "marginTop": "4px",
-            "padding": "4px",
-            "paddingBottom": "4px",
-            "paddingLeft": "4px",
-            "paddingRight": "4px",
-            "paddingTop": "4px",
-        });
-    })
-    it('parse x y', () => {
-        expect(parse({
-            mkMarginH: 8,
-            mkMarginV: 4,
-            mkPaddingH: 4,
-            mkPaddingV: 4,
-        })).toEqual({
-            "marginLeft": "8px", "marginRight": "8px",
-            "marginTop": "4px",
-            "marginBottom": "4px",
-            "paddingBottom": "4px", "paddingLeft": "4px", "paddingRight": "4px", "paddingTop": "4px"
-        });
-    })
+  
     it('parse textColor', () => {
         expect(parse({
             mkTextColor: 'main',

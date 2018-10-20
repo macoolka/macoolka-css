@@ -1,32 +1,31 @@
 
-import { parseJSS, theme,parse } from '.';
-const parseJ = parseJSS(theme);
-const parseS = parse(theme);
+import {  parse,parseMedia} from '.';
+
 describe('parseJSS', () => {
     it('parse stand', () => {
-        expect(parseJ({
-            mkWidth: 'small',
+        expect(parse({
+            mkPadding: 'small',
             height: 100,
             selector: {
                 '&:focus': {
-                    mkWidth: 'medium',
+                    mkPadding: 'medium',
                     height: 200,
                 }
             }
         })).toMatchSnapshot();
     });
     it('parse media', () => {
-        expect(parseJ({
+        expect(parseMedia({
             height: 100,
             mkMedia: [{
-                mkWidth: 'small',
+                mkPadding: 'small',
                 fontSize: 12
             }, {
-                mkWidth: 'medium', fontSize: 13
+                mkPadding: 'medium', fontSize: 13
             }, {
-                mkWidth: 'large', fontSize: 14
+                mkPadding: 'large', fontSize: 14
             }, {
-                mkWidth: 'xlarge', fontSize: 15
+                mkPaddingTop: 'large', fontSize: 15
             }],
             selector: {
                 '&:focus': {
@@ -40,29 +39,29 @@ describe('parseJSS', () => {
 });
 describe('parse', () => {
     it('parse stand', () => {
-        expect(parseS({
-            mkWidth: 'small',
+        expect(parse({
+            mkPadding: 'small',
             height: 100,
             selector: {
                 '&:focus': {
-                    mkWidth: 'medium',
+                    mkPadding: 'medium',
                     height: 200,
                 }
             }
         })).toMatchSnapshot();
     });
     it('parse media', () => {
-        expect(parseS({
+        expect(parseMedia({
             height: 100,
             mkMedia: [{
-                mkWidth: 'small',
+                mkPadding: 'small',
                 fontSize: 12
             }, {
-                mkWidth: 'medium', fontSize: 13
+                mkPadding: 'medium', fontSize: 13
             }, {
-                mkWidth: 'large', fontSize: 14
+                mkPadding: 'large', fontSize: 14
             }, {
-                mkWidth: 'xlarge', fontSize: 15
+                mkPadding: 'medium', fontSize: 15
             }],
             selector: {
                 '&:focus': {

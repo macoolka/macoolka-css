@@ -2,12 +2,11 @@
  * convert number type to px or precent type
  * @rule
  */
-import { BaseProps } from '../base/types';
-import { Rule } from '../base/rule';
+import { OutRule, InputOverwrite, BaseProps } from '../css';
 import { isNumber } from 'mocoolka-fp/lib/predicate';
 import { getDictionaryMonoid, fold } from 'mocoolka-fp/lib/Monoid';
 import { getObjectSemigroup } from 'mocoolka-fp/lib/Semigroup';
-import { UnitProps } from './types';
+import { UnitNumberProps } from './types';
 const M = getDictionaryMonoid(getObjectSemigroup<any>());
 const pxOrPercent = (n: any): any => !isNumber(n) || n > 1 ? px(n) : (n * 100) + '%';
 const px = (n: any): any => isNumber(n) ? n + 'px' : n;
@@ -22,18 +21,15 @@ export const pxProps = [
 export const pxOrPercentProps = ['width', 'height', 'maxWidth', 'minWidth', 'maxHeight', 'minHeight'];
 export const msProps = ['transitionDuration', 'transitionDelay', 'animationDuration', 'animationDelay'];
 const pxArray = pxProps.map((a) => ({
-    [a]: (v: any) => ({ [a]: px(v) }),
+    [a]: ({value}: any) => ({ [a]: px(value) }),
 }));
 const pxOrPercentArray = pxOrPercentProps.map((a) => ({
-    [a]: (v: any) => ({ [a]: pxOrPercent(v) }),
+    [a]: ({value}: any) => ({ [a]: pxOrPercent(value) }),
 }));
 const msPropsArray = msProps.map((a) => ({
-    [a]: (v: any) => ({ [a]: ms(v) }),
+    [a]: ({value}: any) => ({ [a]: ms(value) }),
 }));
-
-export const rule: Rule<UnitProps, {}, BaseProps> = {
+export const rule: OutRule<UnitNumberProps> = {
     rule: fold(M)(pxArray.concat(pxOrPercentArray).concat(msPropsArray)),
 };
-export {
-    UnitProps
-};
+export type UnitProps= InputOverwrite<UnitNumberProps, BaseProps>;

@@ -31,12 +31,11 @@ import {
     MinWidthProperty,
     MaxHeightProperty,
     MinHeightProperty,
-    BaseProps
-} from '../base/types';
-import {Overwrite} from 'mocoolka-fp/lib/TypeLevel';
 
+} from 'csstype';
+import { BaseProps } from '../css';
 export type PxProps = {
-    backgroundSize ?: BackgroundSizeProperty<number>,
+    backgroundSize?: BackgroundSizeProperty<number>,
     borderBottomWidth?: BorderBottomWidthProperty<number>,
     borderLeftWidth?: BorderLeftWidthProperty<number>,
     borderRadius?: BorderRadiusProperty<number>,
@@ -46,7 +45,7 @@ export type PxProps = {
     bottom?: BottomProperty<number>,
     fontSize?: FontSizeProperty<number>,
     left?: LeftProperty<number>,
-    letterSpacing?: LetterSpacingProperty<number|string>,
+    letterSpacing?: LetterSpacingProperty<number | string>,
     lineHeight?: LineHeightProperty<number>,
     margin?: MarginProperty<number>,
     marginTop?: MarginTopProperty<number>,
@@ -77,10 +76,11 @@ export type PxOrPercents = {
     minHeight?: MinHeightProperty<number>
 };
 export type Ms = {
-    transitionDuration?: BaseProps['transition']|number,
-    transitionDelay?: BaseProps['transitionDelay']|number,
-    animationDuration?: BaseProps['animationDuration']|number,
-    animationDelay?: BaseProps['animationDelay']|number,
+    transitionDuration?: BaseProps['transition'] | number,
+    transitionDelay?: BaseProps['transitionDelay'] | number,
+    animationDuration?: BaseProps['animationDuration'] | number,
+    animationDelay?: BaseProps['animationDelay'] | number,
 };
+export type UnitNumberProps = Ms & PxOrPercents & PxProps;
 // 'transitionDuration' | 'transitionDelay' | 'animationDuration' | 'animationDelay';
-export type UnitProps = Overwrite<BaseProps, Ms&PxOrPercents&PxProps>;
+// export type UnitProps = Overwrite<BaseProps, Ms&PxOrPercents&PxProps>;

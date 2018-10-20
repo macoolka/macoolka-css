@@ -2,8 +2,7 @@
  * Border
  * @prop
  */
-import { UnitProps } from '../../basic';
-import { Rule } from '../../base/rule';
+import { OutRule } from '../../basic';
 export type Theme = {
     width: {
         content: number,
@@ -50,49 +49,49 @@ export type SProps = {
     /**
      * zIndex
      */
-    mkZIndex: 'moon' | 'tooltip' | 'alertDesktop' | 'popup' | 'modal' | 'overlay'
+    mkZIndex?: 'moon' | 'tooltip' | 'alertDesktop' | 'popup' | 'modal' | 'overlay'
     | 'dropdown' | 'alertMobile' | 'nav' | 'bar' | 'base',
     /**
      * The property specifies  the element position is absolute and center in parent.
      */
-    mkAbsoluteCenter: {
+    mkAbsoluteCenter?: {
         width: number,
         height: number,
     },
     /**
      * The property specifies  the element position is absolute and full in parent.
      */
-    mkAbsoluteFull: boolean
+    mkAbsoluteFull?: boolean
 };
 export type EProps = {
     /**
      * scroll bar
      */
-    mkScrollBar: 'horizontal' | 'vertical' | 'both' | 'none';
+    mkScrollBar?: 'horizontal' | 'vertical' | 'both' | 'none';
 
     /**
      * visibility
      */
-    mkVisibility: 'hidden' | 'none' | 'elementInvisible' | 'hiddenWidth' | 'hiddenHeight',
+    mkVisibility?: 'hidden' | 'none' | 'elementInvisible' | 'hiddenWidth' | 'hiddenHeight',
     /**
      * align
      */
-    mkAlign: 'imageCenter' | 'center',
+    mkAlign?: 'imageCenter' | 'center',
     /**
      * layout
      */
-    mkLayout: 'center' | 'column' | 'row' | 'inlineColumn' | 'inlineRow' | 'inlineCenter',
+    mkLayout?: 'center' | 'column' | 'row' | 'inlineColumn' | 'inlineRow' | 'inlineCenter',
     /**
      * position
      */
-    mkPosition: 'fixedLeftTop' | 'fixedRightTop' | 'fixedTop',
+    mkPosition?: 'fixedLeftTop' | 'fixedRightTop' | 'fixedTop',
 
 };
 export type Props = SProps & EProps;
-export const rule: Rule<SProps, EProps, UnitProps, Theme> = {
+export const rule: OutRule<SProps, EProps,  Theme> = {
     rule: {
-        mkZIndex: (value, t) => ({ zIndex: t.zIndex[value] }),
-        mkAbsoluteCenter: ({width, height}) => ({
+        mkZIndex: ({value, theme : t}) => ({ zIndex: t.zIndex[value] }),
+        mkAbsoluteCenter: ({value: {width, height}}) => ({
             position: 'absolute',
             width,
             height,
@@ -104,7 +103,7 @@ export const rule: Rule<SProps, EProps, UnitProps, Theme> = {
             marginBottom: 0,
             marginRight: 0,
         }),
-        mkAbsoluteFull: a => a ? {
+        mkAbsoluteFull: ({value}) => value ? {
             position: 'absolute',
             width: '100%',
             height: '100%',

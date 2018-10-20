@@ -3,8 +3,7 @@
  * Text
  * @prop
  */
-import { UnitProps } from '../../basic';
-import { Rule } from '../../base/rule';
+import { OutRule } from '../../basic';
 import { Theme as ColorTheme, selector } from '../color';
 export type Theme = {
     font: {
@@ -69,74 +68,74 @@ export type SProps = {
     /**
      * fontWeight
      */
-    mkFontWeight: 'thin' | 'light' | 'regular' | 'medium' | 'bold' | 'black',
+    mkFontWeight?: 'thin' | 'light' | 'regular' | 'medium' | 'bold' | 'black',
     /**
      * fontFamily
      */
-    mkFontFamily: 'sansSerif' | 'serif' | 'monospace',
+    mkFontFamily?: 'sansSerif' | 'serif' | 'monospace',
     /**
      * fontSize
      */
-    mkFontSize: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' |
+    mkFontSize?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' |
     'subtitle' | 'p' | 'caption' | 'overline',
     /**
      * noWrap
      */
-    mkTextNoWrap: boolean,
-    mkTextGutterBottom: boolean,
-    mkTextParagraph: boolean,
+    mkTextNoWrap?: boolean,
+    mkTextGutterBottom?: boolean,
+    mkTextParagraph?: boolean,
 
-    mkTextTransform: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | 'inherit',
-    mkTextAlign: 'left' | 'right' | 'center' | 'justify' | 'inherit',
-    mkTextDirection: 'ltr' | 'rtl' | 'inherit',
-    mkTextDecoration: 'none' | 'underline' | 'overline' | 'line-through' | 'inherit',
-    mkTextUnderlined: boolean,
+    mkTextTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | 'inherit',
+    mkTextAlign?: 'left' | 'right' | 'center' | 'justify' | 'inherit',
+    mkTextDirection?: 'ltr' | 'rtl' | 'inherit',
+    mkTextDecoration?: 'none' | 'underline' | 'overline' | 'line-through' | 'inherit',
+    mkTextUnderlined?: boolean,
 };
 export type EProps = {
-    mkTextSemantic: 'em' | 'strong',
+    mkTextSemantic?: 'em' | 'strong',
 };
 export type Props = EProps & SProps;
 
-export const rule: Rule<SProps, EProps, UnitProps, Theme & ColorTheme> = {
+export const rule: OutRule<SProps, EProps,  Theme & ColorTheme> = {
     ruleEnum: {
         mkTextSemantic: {
             em: _ => ({
                     fontStyle: 'italic',
                 } ),
-            strong: t => ({
+            strong: ({theme : t}) => ({
                 fontWeight: t.font.weight.bold,
             }),
         },
     },
     rule: {
-        mkFontSize: (v, t) => ({ fontSize: t.font.size[v] }),
-        mkFontWeight: (v, t) => ({ fontWeight: t.font.weight[v] }),
-        mkFontFamily: (v, t) => ({ fontFamily: t.font.family[v] }),
-        mkTextNoWrap: (a: boolean) => a ? ({
+        mkFontSize: ({value, theme : t}) => ({ fontSize: t.font.size[value] }),
+        mkFontWeight: ({value, theme : t})  => ({ fontWeight: t.font.weight[value] }),
+        mkFontFamily: ({value, theme : t})  => ({ fontFamily: t.font.family[value] }),
+        mkTextNoWrap: ({value})  => value ? ({
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
         }) : {},
-        mkTextGutterBottom: (a: boolean) => a ? ({
+        mkTextGutterBottom: ({value}) => value ? ({
             marginBottom: 20,
         }) : {},
 
-        mkTextParagraph: (a: boolean) => a ? ({
+        mkTextParagraph: ({value}) => value ? ({
             marginBottom: '0.35em',
         }) : {},
-        mkTextAlign: (a) => ({
-            textAlign: a,
+        mkTextAlign: ({value}) => ({
+            textAlign: value,
         }),
-        mkTextTransform: a => ({
-            textTransform: a,
+        mkTextTransform: ({value}) => ({
+            textTransform: value,
         }),
-        mkTextDirection: a => ({
-            direction: a,
+        mkTextDirection: ({value}) => ({
+            direction: value,
         }),
-        mkTextDecoration: a => ({
-            textDecoration: a,
+        mkTextDecoration: ({value}) => ({
+            textDecoration: value,
         }),
-        mkTextUnderlined: (a: boolean, t) => a ? ({
+        mkTextUnderlined: ({value, theme : t}) => value ? ({
             borderBottomStyle: 'dotted',
             borderBottomWidth: 1,
             borderBottomColor: selector.getColorBg()('medium')(t),

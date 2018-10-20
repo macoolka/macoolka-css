@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`parse parse media 1`] = `
-"width: 18px;
-font-size: 12px;
+"font-size: 12px;
+padding: 4px;
 height: 100px;
 @media screen and (max-width: 80em) {
-  width: 24px;
   font-size: 13px;
+  padding: 8px;
 }
 @media screen and (max-width: 93em) {
-  width: 36px;
   font-size: 14px;
+  padding: 16px;
 }
 @media screen and (max-width: 120em) {
-  width: 48px;
   font-size: 15px;
+  padding: 8px;
 }
 &:focus {
   border-width: 1px;
@@ -24,50 +24,42 @@ height: 100px;
 `;
 
 exports[`parse parse stand 1`] = `
-"width: 18px;
+"padding: 4px;
 height: 100px;
 &:focus {
-  width: 24px;
+  padding: 8px;
   height: 200px;
 }"
 `;
 
 exports[`parseJSS parse media 1`] = `
-Object {
-  "fontSize": "12px",
-  "height": "100px",
-  "selector": Object {
-    "&:focus": Object {
-      "backgroundColor": "#009688",
-      "borderWidth": "1px",
-      "color": "#fff",
-    },
-    "@media screen and (max-width: 120em)": Object {
-      "fontSize": "15px",
-      "width": "48px",
-    },
-    "@media screen and (max-width: 80em)": Object {
-      "fontSize": "13px",
-      "width": "24px",
-    },
-    "@media screen and (max-width: 93em)": Object {
-      "fontSize": "14px",
-      "width": "36px",
-    },
-  },
-  "width": "18px",
+"font-size: 12px;
+padding: 4px;
+height: 100px;
+@media screen and (max-width: 80em) {
+  font-size: 13px;
+  padding: 8px;
 }
+@media screen and (max-width: 93em) {
+  font-size: 14px;
+  padding: 16px;
+}
+@media screen and (max-width: 120em) {
+  font-size: 15px;
+  padding-top: 16px;
+}
+&:focus {
+  border-width: 1px;
+  background-color: #009688;
+  color: #fff;
+}"
 `;
 
 exports[`parseJSS parse stand 1`] = `
-Object {
-  "height": "100px",
-  "selector": Object {
-    "&:focus": Object {
-      "height": "200px",
-      "width": "24px",
-    },
-  },
-  "width": "18px",
-}
+"padding: 4px;
+height: 100px;
+&:focus {
+  padding: 8px;
+  height: 200px;
+}"
 `;

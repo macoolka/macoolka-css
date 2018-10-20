@@ -1,5 +1,6 @@
-import { parseUnit } from './';
-const parse = parseUnit({});
+import { rule } from './unit';
+import {parse as _parse} from '../css'
+const parse = _parse(rule,{});
 describe('unit', () => {
     it('parse px', () => {
         expect(parse({})).toEqual({})

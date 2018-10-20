@@ -2,9 +2,9 @@
  * Border
  * @prop
  */
-import { UnitProps } from '../../basic';
-import { Rule } from '../../base/rule';
-import {constant} from 'mocoolka-fp/lib/function';
+import { UnitProps, OutRule } from '../../basic';
+import { constant } from 'mocoolka-fp/lib/function';
+import { Level } from '../types';
 export type Theme = {
     border: {
         shadows: {
@@ -35,11 +35,19 @@ export type Theme = {
             24: string,
 
         },
+        radius: {
+            [key in Level]: number
+        }
     }
+
 };
 export const theme: Theme = {
     border: {
-
+        radius: {
+            small: 2,
+            medium: 4,
+            large: 8,
+        },
         // tslint:disable
         shadows: {
             0: 'none',
@@ -71,32 +79,38 @@ export const theme: Theme = {
         //tslint:enabled
     },
 }
-export type SProps={
-    mkShadow:keyof Theme['border']['shadows'],
-    mkRounded: boolean,
+export type SProps = {
+    mkShadow?: keyof Theme['border']['shadows'],
+    mkRounded?: boolean,
+    mkBorderRadius?: Level,
 }
-export type EProps={
+export type EProps = {
     /**
      * The property specifies border style
      */
-    mkBorder: 'none' | 'bordered' | 'top' | 'bottom' | 'left' |
+    mkBorder?: 'none' | 'bordered' | 'top' | 'bottom' | 'left' |
     'right' | 'topBar' | 'bottomBar' | 'leftBar' | 'rightBar',
+
 }
-export interface Props extends SProps,EProps{
+export interface Props extends SProps, EProps {
 
 };
 
-export const rule: Rule<SProps, EProps, UnitProps,Theme> = {
-    rule:{
-        mkShadow:(a,t)=>({
-            boxShadow: t.border.shadows[a]
+export const rule: OutRule<SProps, EProps, Theme> = {
+    rule: {
+        mkShadow: ({ value, theme }) => ({
+            boxShadow: theme.border.shadows[value]
         }),
-        mkRounded:(a)=>a?{borderRadius: '50%'}:{}
+        mkRounded: ({ value }) => value ? { borderRadius: '50%' } : {},
+        mkBorderRadius: ({ value, theme }) => ({ borderRadius: theme.border.radius[value] }),
+
     },
     ruleEnum: {
+
         mkBorder: {
-            none:constant<UnitProps>({
+            none: constant<UnitProps>({
                 borderWidth: 0,
+                
             }),
             bordered: constant<UnitProps>({
                 borderStyle: 'solid',
@@ -137,4 +151,3 @@ export const rule: Rule<SProps, EProps, UnitProps,Theme> = {
         }
     }
 };
-

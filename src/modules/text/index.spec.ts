@@ -1,7 +1,7 @@
-import { parseUnitRule as _parse} from '../../basic';
+import { parseUnitProp as _parse} from '../../basic';
 import { theme as colorTheme } from '../color';
 import {theme,rule} from './index'
-const parse = _parse(rule)({...theme,...colorTheme});
+const parse = _parse(rule,{...theme,...colorTheme});
 
 describe('text', () => {
     it('parse text', () => {

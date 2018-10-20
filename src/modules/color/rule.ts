@@ -1,6 +1,5 @@
 
-import { UnitProps } from '../../basic/unit';
-import { Rule } from '../../base/rule';
+import { OutRule, UnitProps } from '../../basic';
 import { selector, Theme } from './theme';
 import { Level } from './theme/type';
 import R from 'mocoolka-fp/lib/Record';
@@ -33,75 +32,75 @@ export type EProps = {
     /**
      * text color
      */
-    mkTextColor: TextColor;
+    mkTextColor?: TextColor;
     /**
      * text light color
      */
-    mkTextColorLight: TextColor;
+    mkTextColorLight?: TextColor;
     /**
      * text dark color
      */
-    mkTextColorDark: TextColor;
+    mkTextColorDark?: TextColor;
     /**
      * text palette color
      */
-    mkTextColors: PaletteColor;
+    mkTextColors?: PaletteColor;
     /**
      * text palette light color
      */
-    mkTextColorsLight: PaletteColor;
+    mkTextColorsLight?: PaletteColor;
     /**
      * text palette dark color
      */
-    mkTextColorsDark: PaletteColor;
+    mkTextColorsDark?: PaletteColor;
     /**
      * border color
      */
-    mkBorderColor: BorderColor;
+    mkBorderColor?: BorderColor;
     /**
      * border light color
      */
-    mkBorderColorLight: BorderColor;
+    mkBorderColorLight?: BorderColor;
     /**
      * border dark color
      */
-    mkBorderColorDark: BorderColor;
+    mkBorderColorDark?: BorderColor;
     /**
      * border palette color
      */
-    mkBorderColors: PaletteColor;
+    mkBorderColors?: PaletteColor;
     /**
      * border palette light color
      */
-    mkBorderColorsLight: PaletteColor;
+    mkBorderColorsLight?: PaletteColor;
     /**
      * border palette dark color
      */
-    mkBorderColorsDark: PaletteColor;
+    mkBorderColorsDark?: PaletteColor;
     /**
      * background  color
      */
-    mkColor: Color,
+    mkColor?: Color,
     /**
      * background  light color
      */
-    mkColorLight: Color,
+    mkColorLight?: Color,
     /**
      * background  dark color
      */
-    mkColorDark: Color,
+    mkColorDark?: Color,
     /**
      * background palette color
      */
-    mkColors: PaletteColor,
+    mkColors?: PaletteColor,
     /**
      * background palette light color
      */
-    mkColorsLight: PaletteColor,
+    mkColorsLight?: PaletteColor,
     /**
      * background palette dark color
      */
-    mkColorsDark: PaletteColor,
+    mkColorsDark?: PaletteColor,
 };
 export type SProps = {
 };
@@ -137,41 +136,41 @@ const palette: PaletteColor[] = ['red',
 
 const foldAll = R();
 const paletteList = (level: Level= 'normal') => (propName: string) => foldAll(palette.map(a =>
-    ({[a]:  (t: Theme) => paletteColor(level)(propName)(a)(t)})));
-const bgColor = (a: ((t: Theme) => string)) => (t: Theme) => {
-    const value =  a(t);
+    ({[a]:  ({theme}: {theme: Theme}) => paletteColor(level)(propName)(a)(theme)})));
+const bgColor = (a: ((t: Theme) => string)) => ({theme}: {theme: Theme}) => {
+    const value =  a(theme);
     return ({
         backgroundColor: value,
-        color: selector.getLightOrDarkColor(value)(t),
+        color: selector.getLightOrDarkColor(value)(theme),
     });
 };
-const mapColorText = (level: Level= 'normal'): {[k in  TextColor]: (t: Theme) => UnitProps} => ({
-    main: t => ({
-        color: selector.getColor(level)('main')(t),
+const mapColorText = (level: Level= 'normal'): {[k in  TextColor]: ({theme}: {theme: Theme}) => UnitProps} => ({
+    main: ({theme}) => ({
+        color: selector.getColor(level)('main')(theme),
     }),
-    success: t => ({
-        color: selector.getColor(level)('success')(t),
+    success: ({theme}) => ({
+        color: selector.getColor(level)('success')(theme),
     }),
-    warning: t => ({
-        color: selector.getColor(level)('warning')(t),
+    warning: ({theme}) => ({
+        color: selector.getColor(level)('warning')(theme),
     }),
-    alert: t => ({
-        color: selector.getColor(level)('alert')(t),
+    alert: ({theme}) => ({
+        color: selector.getColor(level)('alert')(theme),
     }),
-    accent: t => ({
-        color: selector.getColorAccent(level)(t),
+    accent: ({theme}) => ({
+        color: selector.getColorAccent(level)(theme),
     }),
-    disabled: t => ({
-        color: selector.getColorText(level)('disabled')(t),
+    disabled: ({theme}) => ({
+        color: selector.getColorText(level)('disabled')(theme),
     }),
-    hint: t => ({
-        color: selector.getColorText(level)('divider')(t),
+    hint: ({theme}) => ({
+        color: selector.getColorText(level)('divider')(theme),
     }),
-    primary: t => ({
-        color: selector.getColorText(level)('primary')(t),
+    primary: ({theme}) => ({
+        color: selector.getColorText(level)('primary')(theme),
     }),
-    secondary: t => ({
-        color: selector.getColorText(level)('secondary')(t),
+    secondary: ({theme}) => ({
+        color: selector.getColorText(level)('secondary')(theme),
     }),
     inherit: _ => ({
         color: 'inherit',
@@ -180,37 +179,37 @@ const mapColorText = (level: Level= 'normal'): {[k in  TextColor]: (t: Theme) =>
         color: 'currentColor',
     }),
 });
-const mapBorderColor = (level: Level= 'normal'): {[k in  BorderColor]: (t: Theme) => UnitProps} => ({
-    main: t => ({
-        borderColor: selector.getColor(level)('main')(t),
+const mapBorderColor = (level: Level= 'normal'): {[k in  BorderColor]: ({theme}: {theme: Theme}) => UnitProps} => ({
+    main: ({theme}) => ({
+        borderColor: selector.getColor(level)('main')(theme),
 
     }),
-    success: t => ({
-        borderColor: selector.getColor(level)('success')(t),
+    success: ({theme}) => ({
+        borderColor: selector.getColor(level)('success')(theme),
     }),
-    warning: t => ({
-        borderColor: selector.getColor(level)('warning')(t),
+    warning: ({theme}) => ({
+        borderColor: selector.getColor(level)('warning')(theme),
     }),
-    alert: t => ({
-        borderColor: selector.getColor(level)('alert')(t),
+    alert: ({theme}) => ({
+        borderColor: selector.getColor(level)('alert')(theme),
     }),
-    accent: t => ({
-        borderColor: selector.getColorAccent(level)(t),
+    accent: ({theme}) => ({
+        borderColor: selector.getColorAccent(level)(theme),
     }),
-    disabled: t => ({
-        borderColor: selector.getColorText(level)('disabled')(t),
+    disabled: ({theme}) => ({
+        borderColor: selector.getColorText(level)('disabled')(theme),
     }),
-    mini: t => ({
-        borderColor: selector.getColorBg(level)('mini')(t),
+    mini: ({theme}) => ({
+        borderColor: selector.getColorBg(level)('mini')(theme),
     }),
-    small: t => ({
-        borderColor: selector.getColorBg(level)('small')(t),
+    small: ({theme}) => ({
+        borderColor: selector.getColorBg(level)('small')(theme),
     }),
-    medium: t => ({
-        borderColor: selector.getColorBg(level)('medium')(t),
+    medium: ({theme}) => ({
+        borderColor: selector.getColorBg(level)('medium')(theme),
     }),
-    large: t => ({
-        borderColor: selector.getColorBg(level)('large')(t),
+    large: ({theme}) => ({
+        borderColor: selector.getColorBg(level)('large')(theme),
     }),
     inherit: _ => ({
         borderColor: 'inherit',
@@ -219,7 +218,7 @@ const mapBorderColor = (level: Level= 'normal'): {[k in  BorderColor]: (t: Theme
         borderColor: 'currentColor',
     }),
 });
-const mapColor = (level: Level= 'normal'): {[k in  Color]: (t: Theme) => UnitProps} => {
+const mapColor = (level: Level= 'normal'): {[k in  Color]: ({theme: t}: {theme: Theme}) => UnitProps} => {
     const getter = selector.getColorBg(level);
     const getterText = selector.getColorText(level);
     const getterColor = selector.getColor(level);
@@ -248,7 +247,7 @@ const mapColor = (level: Level= 'normal'): {[k in  Color]: (t: Theme) => UnitPro
     });
 };
 
-export const rule: Rule<{}, Props, UnitProps, Theme> = {
+export const rule: OutRule<{}, Props,  Theme> = {
     ruleEnum: {
         mkTextColor: mapColorText(),
         mkTextColorLight: mapColorText('light'),

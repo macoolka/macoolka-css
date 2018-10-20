@@ -31,6 +31,7 @@ export const rule: OutRule<SProp, EProp> = {
                width:30,
             },
         },
+        mkMedia:[{width:1,selector:{':hover':{width:10}}},{width:2,selector:{':hover':{width:20}}},{width:3,selector:{':hover':{width:30}}}]
     },
     /**
      * descirbe stand property.
@@ -61,6 +62,7 @@ export const rule: OutRule<SProp, EProp> = {
                        width:10,
                     },
                 },
+                mkMedia:[{width:11,selector:{':hover':{width:110}}},{width:2,selector:{':hover':{width:120}}},{width:13,selector:{':hover':{width:130}}}]
             }),
             medium:()=>({
                 mkFontSize:'h2',
@@ -83,49 +85,8 @@ describe('should parse component rule', () => {
     });
     it('2 should parse common props', () => {
         expect(parse({
-            height:180,
+            size:'small',
         })).toMatchSnapshot()
     });
-    it('3 should parse common props for place rule props', () => {
-        expect(parse({
-            fontSize:30,
-        })).toMatchSnapshot()
-    });
-    it('4 should parse component props for palce default style ', () => {
-        expect(parse({
-            size:'small',
-        })).toMatchSnapshot()
-    }); 
-    it('5 should parse common props and component props using the order base prop>module prop > mix prop>component prop >component default style', () => {
-        expect(parse({
-            fontSize:7,
-            mkFontSize:'p',
-            mkTypography:'h1',
-            size:'small',
-        })).toMatchSnapshot()
-        expect(parse({
-            mkFontSize:'p',
-            mkTypography:'h1',
-            size:'small',
-        })).toMatchSnapshot() 
-        expect(parse({
-            mkFontSize:'overline',
-            size:'small',
-        })).toMatchSnapshot()
-         expect(parse({
-            size:'small',
-        })).toMatchSnapshot()
-        expect(parse({
-        })).toMatchSnapshot() 
-    });
-    it('6 should parse media props', () => {
-        expect(parse({
-            mkMedia:[{mkPadding:'small'},{mkPadding:'medium'}],
-        })).toMatchSnapshot();
-    }); 
-    it('7 should parse media props in rule', () => {
-        expect(parse({
-            size:'medium',
-        })).toMatchSnapshot();
-    });    
+ 
 });
