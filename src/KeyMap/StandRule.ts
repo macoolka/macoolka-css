@@ -8,6 +8,7 @@ import { Getter } from 'mocoolka-fp/lib/Monocle';
 import { isFunction, isEmpty } from 'mocoolka-fp/lib/predicate';
 import { record } from 'mocoolka-fp/lib/Record';
 import {arrayCompareArrayToArray} from 'mocoolka-fp/lib/Compare';
+import {fromNullable} from 'mocoolka-fp/lib/Option';
 export type RuleValue<I extends object, K extends keyof I, T extends object> = {
     value: NonNullable<I[K]>,
     name: K,
@@ -34,7 +35,6 @@ export const parse = <I extends object, O extends object, T extends object>
         const left = leftRight.left as any as StringMap<O>;
 
         const leftMap: StringMap<O>[] = [];
-
         const rightResult = keyMap.chain(leftRight.right, (a, tag) => {
             const ruleValues = pick(a, ruleKeys);
             const orginalValue = omit(a, ruleKeys);
@@ -42,19 +42,24 @@ export const parse = <I extends object, O extends object, T extends object>
             const orginMap = keyMap.of({ [tag]: orginalValue }) as any as StringMap<O>;
             leftMap.push(orginMap);
             mapValues(ruleValues, (value, name) => {
-                const ruleValue = get(rule, name);
-                const r2: SNode<O> = isFunction(ruleValue) ? ruleValue({
-                    value,
-                    name,
-                    theme: themeM,
-                    source: data.value,
-                }) as SNode<O> : ruleValue;
-                const addNameNode: Node<O> = {};
-                const nodeValue = parseSNode(r2);
-                mapValues(nodeValue, (v, key) => {
-                    addNameNode[nameMonoid.concat(tag, key)] = v;
-                });
-                as.push(keyMap.of(addNameNode));
+                fromNullable(value).map(_=>{
+                    const ruleValue = get(rule, name);
+                    const r2: SNode<O> = isFunction(ruleValue) ? ruleValue({
+                        value,
+                        name,
+                        theme: themeM,
+                        source: data.value,
+                    }) as SNode<O> : ruleValue;
+                    const addNameNode: Node<O> = {};
+                    fromNullable(r2).map(_=>{
+                    const nodeValue = parseSNode(r2);
+                    mapValues(nodeValue, (v, key) => {
+                        addNameNode[nameMonoid.concat(tag, key)] = v;
+                    });
+                    as.push(keyMap.of(addNameNode));
+                    })
+                })
+
 
             });
             return mapFold<O>()(as);

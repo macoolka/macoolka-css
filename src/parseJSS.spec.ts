@@ -1,7 +1,13 @@
 
-import {  parse,parseMedia} from '.';
+import {  parse} from '.';
 
 describe('parseJSS', () => {
+    it('parse mkHide', () => {
+        expect(parse({
+            mkHide: ['small'],
+
+        })).toMatchSnapshot();
+    });
     it('parse stand', () => {
         expect(parse({
             mkPadding: 'small',
@@ -15,7 +21,7 @@ describe('parseJSS', () => {
         })).toMatchSnapshot();
     });
     it('parse media', () => {
-        expect(parseMedia({
+        expect(parse({
             height: 100,
             mkMedia: [{
                 mkPadding: 'small',
@@ -51,7 +57,7 @@ describe('parse', () => {
         })).toMatchSnapshot();
     });
     it('parse media', () => {
-        expect(parseMedia({
+        expect(parse({
             height: 100,
             mkMedia: [{
                 mkPadding: 'small',

@@ -132,6 +132,18 @@ describe('FunctionRule', () => {
         })
 
     })
+    it('parse with undefined', () => {
+        const value: SNode<Input<P, P1>> = {
+
+            color1: undefined,
+        }
+        const beginMap = fromEnity( value )
+        const parseRule = parse(rule, {});
+        const result = parseRule.get(beginMap);
+        expect(result.data.value).toEqual({'':{}
+        })
+
+    })
     it('parse compose rule', () => {
         const beginMap = fromEnity( p2 )
         const parseRule1 = parse(rule1, {});

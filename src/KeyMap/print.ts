@@ -4,7 +4,7 @@
  * @getter
  */
 import { indent } from 'mocoolka-fp/lib/format';
-import {  SNode } from './Node';
+import {  PNode } from './Node';
 // import { CssSelector} from './CssSelector';
 import { toPairs, omit } from 'mocoolka-fp/lib/object';
 import { Getter } from 'mocoolka-fp/lib/Monocle';
@@ -21,11 +21,15 @@ const printProperty = (i: number) => ([name, value]: [string, any]): string =>
 const printSelectorNode = (i: number) =>
     <T>([name, prop]: [string, T]): string =>
         `${indent(i)}${printName(name)}${SPACE}{${CRLF}${printProperties(i + 1)(prop)}${CRLF}${indent(i)}}`;
-
+const printMediaNode = (i: number) =>
+        <T extends object>([name, prop]: [string,[string,T][]]): string =>
+            `${indent(i)}${printName(name)}${SPACE}{${CRLF}${printSelector(i + 1)(prop)}${CRLF}${indent(i)}}`;
 const printProperties = (i: number) => <T>(a: T): string => toPairs(a as {}).map(printProperty(i)).join(CRLF);
 const printSelector = (i: number) =>
-    <T extends object>(a: SNode<T>): string => toPairs(a).map(printSelectorNode(i)).join(CRLF);
-const printNode = (i: number) => <T extends object> (node: SNode<T>) => {
+    <T extends object>(a: [string,T][]): string => a.map(printSelectorNode(i)).join(CRLF);
+const printMedia = (i: number) =>
+    <T extends object>(a: [string,[string,T][]][]): string => a.map(printMediaNode(i)).join(CRLF);
+const printNode = (i: number) => <T extends object> (node: PNode<T>) => {
     const result = '';
 
   /*      const prop= omit(node,'selector');
@@ -34,8 +38,9 @@ const printNode = (i: number) => <T extends object> (node: SNode<T>) => {
        printProperties(i)(prop):printProperties(i+1)({[`${selector}`]:prop}) */
       // result+=printProperties(i)(propC):`${CRLF}${printSelector(i)(selector)}`
 
-    return `${printProperties(i)(omit(node, 'selector'))}${fromNullable(node.selector).
-        map(a => `${CRLF}${printSelector(i)(a)}`).getOrElse('')}`;
+    return `${printProperties(i)(omit(node, ['selector','media']))}${fromNullable(node.selector).
+        map(a => `${CRLF}${printSelector(i)(a)}`).getOrElse('')}${fromNullable(node.media).
+            map(a => `${CRLF}${printMedia(i)(a)}`).getOrElse('')}`;
 
     return result;
 /*    return `${printProperties(i)(lensA.props.get(node))}${lensA.selector.getOption(node).
@@ -43,5 +48,5 @@ const printNode = (i: number) => <T extends object> (node: SNode<T>) => {
 };
 
 // export const printCss = (i: number = 0) => (css: CommonCss) => toPairs(css).map(printCssNode(i)).join(CRLF);
-export const nodeToStringGetter = <T extends object>(i: number = 0) => new Getter<SNode<T>, string>(printNode(i));
+export const nodeToStringGetter = <T extends object>(i: number = 0) => new Getter<PNode<T>, string>(printNode(i));
 export const toString = nodeToStringGetter(0).get;

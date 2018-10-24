@@ -13,5 +13,17 @@ $:focus {
   color: blue;
   margin-top: 2px;
   margin-left: 3px;
+}
+@media screen and (max-width: 120em) {
+  $:hover {
+    color: red;
+    margin-top: 20px;
+    margin-left: 21px;
+  }
+  $:focus {
+    color: blue;
+    margin-top: 2px;
+    margin-left: 3px;
+  }
 }"
 `;

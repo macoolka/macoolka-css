@@ -1,5 +1,6 @@
 import { parseUnitProp as _parse} from '../../basic';
-import {theme,rule} from './index'
+import {rule} from './index'
+import {theme} from '../index'
 const parse = _parse(rule,theme);
 describe('box', () => {
 
@@ -41,6 +42,40 @@ describe('box', () => {
         });
 
     })
+    it('parse mkElementHeight', () => {
+        expect(parse({
+            mkElementHeight: 'large',
+        })).toEqual({
+            "height": theme.box.element.large+'px'
+        });
+        expect(parse({
+            mkElementHeight: 'medium',
+        })).toEqual({
+            "height": theme.box.element.medium+'px'
+        });
+        expect(parse({
+            mkElementHeight: 'small',
+        })).toEqual({
+            "height": theme.box.element.small+'px'
+        });
+    })
+    it('parse mkContainerHeight', () => {
+        expect(parse({
+            mkContainerHeight: 'large',
+        })).toEqual({
+            "height": theme.box.container.large+'px'
+        });
+        expect(parse({
+            mkContainerHeight: 'medium',
+        })).toEqual({
+            "height": theme.box.container.medium+'px'
+        });
+        expect(parse({
+            mkContainerHeight: 'small',
+        })).toEqual({
+            "height": theme.box.container.small+'px'
+        });
+    })
     it('parse mkSquare',()=>{
         expect(parse({
             mkSquare: 'full',
@@ -66,27 +101,62 @@ describe('box', () => {
         })).toEqual({
             width: '100%',
         });
+    })
+    it('parse mkContentWidth', () => {
         expect(parse({
-            mkWidth: 'content',
+            mkContentWidth: 'large',
         })).toEqual({
-            "width": theme.box.width.content+'px'
+            "width": theme.box.width.content.large+'px'
         });
         expect(parse({
-            mkWidth: 'nav',
+            mkContentWidth: 'nav',
         })).toEqual({
-            "width": theme.box.width.nav+'px'
+            "width": theme.box.width.content.nav+'px'
         });
         expect(parse({
-            mkWidth: 'gutter',
+            mkContentWidth: 'medium',
         })).toEqual({
-            "width": theme.box.width.gutter+'px'
+            "width": theme.box.width.content.medium+'px'
         });
         expect(parse({
-            mkWidth: 'third',
+            mkContentWidth: 'small',
         })).toEqual({
-            "width": theme.box.width.third+'px'
+            "width": theme.box.width.content.small+'px'
         });
-       
+    })
+    it('parse mkElementWidth', () => {
+        expect(parse({
+            mkElementWidth: 'large',
+        })).toEqual({
+            "width": theme.box.element.large+'px'
+        });
+        expect(parse({
+            mkElementWidth: 'medium',
+        })).toEqual({
+            "width": theme.box.element.medium+'px'
+        });
+        expect(parse({
+            mkElementWidth: 'small',
+        })).toEqual({
+            "width": theme.box.element.small+'px'
+        });
+    })
+    it('parse mkContainerWidth', () => {
+        expect(parse({
+            mkContainerWidth: 'large',
+        })).toEqual({
+            "width": theme.box.container.large+'px'
+        });
+        expect(parse({
+            mkContainerWidth: 'medium',
+        })).toEqual({
+            "width": theme.box.container.medium+'px'
+        });
+        expect(parse({
+            mkContainerWidth: 'small',
+        })).toEqual({
+            "width": theme.box.container.small+'px'
+        });
     })
     it('parse mkMinWidth', () => {
         expect(parse({
@@ -98,26 +168,6 @@ describe('box', () => {
             mkMinWidth: 'full',
         })).toEqual({
             minWidth: '100%',
-        });
-        expect(parse({
-            mkMinWidth: 'content',
-        })).toEqual({
-            "minWidth": theme.box.width.content+'px'
-        });
-        expect(parse({
-            mkMinWidth: 'nav',
-        })).toEqual({
-            "minWidth": theme.box.width.nav+'px'
-        });
-        expect(parse({
-            mkMinWidth: 'gutter',
-        })).toEqual({
-            "minWidth": theme.box.width.gutter+'px'
-        });
-        expect(parse({
-            mkMinWidth: 'third',
-        })).toEqual({
-            "minWidth": theme.box.width.third+'px'
         });
         
     })
@@ -132,26 +182,7 @@ describe('box', () => {
         })).toEqual({
             maxWidth: '100%',
         });
-        expect(parse({
-            mkMaxWidth: 'content',
-        })).toEqual({
-            "maxWidth": theme.box.width.content+'px'
-        });
-        expect(parse({
-            mkMaxWidth: 'nav',
-        })).toEqual({
-            "maxWidth": theme.box.width.nav+'px'
-        });
-        expect(parse({
-            mkMaxWidth: 'gutter',
-        })).toEqual({
-            "maxWidth": theme.box.width.gutter+'px'
-        });
-        expect(parse({
-            mkMaxWidth: 'third',
-        })).toEqual({
-            "maxWidth": theme.box.width.third+'px'
-        });
+
         
     })
     it('parse padding margin single', () => {
@@ -167,16 +198,31 @@ describe('box', () => {
             mkPaddingLeft: 'small',
             mkPaddingRight:'small',
         })).toEqual({
-            "margin": "4px",
-            "marginBottom": "4px",
-            "marginLeft": "4px",
-            "marginRight": "4px",
-            "marginTop": "4px",
-            "padding": "4px",
-            "paddingBottom": "4px",
-            "paddingLeft": "4px",
-            "paddingRight": "4px",
-            "paddingTop": "4px",
+            "margin": "8px",
+            "marginBottom": "8px",
+            "marginLeft": "8px",
+            "marginRight": "8px",
+            "marginTop": "8px",
+            "padding": "8px",
+            "paddingBottom": "8px",
+            "paddingLeft": "8px",
+            "paddingRight": "8px",
+            "paddingTop": "8px",
+        });
+    })
+    it('parse margin gutter', () => {
+        expect(parse({
+            mkMarginGutter: 'small',
+            mkMarginGutterTop: 'small',
+            mkMarginGutterBottom: 'small',
+            mkMarginGutterLeft: 'small',
+            mkMarginGutterRight: 'small',
+        })).toEqual({
+            "margin": "20px",
+            "marginBottom": "20px",
+            "marginLeft": "20px",
+            "marginRight": "20px",
+            "marginTop": "20px",
         });
     })
     it('parse padding margin  x y', () => {
@@ -186,10 +232,10 @@ describe('box', () => {
             mkPaddingH:'small',
             mkPaddingV: 'small',
         })).toEqual({
-            "marginLeft": "8px", "marginRight": "8px",
-            "marginTop": "4px",
-            "marginBottom": "4px",
-            "paddingBottom": "4px", "paddingLeft": "4px", "paddingRight": "4px", "paddingTop": "4px"
+            "marginLeft": "16px", "marginRight": "16px",
+            "marginTop": "8px",
+            "marginBottom": "8px",
+            "paddingBottom": "8px", "paddingLeft": "8px", "paddingRight": "8px", "paddingTop": "8px"
         });
     })
     it('parse padding margin  x y', () => {

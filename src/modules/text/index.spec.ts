@@ -1,6 +1,7 @@
 import { parseUnitProp as _parse} from '../../basic';
 import { theme as colorTheme } from '../color';
-import {theme,rule} from './index'
+import {rule} from './index'
+import {theme} from '../index'
 const parse = _parse(rule,{...theme,...colorTheme});
 
 describe('text', () => {
@@ -27,20 +28,13 @@ describe('text', () => {
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
         });
-        expect(parse({
-            mkTextGutterBottom: true,
-        })).toEqual({
-            marginBottom: '20px',
-        });
+
         expect(parse({
             mkTextNoWrap: false,
         })).toEqual({
           
         });
-        expect(parse({
-            mkTextGutterBottom: false,
-        })).toEqual({
-        });
+
         expect(parse({
             mkTextParagraph: true,
         })).toEqual({

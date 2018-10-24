@@ -1,5 +1,5 @@
 
-import { OutRule,OutProps, parseMediaRule,theme } from '.';
+import { OutRule,OutProps, parseRule,theme } from '.';
 
 /**
  * Enum Properties's value using string or number,
@@ -77,7 +77,7 @@ export const rule: OutRule<SProp, EProp> = {
         },
     },
 };
-export const parse = parseMediaRule(rule,theme);
+export const parse = parseRule(rule,theme);
 describe('should parse component rule', () => {
     it('1 should parse empty props', () => {
         expect(parse({

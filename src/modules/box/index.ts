@@ -2,21 +2,23 @@
  * convert number type to px or precent
  * @getter
  */
-import { OutRule } from '../../basic';
-import {Level} from '../types';
+import { OutRule ,OutTheme} from '../../basic';
+import {Level,LevelNode} from '../types';
 import { Lens } from 'mocoolka-fp/lib/Monocle';
-type Width = {
-    content: number,
-    gutter: number;
+import { constant } from 'mocoolka-fp/lib/function';
+type ContentWith=LevelNode&{
     nav: number;
-    third: number;
+}
+type Width = {
+    content:ContentWith,
 };
 
 type Box = {
     width: Width,
-    space: {
-       [key in Level] : number
-    }
+    space:LevelNode,
+    gutter: LevelNode,
+    container:LevelNode,
+    element:LevelNode,
 };
 export type Theme = {
     box: Box
@@ -24,115 +26,188 @@ export type Theme = {
 };
 const box = Lens.fromProp<Theme, 'box'>('box');
 const width = Lens.fromProp<Box, 'width'>('width');
-
-const content = Lens.fromProp<Width, 'content'>('content');
-const gutter = Lens.fromProp<Width, 'gutter'>('gutter');
-const nav = Lens.fromProp<Width, 'nav'>('nav');
-const third = Lens.fromProp<Width, 'third'>('third');
-
-const contentTheme = box.compose(width).compose(content);
-const gutterTheme = box.compose(width).compose(gutter);
-const navTheme = box.compose(width).compose(nav);
-const thirdTheme = box.compose(width).compose(third);
-
+const gutter = box.compose(Lens.fromProp<Box, 'gutter'>('gutter'));
+const space = box.compose(Lens.fromProp<Box, 'space'>('space'));
+const content = box.compose(width).compose(Lens.fromProp<Width, 'content'>('content'));
+const element = box.compose(Lens.fromProp<Box, 'element'>('element'));
+const container = box.compose(Lens.fromProp<Box, 'container'>('container'));
 export const theme: Theme = {
     box: {
         width: {
-            content: 1160,
-            gutter: 40,
-            nav: 256,
-            third: 355,
+            content: {
+                large: 1160,
+                medium:750,
+                small:350,
+                nav: 256,
+                none:0,
+            },
+        },
+
+        container:{
+            large: 480,
+            medium:360,
+            small:210,
+            none:0,
+        },
+        element:{
+            large: 64,
+            medium:48,
+            small:32,
+            none:0,
+        },
+        gutter: {
+            small: 20,
+            medium: 40,
+            large: 60,
+            none:0,
         },
         space: {
-            small: 4,
-            medium: 8,
-            large: 16,
+            small: 8,
+            medium: 16,
+            large: 24,
+            none:0,
         },
 
     },
 
 };
-type SUnit = Level;
-export type SProps = {
+
+export interface SProps  {
     /**
      * The property is used to setting the margin properties in one declaration
      */
-    mkMargin?: SUnit,
+    mkMargin?: Level,
     /**
      * The property is used to setting the top margin of an element.
      */
-    mkMarginTop?: SUnit,
+    mkMarginTop?: Level,
     /**
      * The property is used to setting the bottom margin of an element.
      */
-    mkMarginBottom?: SUnit,
+    mkMarginBottom?: Level,
     /**
      * The property is used to setting the left margin of an element.
      */
-    mkMarginLeft?: SUnit,
+    mkMarginLeft?: Level,
     /**
      * The property is used to setting the right margin of an element.
      */
-    mkMarginRight?: SUnit,
+    mkMarginRight?: Level,
     /**
      * The property is used to setting the x margin of an element.
      */
-    mkMarginH?: SUnit,
+    mkMarginH?: Level,
     /**
      * The property is used to setting the y margin of an element.
      */
-    mkMarginV?: SUnit,
+    mkMarginV?: Level,
+       /**
+     * The property is used to setting the margin properties in one declaration
+     */
+    mkMarginGutter?: Level,
+    /**
+     * The property is used to setting the top margin of an element.
+     */
+    mkMarginGutterTop?: Level,
+    /**
+     * The property is used to setting the bottom margin of an element.
+     */
+    mkMarginGutterBottom?: Level,
+    /**
+     * The property is used to setting the left margin of an element.
+     */
+    mkMarginGutterLeft?: Level,
+    /**
+     * The property is used to setting the right margin of an element.
+     */
+    mkMarginGutterRight?: Level,
+    /**
+     * The property is used to setting the x margin of an element.
+     */
+    mkMarginGutterH?: Level,
+    /**
+     * The property is used to setting the y margin of an element.
+     */
+    mkMarginGutterV?: Level,
     /**
      * The property is used to setting the padding of an element.
      */
-    mkPadding?: SUnit,
+    mkPaddingGutter?: Level,
     /**
      * The property is used to setting the top padding of an element.
      */
-    mkPaddingTop?: SUnit,
+    mkPaddingGutterTop?: Level,
     /**
      * The property is used to setting the bottom padding of an element.
      */
-    mkPaddingBottom?: SUnit,
+    mkPaddingGutterBottom?: Level,
     /**
      * The property is used to setting the left padding of an element.
      */
-    mkPaddingLeft?: SUnit,
+    mkPaddingGutterLeft?: Level,
     /**
      * The property is used to setting the right padding of an element.
      */
-    mkPaddingRight?: SUnit,
+    mkPaddingGutterRight?: Level,
     /**
      * The property is used to setting the x padding of an element.
      */
-    mkPaddingH?: SUnit,
+    mkPaddingGutterH?: Level,
     /**
      * The property is used to setting the y padding of an element.
      */
-    mkPaddingV?: SUnit,
-
+    mkPaddingGutterV?: Level,
+    /**
+     * The property is used to setting the padding of an element.
+     */
+    mkPadding?: Level,
+    /**
+     * The property is used to setting the top padding of an element.
+     */
+    mkPaddingTop?: Level,
+    /**
+     * The property is used to setting the bottom padding of an element.
+     */
+    mkPaddingBottom?: Level,
+    /**
+     * The property is used to setting the left padding of an element.
+     */
+    mkPaddingLeft?: Level,
+    /**
+     * The property is used to setting the right padding of an element.
+     */
+    mkPaddingRight?: Level,
+    /**
+     * The property is used to setting the x padding of an element.
+     */
+    mkPaddingH?: Level,
+    /**
+     * The property is used to setting the y padding of an element.
+     */
+    mkPaddingV?: Level,
     mkSquare?: 'full' | 'fullScreen' | number,
     marginH?: number | string,
     marginV?: number | string,
     paddingH?: number | string,
     paddingV?: number | string,
+    mkContentWidth?:Level|'nav';
+    mkContainerWidth?:Level;
+    mkElementWidth?:Level;
+    mkElementHeight?:Level;
+    mkContainerHeight?:Level;
 
 };
-export type EProps = {
-    mkWidth?: 'full' | 'fullScreen' | 'content' | 'nav' | 'gutter'
-    | 'third'
-    mkMinWidth?: 'full' | 'fullScreen' | 'content' | 'nav' | 'gutter'
-    | 'third'
-    mkMaxWidth?: 'full' | 'fullScreen' | 'content' | 'nav'
-    | 'gutter' | 'third'
-    mkHeight?: 'full' | 'fullScreen'
-    mkMinHeight?: 'full' | 'fullScreen'
-    mkMaxHeight?: 'full' | 'fullScreen',
-
+export interface EProps {
+    mkWidth?: 'full' | 'fullScreen' |'none' |'inherit',
+    mkMinWidth?: 'full' | 'fullScreen'  |'none' |'inherit',
+    mkMaxWidth?: 'full' | 'fullScreen'  |'none' |'inherit',
+    mkHeight?: 'full' | 'fullScreen'|'none' |'inherit',
+    mkMinHeight?: 'full' | 'fullScreen'|'none' |'inherit',
+    mkMaxHeight?: 'full' | 'fullScreen'|'none' |'inherit',
 };
 export type Props = EProps & SProps;
 export const mapProps = <T>(name: keyof T) => <P>({ value }: { value: P }) => ({ name: value });
-export const rule: OutRule<SProps, EProps, Theme> = {
+export const rule: OutRule<SProps, EProps, OutTheme<Theme>> = {
     rule: {
         marginH: ({value}) => ({
             marginLeft: value,
@@ -154,159 +229,285 @@ export const rule: OutRule<SProps, EProps, Theme> = {
          * The property is used to setting the margin properties in one declaration
          */
         mkMargin: ({ value, theme : t }) => ({
-            margin: t.box.space[value],
+            margin: space.get(t)[value],
         }),
         /**
          * The property is used to setting the top margin of an element.
          */
         mkMarginTop: ({ value, theme : t }) => ({
-            marginTop: t.box.space[value],
+            marginTop: space.get(t)[value],
         }),
         /**
          * The property is used to setting the bottom margin of an element.
          */
         mkMarginBottom: ({ value, theme : t }) => ({
-            marginBottom: t.box.space[value],
+            marginBottom: space.get(t)[value],
         }),
         /**
          * The property is used to setting the left margin of an element.
          */
         mkMarginLeft: ({ value , theme : t }) => ({
-            marginLeft: t.box.space[value],
+            marginLeft: space.get(t)[value],
         }),
         /**
          * The property is used to setting the right margin of an element.
          */
         mkMarginRight: ({ value , theme : t }) => ({
-            marginRight: t.box.space[value],
+            marginRight: space.get(t)[value],
         }),
         /**
          * The property is used to setting the x margin of an element.
          */
         mkMarginH: ({ value, theme : t  }) => ({
-            marginLeft: t.box.space[value],
-            marginRight: t.box.space[value],
+            marginLeft: space.get(t)[value],
+            marginRight: space.get(t)[value],
         }),
         /**
          * The property is used to setting the y margin of an element.
          */
         mkMarginV: ({ value, theme : t  }) => ({
-            marginTop: t.box.space[value],
-            marginBottom: t.box.space[value],
+            marginTop: space.get(t)[value],
+            marginBottom: space.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the margin properties in one declaration
+         */
+        mkMarginGutter: ({ value, theme : t }) => ({
+            margin: gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the top margin of an element.
+         */
+        mkMarginGutterTop: ({ value, theme : t }) => ({
+            marginTop: gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the bottom margin of an element.
+         */
+        mkMarginGutterBottom: ({ value, theme : t }) => ({
+            marginBottom: gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the left margin of an element.
+         */
+        mkMarginGutterLeft: ({ value , theme : t }) => ({
+            marginLeft: gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the right margin of an element.
+         */
+        mkMarginGutterRight: ({ value , theme : t }) => ({
+            marginRight: gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the x margin of an element.
+         */
+        mkMarginGutterH: ({ value, theme : t  }) => ({
+            marginLeft: gutter.get(t)[value],
+            marginRight: gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the y margin of an element.
+         */
+        mkMarginGutterV: ({ value, theme : t  }) => ({
+            marginTop: gutter.get(t)[value],
+            marginBottom: gutter.get(t)[value],
         }),
         /**
          * The property is used to setting the padding of an element.
          */
         mkPadding: ({ value, theme : t  }) => ({
-            padding: t.box.space[value],
+            padding: space.get(t)[value],
         }),
         /**
          * The property is used to setting the top padding of an element.
          */
         mkPaddingTop: ({ value , theme : t }) => ({
-            paddingTop: t.box.space[value],
+            paddingTop: space.get(t)[value],
         }),
         /**
          * The property is used to setting the bottom padding of an element.
          */
         mkPaddingBottom: ({ value, theme : t  }) => ({
-            paddingBottom: t.box.space[value],
+            paddingBottom:space.get(t)[value],
         }),
         /**
          * The property is used to setting the left padding of an element.
          */
         mkPaddingLeft: ({ value, theme : t  }) => ({
-            paddingLeft: t.box.space[value],
+            paddingLeft:space.get(t)[value],
         }),
         /**
          * The property is used to setting the right padding of an element.
          */
         mkPaddingRight: ({ value , theme : t }) => ({
-            paddingRight: t.box.space[value],
+            paddingRight: space.get(t)[value],
         }),
         /**
          * The property is used to setting the x padding of an element.
          */
         mkPaddingH: ({ value, theme : t  }) => ({
-            paddingLeft: t.box.space[value],
-            paddingRight: t.box.space[value],
+            paddingLeft: space.get(t)[value],
+            paddingRight: space.get(t)[value],
         }),
         /**
          * The property is used to setting the y padding of an element.
          */
         mkPaddingV: ({ value , theme : t }) => ({
-            paddingTop: t.box.space[value],
-            paddingBottom: t.box.space[value],
+            paddingTop: space.get(t)[value],
+            paddingBottom:space.get(t)[value],
+        }),
+         /**
+         * The property is used to setting the padding of an element.
+         */
+        mkPaddingGutter: ({ value, theme : t  }) => ({
+            padding: gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the top padding of an element.
+         */
+        mkPaddingGutterTop: ({ value , theme : t }) => ({
+            paddingTop: gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the bottom padding of an element.
+         */
+        mkPaddingGutterBottom: ({ value, theme : t  }) => ({
+            paddingBottom:gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the left padding of an element.
+         */
+        mkPaddingGutterLeft: ({ value, theme : t  }) => ({
+            paddingLeft:gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the right padding of an element.
+         */
+        mkPaddingGutterRight: ({ value , theme : t }) => ({
+            paddingRight: gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the x padding of an element.
+         */
+        mkPaddingGutterH: ({ value, theme : t  }) => ({
+            paddingLeft: gutter.get(t)[value],
+            paddingRight: gutter.get(t)[value],
+        }),
+        /**
+         * The property is used to setting the y padding of an element.
+         */
+        mkPaddingGutterV: ({ value , theme : t }) => ({
+            paddingTop: gutter.get(t)[value],
+            paddingBottom:gutter.get(t)[value],
         }),
         mkSquare: ({ value }) =>
             value === 'full' ?
-                { width: '100%', height: '100%' } :
+                { width: 1, height: 1 } :value === 'full' ?{ width: '100vw', height: '100vh' }:
                 { width: value, height: value }
         ,
+        mkContentWidth:({ value , theme : t }) => ({
+            width: content.get(t)[value],
+        }),
+        mkContainerWidth:({ value , theme : t }) => ({
+            width: container.get(t)[value],
+        }),
+        mkElementWidth:({ value , theme : t }) => ({
+            width: element.get(t)[value],
+        }),
+        mkElementHeight:({ value , theme : t }) => ({
+            height: element.get(t)[value],
+        }),
+        mkContainerHeight:({ value , theme : t }) => ({
+            height: container.get(t)[value],
+        }),
     },
     ruleEnum: {
         mkWidth: {
-            fullScreen: _ => ({
+            fullScreen:constant( {
                 width: '100vw',
             }),
-            full: _ => ({
-                width: '100%',
+            full:constant ({
+                width: 1,
             }),
-            content: ({ theme : t }) => ({ width: contentTheme.get(t) }),
-            nav: ({ theme : t }) => ({ width: navTheme.get(t) }),
-            gutter: ({ theme : t }) => ({ width: gutterTheme.get(t) }),
-            third: ({ theme : t }) => ({ width: thirdTheme.get(t) }),
+            none:constant ({
+                width: 0,
+            }),
+            inherit:constant({
+                width: 'inherit',
+            }),
 
         },
         mkMinWidth: {
-            fullScreen: _ => ({
+            fullScreen: constant ({
                 minWidth: '100vw',
             }),
-            full: _ => ({
-                minWidth: '100%',
+            full: constant({
+                minWidth: 1,
             }),
-            content: ({ theme : t }) => ({ minWidth: contentTheme.get(t) }),
-            nav: ({ theme : t }) => ({ minWidth: navTheme.get(t) }),
-            gutter: ({ theme : t }) => ({ minWidth: gutterTheme.get(t) }),
-            third: ({ theme : t }) => ({ minWidth: thirdTheme.get(t) }),
-
+            none: constant({
+                minWidth: 0,
+            }),
+            inherit: constant({
+                minWidth: 'inherit',
+            }),
         },
         mkMaxWidth: {
-            fullScreen: _ => ({
+            fullScreen: constant({
                 maxWidth: '100vw',
             }),
-            full: _ => ({
+            full: constant ({
                 maxWidth: '100%',
             }),
-            content: ({ theme : t }) => ({ maxWidth: contentTheme.get(t) }),
-            nav: ({ theme : t }) => ({ maxWidth: navTheme.get(t) }),
-            gutter: ({ theme : t }) => ({ maxWidth: gutterTheme.get(t) }),
-            third: ({ theme : t }) => ({ maxWidth: thirdTheme.get(t) }),
+            none: constant({
+                maxWidth: 0,
+            }),
+            inherit: constant({
+                maxWidth: 'inherit',
+            }),
         },
         mkHeight: {
-            fullScreen: _ => ({
+            fullScreen:constant({
                 height: '100vh',
             }),
-            full: _ => ({
+            full:constant ({
                 height: '100%',
+            }),
+            none:constant({
+                height: 0,
+            }),
+            inherit:constant({
+                height: 'inherit',
             }),
 
         },
         mkMaxHeight: {
-            fullScreen: _ => ({
+            fullScreen: constant({
                 maxHeight: '100vh',
             }),
-            full: _ => ({
+            full: constant({
                 maxHeight: '100%',
+            }),
+            none:constant ({
+                maxHeight: 0,
+            }),
+            inherit:constant({
+                maxHeight: 'inherit',
             }),
 
         },
         mkMinHeight: {
-            fullScreen: _ => ({
+            fullScreen: constant({
                 minHeight: '100vh',
             }),
-            full: _ => ({
+            full: constant({
                 minHeight: '100%',
+            }),
+            none: constant({
+                minHeight: 0,
+            }),
+            inherit:constant({
+                minHeight: 'inherit',
             }),
 
         },

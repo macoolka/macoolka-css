@@ -1,5 +1,6 @@
 import { parseUnitProp as _parse} from '../../basic';
-import {theme,rule} from './index'
+import {theme} from '../index'
+import {rule} from './index'
 const parse = _parse(rule,theme);
 
 describe('container', () => {
@@ -18,28 +19,29 @@ describe('container', () => {
         });
 
         expect(parse({
-            mkVisibility: 'none',
+            mkVisible: 'none',
         })).toEqual({
             display: 'none',
             visibility: 'hidden',
         });
         expect(parse({
-            mkAlign: 'center',
+            mkBlock: 'center',
         })).toEqual({
             margin: 'auto',
         });
         expect(parse({
-            mkLayout: 'row',
+            mkFlex: 'row',
         })).toEqual({
             "alignItems": "center",
             display: 'flex',
         });
         expect(parse({
-            mkPosition: 'fixedRightTop',
+            mkFixed: 'right',
         })).toEqual({
             position: 'fixed',
-            top: '0',
-            right: '0',
+            top: '0px',
+            right: '0px',
+            bottom: '0px',
         });
     })
     describe('should parse absolute', () => {
@@ -58,7 +60,7 @@ describe('container', () => {
             });
         });
         it('should parse mkAbsoluteCenter', () => {
-            expect(parse({ mkAbsoluteFull: true })).toEqual({ 
+            expect(parse({ mkAbsolute: 'full' })).toEqual({ 
                 position: 'absolute',
                 width: '100%',
                 height: '100%',

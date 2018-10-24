@@ -97,7 +97,7 @@ export const large = Lens.fromPath<TBaseColors, 'background', 'large'>(['backgro
 
 export const lightThemeLens = Lens.fromPath<ColorTheme, 'color', 'light'>(['color', 'light']);
 export const darkThemeLens = Lens.fromPath<ColorTheme, 'color', 'dark'>(['color', 'dark']);
-
+export const typeThemeLens = Lens.fromPath<ColorTheme, 'color', 'type'>(['color', 'type']);
 type ColorTheme = ColorPaletteTheme & {
   color: {
     light: TBaseColors,

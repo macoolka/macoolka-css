@@ -402,6 +402,7 @@ describe('FunctionRule', () => {
             '': {color:'red',"width": 2},
         })
     })
+
 })
 
 

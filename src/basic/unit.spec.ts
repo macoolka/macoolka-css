@@ -1,6 +1,5 @@
-import { rule } from './unit';
-import {parse as _parse} from '../css'
-const parse = _parse(rule,{});
+import {parseJss} from '../index'
+const parse = parseJss;
 describe('unit', () => {
     it('parse px', () => {
         expect(parse({})).toEqual({})
@@ -33,7 +32,7 @@ describe('unit', () => {
     it('parse ms', () => {
         expect(parse({ transitionDuration: 1, transitionDelay: 2, animationDuration: 3, animationDelay: 4})).
             toEqual({ transitionDuration: '1ms', transitionDelay: '2ms', animationDuration: '3ms', animationDelay: '4ms'})
-            expect(parse({ transitionDuration: '1ms', transitionDelay: '2ms', animationDuration: '3ms', animationDelay: '4ms'})).
+        expect(parse({ transitionDuration: '1ms', transitionDelay: '2ms', animationDuration: '3ms', animationDelay: '4ms'})).
             toEqual({ transitionDuration: '1ms', transitionDelay: '2ms', animationDuration: '3ms', animationDelay: '4ms'})
     })
 

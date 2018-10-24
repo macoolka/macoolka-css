@@ -14,7 +14,6 @@ describe('Rule', () => {
         const rule: Rule<{ A?: number }, {B?:'B1'|'B2'}, BaseProps,{color:string}> = {
             rule: {
                 A: ({value,theme}) => {
-                    console.log(value)
                     return ({ width: value + 1 ,color:theme.color})
                 },
             },

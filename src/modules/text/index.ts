@@ -3,7 +3,7 @@
  * Text
  * @prop
  */
-import { OutRule } from '../../basic';
+import { OutRule,OutTheme } from '../../basic';
 import { Theme as ColorTheme, selector } from '../color';
 export type Theme = {
     font: {
@@ -63,7 +63,7 @@ export const theme: Theme = {
         },
     },
 };
-export type SProps = {
+export interface SProps  {
 
     /**
      * fontWeight
@@ -82,7 +82,6 @@ export type SProps = {
      * noWrap
      */
     mkTextNoWrap?: boolean,
-    mkTextGutterBottom?: boolean,
     mkTextParagraph?: boolean,
 
     mkTextTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | 'inherit',
@@ -91,19 +90,19 @@ export type SProps = {
     mkTextDecoration?: 'none' | 'underline' | 'overline' | 'line-through' | 'inherit',
     mkTextUnderlined?: boolean,
 };
-export type EProps = {
+export interface EProps  {
     mkTextSemantic?: 'em' | 'strong',
 };
 export type Props = EProps & SProps;
 
-export const rule: OutRule<SProps, EProps,  Theme & ColorTheme> = {
+export const rule: OutRule<SProps, EProps,  OutTheme<Theme & ColorTheme>> = {
     ruleEnum: {
         mkTextSemantic: {
-            em: _ => ({
+            em:{
                     fontStyle: 'italic',
-                } ),
-            strong: ({theme : t}) => ({
-                fontWeight: t.font.weight.bold,
+                },
+            strong:({theme}:{theme:Theme})=> ({
+                fontWeight:theme.font.weight.bold
             }),
         },
     },
@@ -115,9 +114,6 @@ export const rule: OutRule<SProps, EProps,  Theme & ColorTheme> = {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-        }) : {},
-        mkTextGutterBottom: ({value}) => value ? ({
-            marginBottom: 20,
         }) : {},
 
         mkTextParagraph: ({value}) => value ? ({

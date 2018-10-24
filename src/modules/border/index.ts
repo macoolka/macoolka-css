@@ -2,7 +2,7 @@
  * Border
  * @prop
  */
-import { UnitProps, OutRule } from '../../basic';
+import { UnitProps, OutRule ,OutTheme} from '../../basic';
 import { constant } from 'mocoolka-fp/lib/function';
 import { Level } from '../types';
 export type Theme = {
@@ -44,6 +44,7 @@ export type Theme = {
 export const theme: Theme = {
     border: {
         radius: {
+            none:0,
             small: 2,
             medium: 4,
             large: 8,
@@ -79,12 +80,12 @@ export const theme: Theme = {
         //tslint:enabled
     },
 }
-export type SProps = {
+export interface SProps {
     mkShadow?: keyof Theme['border']['shadows'],
     mkRounded?: boolean,
     mkBorderRadius?: Level,
 }
-export type EProps = {
+export interface EProps  {
     /**
      * The property specifies border style
      */
@@ -94,9 +95,9 @@ export type EProps = {
 }
 export interface Props extends SProps, EProps {
 
-};
+}
 
-export const rule: OutRule<SProps, EProps, Theme> = {
+export const rule: OutRule<SProps, EProps, OutTheme<Theme>> = {
     rule: {
         mkShadow: ({ value, theme }) => ({
             boxShadow: theme.border.shadows[value]

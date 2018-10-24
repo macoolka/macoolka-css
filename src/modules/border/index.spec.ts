@@ -1,4 +1,5 @@
-import {theme,rule}from './index';
+import {rule} from './index'
+import {theme} from '../index'
 import { parseUnitProp as _parse} from '../../basic';
 const parse = _parse(rule,theme);
 describe('parse Border', () => {

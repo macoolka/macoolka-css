@@ -5,9 +5,9 @@
  */
 import {  Theme, OutRule } from '../../modules';
 
-export type SProps = {
+export interface SProps  {
 };
-export type EProps = {
+export interface EProps  {
     /**
      * typography
      */
@@ -15,12 +15,14 @@ export type EProps = {
     'subtitle1' | 'subtitle2' | 'body1' | 'body2' | 'caption' | 'button' | 'overline'
 
 };
-export type Props = EProps & SProps;
+export interface Props extends EProps ,SProps{
+    
+}
 
 export const rule: OutRule<SProps, EProps,  Theme> = {
     ruleEnum: {
        mkTypography: {
-            h1: _ => ({
+            h1: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'light',
                 letterSpacing: '-.01562em',
@@ -30,7 +32,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textTransform: 'inherit',
 
             }),
-            h2: _ => ({
+            h2: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'light',
                 mkFontSize: 'h2',
@@ -40,7 +42,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textTransform: 'inherit',
 
             }),
-            h3: _ => ({
+            h3: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'h3',
@@ -49,7 +51,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
             }),
-            h4: _ => ({
+            h4: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'h4',
@@ -58,7 +60,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
             }),
-            h5: _ => ({
+            h5: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'h5',
@@ -67,7 +69,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
             }),
-            h6: _ => ({
+            h6: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'medium',
                 mkFontSize: 'h6',
@@ -76,7 +78,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
             }),
-            subtitle1: _ => ({
+            subtitle1: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'subtitle',
@@ -85,7 +87,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
             }),
-            subtitle2: _ => ({
+            subtitle2: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'medium',
                 mkFontSize: 'p',
@@ -95,7 +97,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textTransform: 'inherit',
 
             }),
-            body1: _ => ({
+            body1: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'medium',
                 mkFontSize: 'subtitle',
@@ -105,7 +107,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textTransform: 'inherit',
 
             }),
-            body2: _ => ({
+            body2: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'p',
@@ -115,7 +117,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textTransform: 'inherit',
 
             }),
-            button: _ => ({
+            button: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'medium',
                 mkFontSize: 'p',
@@ -124,7 +126,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textDecoration: 'none',
                 textTransform: 'uppercase',
             }),
-            caption: _ => ({
+            caption: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'regular',
                 mkFontSize: 'caption',
@@ -133,7 +135,7 @@ export const rule: OutRule<SProps, EProps,  Theme> = {
                 textDecoration: 'inherit',
                 textTransform: 'inherit',
             }),
-            overline: _ => ({
+            overline: () => ({
                 mkFontFamily: 'sansSerif',
                 mkFontWeight: 'medium',
                 mkFontSize: 'overline',

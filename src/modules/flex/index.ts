@@ -2,7 +2,7 @@
  * convert number type to px or precent
  * @getter
  */
-import { OutRule, UnitProps } from '../../basic';
+import { OutRule, UnitProps ,OutTheme} from '../../basic';
 import {foldRule} from '../../css';
 export type FlexContainerProps = {
     /**
@@ -105,4 +105,4 @@ export const flexItemRule: OutRule<FlexItemProps, {}> = {
         }),
     },
 };
-export const rule = foldRule<Props, {}, UnitProps>()([flexContainerRule, flexItemRule]) ;
+export const rule = foldRule<Props, {}, UnitProps,OutTheme<{}>>()([flexContainerRule, flexItemRule]) ;

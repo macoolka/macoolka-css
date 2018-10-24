@@ -5,7 +5,7 @@
  */
 import {  Theme, OutRule } from '../../modules';
 import { PaletteColor, TextColor, Color, BorderColor } from '../../modules/color/rule';
-export type SProps = {
+export interface SProps {
 
     /**
      * hover using text color
@@ -59,10 +59,12 @@ export type SProps = {
     mkHoverBorderColorsToDark?: PaletteColor,
 
 };
-export type EProps = {
+export interface EProps {
 
 };
-export type Props = EProps & SProps;
+export interface Props extends EProps ,SProps{
+
+}
 export const rule: OutRule<SProps, EProps,  Theme> = {
     ruleEnum: {
 

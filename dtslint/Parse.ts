@@ -1,53 +1,55 @@
 
-import { Rule,OutputProps,parseRuleJSS,theme } from '../src';
+import { OutRule,OutProps,parseRuleJSS,theme } from '../src';
 /**
  * convert number type to px or precent
  * @getter
  */
 export type EProp = {
-    size: 'small' | 'medium' | 'large' | 'xlarge'
+    size?: 'small' | 'medium' | 'large' | 'xlarge',
+    disabled?: boolean
 };
 export type SProp = {
-    disabled: boolean
+    disabled?: boolean
 };
 
-export type Props = OutputProps<EProp & SProp>;
+export type Props = OutProps<EProp & SProp>;
 
-export const rule: Rule<SProp, EProp> = {
+export const rule: OutRule<SProp, EProp> = {
     style: {
-        mkMargin: 16,
+        mkMargin: 'small',
         color:'red',
         selector: {
             '&:focus': {
-                mkMargin: 12,
+                mkMargin: 'small',
             },
         },
     },
     rule: {
-        disabled: (a: boolean) => ({
-            mkMargin: 16,
-        }),
+        disabled:{
+            mkMargin: 'small',
+        },
     },
     ruleEnum: {
         size: {
             small: {
-                mkMargin: 2,
+                mkMargin: 'small',
                 mkTextColor:'main',
             },
             medium: {
-                mkMargin: 4,
+                mkMargin: 'small',
             },
             large: {
-                mkMargin: 6,
+                mkMargin: 'small',
             },
             xlarge: {
-                mkMargin: 8,
+                mkMargin: 'small',
             },
         },
+
     },
 };
 
-const parse = parseRuleJSS(rule)(theme);
+const parse = parseRuleJSS(rule,theme);
 
 describe('icon', () => {
     it('parse icon', () => {
@@ -62,10 +64,10 @@ describe('icon', () => {
         })).toEqual({color:'red',margin:'16px', "selector": {"&:focus": {"margin": "12px"}}});
         expect(parse({
             size: 'small',
-            mkMargin:8
+            mkMargin:'small'
         })).toEqual({color: "#009688",margin:'8px', "selector": {"&:focus": {"margin": "12px"}}});
         expect(parse({
-            mkMargin:8
+            mkMargin:'small'
         })).toEqual({color:'red',margin:'8px', "selector": {"&:focus": {"margin": "12px"}}});       
     })
 

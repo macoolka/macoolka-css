@@ -1,5 +1,5 @@
 
-import { OutRule, UnitProps } from '../../basic';
+import { OutRule, UnitProps ,OutTheme} from '../../basic';
 import { selector, Theme } from './theme';
 import { Level } from './theme/type';
 import R from 'mocoolka-fp/lib/Record';
@@ -28,7 +28,7 @@ export type TextColor= MainColor|StateColor|MonoColor|EmColor | 'inherit'|'curre
 export type BorderColor= MainColor|StateColor| 'mini' | 'small' | 'medium' | 'large'|EmColor| 'inherit'|'currentColor';
 export type Color= 'body' | 'surface' | 'divider' | 'mini' | 'small' | 'medium' | 'large'
 | 'transparent' | 'inherit' | MainColor | EmColor|'currentColor';
-export type EProps = {
+export interface EProps {
     /**
      * text color
      */
@@ -247,7 +247,7 @@ const mapColor = (level: Level= 'normal'): {[k in  Color]: ({theme: t}: {theme: 
     });
 };
 
-export const rule: OutRule<{}, Props,  Theme> = {
+export const rule: OutRule<{}, EProps,  OutTheme<Theme>> = {
     ruleEnum: {
         mkTextColor: mapColorText(),
         mkTextColorLight: mapColorText('light'),

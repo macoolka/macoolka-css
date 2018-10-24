@@ -1,32 +1,31 @@
 
-import { parseJSS, theme,parse } from '../src/';
-const parseJ = parseJSS(theme);
-const parseS = parse(theme);
+import { parseJss, parse } from '../src/';
+
 describe('parseJSS', () => {
     it('parse stand', () => {
-        expect(parseJ({
-            mkWidth: 'small',
+        expect(parseJss({
+            mkWidth: 'full',
             height: 100,
             selector: {
                 '&:focus': {
-                    mkWidth: 'medium',
+                    mkWidth: 'full',
                     height: 200,
                 }
             }
         })).toMatchSnapshot();
     });
     it('parse media', () => {
-        expect(parseJ({
+        expect(parseJss({
             height: 100,
             mkMedia: [{
-                mkWidth: 'small',
+                mkWidth: 'full',
                 fontSize: 12
             }, {
-                mkWidth: 'medium', fontSize: 13
+                mkWidth: 'full', fontSize: 13
             }, {
-                mkWidth: 'large', fontSize: 14
+                mkWidth: 'full', fontSize: 14
             }, {
-                mkWidth: 'xlarge', fontSize: 15
+                mkWidth: 'full', fontSize: 15
             }],
             selector: {
                 '&:focus': {
@@ -40,29 +39,29 @@ describe('parseJSS', () => {
 });
 describe('parse', () => {
     it('parse stand', () => {
-        expect(parseS({
-            mkWidth: 'small',
+        expect(parse({
+            mkWidth: 'full',
             height: 100,
             selector: {
                 '&:focus': {
-                    mkWidth: 'medium',
+                    mkWidth: 'full',
                     height: 200,
                 }
             }
         })).toMatchSnapshot();
     });
     it('parse media', () => {
-        expect(parseS({
+        expect(parse({
             height: 100,
             mkMedia: [{
-                mkWidth: 'small',
+                mkWidth: 'full',
                 fontSize: 12
             }, {
-                mkWidth: 'medium', fontSize: 13
+                mkWidth: 'full', fontSize: 13
             }, {
-                mkWidth: 'large', fontSize: 14
+                mkWidth: 'full', fontSize: 14
             }, {
-                mkWidth: 'xlarge', fontSize: 15
+                mkWidth: 'full', fontSize: 15
             }],
             selector: {
                 '&:focus': {

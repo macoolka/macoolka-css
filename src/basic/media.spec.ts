@@ -1,34 +1,86 @@
-import { theme,rule,Theme } from './media';
-import {parse as _parse,BaseProps} from '../css'
-const parse = _parse(rule<BaseProps,Theme>(),theme);
+import { theme, parseRule } from '../'
+const parse = parseRule({}, theme);
 
 
 describe('unit', () => {
     it('parse to object', () => {
-        expect(parse({})).toEqual({})
-        expect(parse({ mkMedia: [{ width: '10px' }, { width: '100%' }, { width: '300px' }] })).
-            toEqual({
-                "selector": {
-                    "@media screen and (max-width: 80em)":
-                        { "width": "100%" },
-                    "@media screen and (max-width: 93em)":
-                        { "width": "300px" }
+        expect(parse({})).toEqual('\n\n')
+        expect(parse({
+            color: 'red',
+            selector: { 'focus': { height: '12px' } },
+            mkMedia: [{ width: '10px' }, { mkWidth: 'full' }, { width: '300px' }, { width: '700' }, { width: '800' }]
+        })).
+            toEqual(
+                `color: red;
+focus {
+  height: 12px;
+}
+@media screen and (max-width: 120em) {
+  width: 700;
+}
+@media screen and (max-width: 93em) {
+  width: 300px;
+}
+@media screen and (max-width: 80em) {
+  width: 100%;
+}
+@media screen and (max-width: 50em) {
+  width: 10px;
+}
+`
+            )
+        expect(parse({
+            color: 'red',
+            selector: {
+                'focus':
+                {
+                    height: '12px',
+                }
+            },
+            mkMedia: [{
+                width: '10px',
+                selector: {
+                    ':focus':{
+                        height: '1px',
+                    }
                 },
-                "width": "10px"
-            })
-            expect(parse({ selector:{'focus':{height:'12px'}},
-            mkMedia: [{ width: '10px' }, { width: '100%' }, { width: '300px' }] })).
-            toEqual({
-                "selector": {
-                    focus:{
-                        height:'12px'
-                    },
-                    "@media screen and (max-width: 80em)":
-                        { "width": "100%" },
-                    "@media screen and (max-width: 93em)":
-                        { "width": "300px" }
+
+            }, { 
+                mkWidth: 'full',
+                selector: {
+                    ':focus':{
+                        height: '2px',
+                    }
                 },
-                "width": "10px"
-            })
+            }, { width: '300px' }, { width: '700' }, { width: '800' }]
+        })).
+            toEqual(
+`color: red;
+focus {
+  height: 12px;
+}
+@media screen and (max-width: 120em) {
+  width: 700;
+}
+@media screen and (max-width: 93em) {
+  width: 300px;
+}
+@media screen and (max-width: 80em) {
+  width: 100%;
+}
+@media screen and (max-width: 50em) {
+  width: 10px;
+}
+@media screen and (max-width: 80em) {
+  :focus {
+    height: 2px;
+  }
+}
+@media screen and (max-width: 50em) {
+  :focus {
+    height: 1px;
+  }
+}`
+            )
     })
 })

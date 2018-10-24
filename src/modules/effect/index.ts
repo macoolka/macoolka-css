@@ -3,7 +3,7 @@
  * Border
  * @prop
  */
-import { OutRule } from '../../basic';
+import { OutRule ,UnitProps,OutTheme} from '../../basic';
 import { isString } from 'mocoolka-fp/lib/predicate';
 import { fromPredicate } from 'mocoolka-fp/lib/Either';
 import { Animations } from './animations';
@@ -114,7 +114,7 @@ export const theme: Theme = {
     },
 }
 
-export type SProps = {
+export interface SProps  {
 
     /**
      * rotate
@@ -135,7 +135,7 @@ export type SProps = {
     };
     mkShadow?: keyof Theme['effect']['shadows'],
 };
-export type EProps = {
+export interface EProps  {
     /**
      * flip
      */
@@ -144,15 +144,15 @@ export type EProps = {
 
 };
 export type Props = EProps & SProps;
-export const rule: OutRule<SProps, EProps,  Theme> = {
+export const rule: OutRule<SProps, EProps,  OutTheme<Theme>> = {
     ruleEnum: {
         mkFlip: {
-            horizontal: a=>a?({
+            horizontal:{
                 transform: 'scale(-1, 1)',
-            }):{},
-            vertical: a=>a?({
+            } as UnitProps,
+            vertical: {
                 transform: 'scale(1, -1)',
-            }):{},
+            }as UnitProps,
         }
     },
     rule: {

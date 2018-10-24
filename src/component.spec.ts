@@ -1,6 +1,6 @@
 
-import { OutRule,OutProps, parseMediaRule,theme } from '.';
-
+import { OutRule,OutProps, parseRule,theme,typeThemeLens } from '.';
+const darkTheme=typeThemeLens.set('dark')(theme);
 /**
  * Enum Properties's value using string or number,
  * The tag 'ruleEnum' in rule describe the property style
@@ -53,15 +53,6 @@ export const rule: OutRule<SProp, EProp> = {
      */
     ruleEnum: {
         size: {
-            small: ()=>({
-                mkFontSize:'h1',
-                mkHoverTextColor:'accent',
-                selector: {
-                    ':focus': {
-                       width:10,
-                    },
-                },
-            }),
             medium:()=>({
                 mkFontSize:'h2',
                 mkMedia:[{mkPadding:'small'},{mkPadding:'medium'}],
@@ -71,11 +62,34 @@ export const rule: OutRule<SProp, EProp> = {
                     },
                 },
             }),
+            small: ()=>({
+                mkFontSize:'h1',
+                mkHoverTextColor:'accent',
+                selector: {
+                    ':focus': {
+                       width:10,
+                    },
+                },
+            }),
+
 
         },
     },
 };
-export const parse = parseMediaRule(rule,theme);
+export const parse = parseRule(rule,theme);
+export const parseDark = parseRule(rule,darkTheme);
+describe('should parse theme', () => {
+    it('should parse light theme', () => {
+        expect(parse({
+            mkColor:'main',
+        })).toMatchSnapshot()
+    });
+    it('should parse dark theme', () => {
+        expect(parseDark({
+            mkColor:'main',
+        })).toMatchSnapshot()
+    });
+});
 describe('should parse component rule', () => {
     it('1 should parse empty props', () => {
         expect(parse({

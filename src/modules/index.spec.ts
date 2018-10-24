@@ -15,7 +15,7 @@ describe('parse Border', () => {
     });
     it('with height',()=>{
         expect(parse({
-            mkWidth: 'content',
+            mkContentWidth: 'large',
         })).toEqual({
             width: '1160px'
         });
@@ -65,28 +65,29 @@ describe('parse Border', () => {
         });
 
         expect(parse({
-            mkVisibility: 'none',
+            mkVisible: 'none',
         })).toEqual({
             display: 'none',
             visibility: 'hidden',
         });
         expect(parse({
-            mkAlign: 'center',
+            mkBlock: 'center',
         })).toEqual({
             margin: 'auto',
         });
         expect(parse({
-            mkLayout: 'row',
+            mkFlex: 'row',
         })).toEqual({
             alignItems:'center',
             display: 'flex',
         });
         expect(parse({
-            mkPosition: 'fixedRightTop',
+            mkFixed: 'right',
         })).toEqual({
             position: 'fixed',
-            top: '0',
-            right: '0',
+            top: '0px',
+            right: '0px',
+            bottom:'0px'
         });
     })
     it('parse effect', () => {

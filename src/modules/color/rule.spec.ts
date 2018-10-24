@@ -1,5 +1,6 @@
 import { parseUnitProp as _parse} from '../../basic';
-import {theme,rule} from './index'
+import {rule} from './index'
+import {theme} from '../index'
 const parse = _parse(rule,theme);
 
 describe('parse color', () => {

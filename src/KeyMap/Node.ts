@@ -1,6 +1,6 @@
 import { omit } from 'mocoolka-fp/lib/object';
 import { fromNullable } from 'mocoolka-fp/lib/Option';
-import { mapValues } from 'mocoolka-fp/lib/object';
+import { mapValues,toPairs } from 'mocoolka-fp/lib/object';
 import { record } from 'mocoolka-fp/lib/Record';
 import { fold as _fold } from 'mocoolka-fp/lib/Monoid';
 export type Node<T extends object = never> = { [key: string]: T };
@@ -9,6 +9,15 @@ export type SNode<T extends object> = T & {
         [key in string]: SNode<T>
     }
 };
+export type PNode<T extends object> = T & {
+    selector?: [string,SNode<T>][],
+    media?:[string,[string,SNode<T>][]][],
+};
+export const getPNode=<T extends object>(a:SNode<T>):PNode<T>=>{
+   const props= omit(a,'selector');
+   const selector=a.selector?toPairs(a.selector):[];
+   return Object.assign({},props,{selector});
+}
 export const getMonoid = <T extends object>() => record<Node<T>>();
 export const fold = <T extends object>() => _fold(getMonoid<T>());
 export const parseSNode = <T extends object>(a: SNode<T>): Node<T> => {
