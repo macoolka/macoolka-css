@@ -6,9 +6,14 @@
 
 语法
 ```js
-{
- mkMedia: [{ width: '10px' }, { mkWidth: 'full' }, { width: '300px' }, { width: '700' }, { width: '800' }]
-}
+
+ mkMedia: [
+   { width: '10px' },
+   { width: '300px' },
+   { width: '700' },
+   { width: '800' }
+ ]
+
 ```
 生成
 

@@ -1,5 +1,5 @@
 
-import { OutRule,OutProps,parseRuleJSS,theme } from '../src';
+import { OutRule,OutProps,parseRuleJss,theme } from '../src';
 /**
  * convert number type to px or precent
  * @getter
@@ -49,7 +49,7 @@ export const rule: OutRule<SProp, EProp> = {
     },
 };
 
-const parse = parseRuleJSS(rule,theme);
+const parse = parseRuleJss(rule,theme);
 
 describe('icon', () => {
     it('parse icon', () => {

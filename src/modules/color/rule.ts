@@ -3,6 +3,40 @@ import { OutRule, UnitProps ,OutTheme} from '../../basic';
 import { selector, Theme } from './theme';
 import { Level } from './theme/type';
 import R from 'mocoolka-fp/lib/Record';
+/**
+# Color Property
+
+The define text color,background color and border color.
+
+The color value be define in theme.
+
+Jss color={value} | backgroundColor={value} | borderColor={value}
+
+mkColor define text color and background color.
+
+ * @mk
+ * @memberof common
+ * @name color
+ * @title Color Property
+ */
+
+ /**
+# 颜色属性
+
+定义文本、背景、边框的的颜色
+
+颜色具体值定义在方案中。
+
+等价于 color={value} | backgroundColor={value} | borderColor={value}
+
+mkColor 同时定义本文颜色和背景颜色。其中文本颜色会自动根据当前背景颜色亮度赋值
+
+@language cn
+@title 颜色属性
+  */
+export interface Props extends EProps,SProps{
+    
+}
 export type PaletteColor = 'red' |
     'pink' |
     'purple' |
@@ -32,79 +66,151 @@ export interface EProps {
     /**
      * text color
      */
+    /**
+     * 文本颜色
+     * @language cn
+     */
     mkTextColor?: TextColor;
     /**
      * text light color
+     */
+    /**
+     * 文本颜色(更亮)
+     * @language cn
      */
     mkTextColorLight?: TextColor;
     /**
      * text dark color
      */
+    /**
+     * 文本颜色(更暗)
+     * @language cn
+     */
     mkTextColorDark?: TextColor;
     /**
      * text palette color
+     */
+    /**
+     * 调色板颜色
+     * @language cn
      */
     mkTextColors?: PaletteColor;
     /**
      * text palette light color
      */
+    /**
+     * 调色板文本颜色(更亮)
+     * @language cn
+     */
     mkTextColorsLight?: PaletteColor;
     /**
      * text palette dark color
+     */
+    /**
+     * 调色板文本颜色(更暗)
+     * @language cn
      */
     mkTextColorsDark?: PaletteColor;
     /**
      * border color
      */
+    /**
+     * 边框颜色
+     * @language cn
+     */
     mkBorderColor?: BorderColor;
     /**
      * border light color
+     */
+    /**
+     * 边框颜色(更亮)
+     * @language cn
      */
     mkBorderColorLight?: BorderColor;
     /**
      * border dark color
      */
+    /**
+     * 边框颜色(更暗)
+     * @language cn
+     */
     mkBorderColorDark?: BorderColor;
     /**
      * border palette color
+     */
+    /**
+     * 调色板边框颜色
+     * @language cn
      */
     mkBorderColors?: PaletteColor;
     /**
      * border palette light color
      */
+    /**
+     * 调色板边框颜色(更亮)
+     * @language cn
+     */
     mkBorderColorsLight?: PaletteColor;
     /**
      * border palette dark color
+     */
+    /**
+     * 调色板边框颜色(更暗)
+     * @language cn
      */
     mkBorderColorsDark?: PaletteColor;
     /**
      * background  color
      */
+    /**
+     * 背景颜色
+     * @language cn
+     */
     mkColor?: Color,
     /**
      * background  light color
+     */
+    /**
+     * 背景颜色(更亮)
+     * @language cn
      */
     mkColorLight?: Color,
     /**
      * background  dark color
      */
+    /**
+     * 背景颜色(更暗)
+     * @language cn
+     */
     mkColorDark?: Color,
     /**
      * background palette color
+     */
+    /**
+     * 调色板背景颜色
+     * @language cn
      */
     mkColors?: PaletteColor,
     /**
      * background palette light color
      */
+    /**
+     * 调色板背景颜色(更亮)
+     * @language cn
+     */
     mkColorsLight?: PaletteColor,
     /**
      * background palette dark color
      */
+    /**
+     * 调色板背景颜色(更暗)
+     * @language cn
+     */
     mkColorsDark?: PaletteColor,
 };
-export type SProps = {
+export interface SProps {
 };
-export type Props= EProps&SProps;
+
 const paletteColor = (level: Level) => (propName: string) => (colorName: PaletteColor) => (t: Theme) => {
     const result = selector.getPColorPaletteType(level)(colorName)(t);
     if (propName === 'backgroundColor') {

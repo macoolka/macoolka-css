@@ -1,8 +1,4 @@
 
-/**
- * Text
- * @prop
- */
 import { OutRule,OutTheme } from '../../basic';
 import { Theme as ColorTheme, selector } from '../color';
 export type Theme = {
@@ -66,45 +62,65 @@ export const theme: Theme = {
 export interface SProps  {
 
     /**
-     * fontWeight
+     * font weight
      */
     mkFontWeight?: 'thin' | 'light' | 'regular' | 'medium' | 'bold' | 'black',
     /**
-     * fontFamily
+     * font family
      */
     mkFontFamily?: 'sansSerif' | 'serif' | 'monospace',
     /**
-     * fontSize
+     * font size
      */
     mkFontSize?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' |
     'subtitle' | 'p' | 'caption' | 'overline',
     /**
-     * noWrap
+     * text wrap
      */
     mkTextNoWrap?: boolean,
-    mkTextParagraph?: boolean,
-
+    /**
+     * text transform
+     */
     mkTextTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | 'inherit',
+    /**
+     * text align
+     */
     mkTextAlign?: 'left' | 'right' | 'center' | 'justify' | 'inherit',
+    /**
+     * text direction
+     */
     mkTextDirection?: 'ltr' | 'rtl' | 'inherit',
+    /**
+     * text decoration
+     */
     mkTextDecoration?: 'none' | 'underline' | 'overline' | 'line-through' | 'inherit',
+    /**
+     * text underline
+     */
     mkTextUnderlined?: boolean,
+    /**
+     * text with strong style
+     */
+    mkTextStrong?:boolean,
+    /**
+     * text with italic style
+     */
+    mkTextItalic?:boolean,
 };
 export interface EProps  {
-    mkTextSemantic?: 'em' | 'strong',
+
 };
-export type Props = EProps & SProps;
+/**
+ * Text properties
+ * @commonProps
+ */
+export interface Props extends EProps ,SProps{
+
+}
 
 export const rule: OutRule<SProps, EProps,  OutTheme<Theme & ColorTheme>> = {
     ruleEnum: {
-        mkTextSemantic: {
-            em:{
-                    fontStyle: 'italic',
-                },
-            strong:({theme}:{theme:Theme})=> ({
-                fontWeight:theme.font.weight.bold
-            }),
-        },
+
     },
     rule: {
         mkFontSize: ({value, theme : t}) => ({ fontSize: t.font.size[value] }),
@@ -116,9 +132,6 @@ export const rule: OutRule<SProps, EProps,  OutTheme<Theme & ColorTheme>> = {
             whiteSpace: 'nowrap',
         }) : {},
 
-        mkTextParagraph: ({value}) => value ? ({
-            marginBottom: '0.35em',
-        }) : {},
         mkTextAlign: ({value}) => ({
             textAlign: value,
         }),
@@ -136,6 +149,12 @@ export const rule: OutRule<SProps, EProps,  OutTheme<Theme & ColorTheme>> = {
             borderBottomWidth: 1,
             borderBottomColor: selector.getColorBg()('medium')(t),
         }) : {},
+        mkTextStrong:({value,theme}) => value?({
+            fontWeight:theme.font.weight.bold
+        }):({}),
+        mkTextItalic:({value}) => value?({
+            fontStyle: 'italic',
+        }):({}),
     },
 };
 

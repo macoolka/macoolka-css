@@ -16,17 +16,17 @@ export interface EProps  {
 
 };
 export interface Props extends EProps , SProps{
-    
+
 }
 
 export const rule: OutRule<SProps, EProps,  Theme> = {
     rule: {
         mkHide: ({value})=>({
            mkMedia:[
-               fromPredicate(arrayCompare.contains('small'))(value).map(_=>({mkVisible:'hidden'} as ModuleProps)).getOrElse({}),
-               fromPredicate(arrayCompare.contains('medium'))(value).map(_=>({mkVisible:'hidden'} as ModuleProps)).getOrElse({}),
-               fromPredicate(arrayCompare.contains('large'))(value).map(_=>({mkVisible:'hidden'} as ModuleProps)).getOrElse({}),
-               fromPredicate(arrayCompare.contains('xLarge'))(value).map(_=>({mkVisible:'hidden'} as ModuleProps)).getOrElse({}),
+               fromPredicate(arrayCompare.contains('small'))(value).map(_=>({mkVisible:'hidden'} as ModuleProps)).getOrElse({mkVisible:'visible'}),
+               fromPredicate(arrayCompare.contains('medium'))(value).map(_=>({mkVisible:'hidden'} as ModuleProps)).getOrElse({mkVisible:'visible'}),
+               fromPredicate(arrayCompare.contains('large'))(value).map(_=>({mkVisible:'hidden'} as ModuleProps)).getOrElse({mkVisible:'visible'}),
+               fromPredicate(arrayCompare.contains('xLarge'))(value).map(_=>({mkVisible:'hidden'} as ModuleProps)).getOrElse({mkVisible:'visible'}),
             ] 
         }),
     },

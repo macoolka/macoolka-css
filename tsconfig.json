@@ -31,7 +31,7 @@
     ]
   },
   "include": [
-    "src/**/*",
+    "src/**/*", "../mocoolka-ast/src/types.ts", "docs/fs.ts", "docs/fs.spec.ts", "../mocoolka-ast/src/ts/tests/a.ts",
   ],
   "exclude": [
     "node_modules",

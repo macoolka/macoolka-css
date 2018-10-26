@@ -7,6 +7,7 @@
   "author": "fastspeeed@gmail.com",
   "scripts": {
     "reinstall": "rm -rf node_modules/ && yarn install",
+    "md":"ts ../mocoolka-ast/src/md ",
     "clean": "rm -rf lib/ es5-module/ jsnext/",
     "lint": "tslint -p './tsconfig.json'",
     "lint:fix": "tslint -p ./tsconfig.json --fix ",
@@ -22,13 +23,14 @@
   "dependencies": {
     "@ctrl/tinycolor": "^2.2.1",
     "mocoolka-fp": "^0.1.20"
-    
   },
   "devDependencies": {
     "@types/jest": "^23.3.2",
     "csstype": "^2.5.7",
     "dtslint": "^0.3.0",
     "jest": "^23.6.0",
+    "mocoolka-ast": "^0.1.1",
+    "mocoolka-fs": "^0.1.10",
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.1",
     "tslint": "^5.11.0",

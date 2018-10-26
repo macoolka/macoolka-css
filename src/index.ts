@@ -1,7 +1,7 @@
 
 import {
     parse, Props, Theme, theme, parseJss,
-    OutProps, parseRuleJSS, 
+    OutProps, parseRuleJss, 
      parseRule, parseRuleMap, OutRule, 
 
 } from './mix';
@@ -27,11 +27,11 @@ export {
     parseToString,
 
     parseRule,
-    parseRuleJSS,
+    parseRuleJss,
 
     parseRuleMap,
 
     parse,
     parseJss,
-
+    MediaInput,
 };

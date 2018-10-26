@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fs parse to object 1`] = `
+Array [
+  Object {
+    "fileName": "EnumRule.spec",
+    "name": ".EnumRule.spec",
+    "path": "KeyMap/EnumRule.spec.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/EnumRule.spec.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "EnumRule",
+    "name": ".EnumRule",
+    "path": "KeyMap/EnumRule.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/EnumRule.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "index",
+    "name": ".index",
+    "path": "KeyMap/index.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/index.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "KeyMap.spec",
+    "name": ".KeyMap.spec",
+    "path": "KeyMap/KeyMap.spec.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/KeyMap.spec.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "KeyMap",
+    "name": ".KeyMap",
+    "path": "KeyMap/KeyMap.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/KeyMap.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "Node",
+    "name": ".Node",
+    "path": "KeyMap/Node.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/Node.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "print.spec",
+    "name": ".print.spec",
+    "path": "KeyMap/print.spec.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/print.spec.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "print",
+    "name": ".print",
+    "path": "KeyMap/print.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/print.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "Rule.spec",
+    "name": ".Rule.spec",
+    "path": "KeyMap/Rule.spec.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/Rule.spec.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "Rule",
+    "name": ".Rule",
+    "path": "KeyMap/Rule.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/Rule.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "StandRule.spec",
+    "name": ".StandRule.spec",
+    "path": "KeyMap/StandRule.spec.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/StandRule.spec.ts",
+    "relativePath": "",
+  },
+  Object {
+    "fileName": "StandRule",
+    "name": ".StandRule",
+    "path": "KeyMap/StandRule.ts",
+    "realpath": "/home/fastspeeed/mocoolka/mocoolka-react/mocoolka-css/docs/tests/KeyMap/StandRule.ts",
+    "relativePath": "",
+  },
+]
+`;
