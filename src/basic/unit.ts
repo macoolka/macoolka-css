@@ -1,57 +1,54 @@
-import { OutRule, InputOverwrite, BaseProps } from '../css';
-import { isNumber } from 'mocoolka-fp/lib/predicate';
-import { getDictionaryMonoid, fold } from 'mocoolka-fp/lib/Monoid';
-import { getObjectSemigroup } from 'mocoolka-fp/lib/Semigroup';
-import { UnitNumberProps } from './types';
-/* 
-# Unit Property
+/**
+ * @file
+ */
+import { ExtendRule, RuleModule, Rule as _Rule } from '../CssRule';
+import { isNumber } from 'macoolka-predicate';
+import { getMonoid } from 'fp-ts/lib/Record';
+import { fold } from 'fp-ts/lib/Monoid';
+import { getObjectSemigroup } from 'fp-ts/lib/Semigroup';
+import { UnitNumberProps, BaseProps } from './types';
 
-## Unit Property is extends Orginal Property
+
+/** 
+Unit Property
+
+Unit Property is extends Orginal Property
 
 The set a default unit when property's value is number
 
-```css
-width:5 
-```
-equal
-```css
-width:5px 
-```
-
 <article>
 
-## Px Properties
+Px Properties
 
 <section class="cols2">
 <div>
 
-### Including
+Including properties:
 
-* backgroundSize
-* borderBottomWidth
-* borderLeftWidth
-* borderRadius
-* borderRightWidth,
-* borderTopWidth
-* borderWidth
-* bottom
-* fontSize
-* left
-* letterSpacing
-* lineHeight
-* margin
-* marginTop
-* marginBottom
-* marginLeft
-* marginRight
-* padding
-* paddingTop
-* paddingBottom
-* paddingLeft
-* paddingRight
-* right
-* top
-* flexBasis
+- backgroundSize
+- borderBottomWidth
+- borderLeftWidth
+- borderRadius
+- borderRightWidth,
+- borderTopWidth
+- borderWidth
+- bottom
+- fontSize
+- left
+- letterSpacing
+- margin
+- marginTop
+- marginBottom
+- marginLeft
+- marginRight
+- padding
+- paddingTop
+- paddingBottom
+- paddingLeft
+- paddingRight
+- right
+- top
+- flexBasis
 
 </div>
 <div>
@@ -73,22 +70,22 @@ width:5px
 
 <article>
 
-## Px or Percent Properties
+Px or Percent Properties
 
-* The will used % whene number value is in middle of 0 and 1
-* Others used px
+- The will used % when number value is in middle of 0 and 1
+- Others used px
 
 <section class="cols2">
 <div>
 
-## Include
+Including properties:
 
-* width
-* height
-* maxWidth
-* minWidth
-* maxHeight
-* minHeight
+- width
+- height
+- maxWidth
+- minWidth
+- maxHeight
+- minHeight
 
 </div>
 <div>
@@ -110,18 +107,18 @@ width:50%
 
 <article>
 
-## Ms Properties
+Ms Properties
 
 
 <section class="cols2">
 <div>
 
-### including
+Including properties:
 
-* transitionDuration
-* transitionDelay
-* animationDuration
-* animationDelay
+- transitionDuration
+- transitionDelay
+- animationDuration
+- animationDelay
 
 </div>
 <div>
@@ -141,14 +138,10 @@ transitionDelay: 500ms
 
 </article> 
 
-@mk
-@name unit
-@title Unit Property
-*/
-/**
-# 单位属性
+*@desczh
+单位属性
 
-## 单位属性是对基本属性的扩展。
+单位属性是对基本属性的扩展。
 
 单位属性主要目的是对没有写明单位的属性赋缺省单位。
 
@@ -165,38 +158,37 @@ width:5px
 
 <article>
 
-## 缺省单位px
+缺省单位px
 
 <section class="cols2">
 <div>
 
-### 包含的属性名
+包含的属性名
 
-* backgroundSize
-* borderBottomWidth
-* borderLeftWidth
-* borderRadius
-* borderRightWidth,
-* borderTopWidth
-* borderWidth
-* bottom
-* fontSize
-* left
-* letterSpacing
-* lineHeight
-* margin
-* marginTop
-* marginBottom
-* marginLeft
-* marginRight
-* padding
-* paddingTop
-* paddingBottom
-* paddingLeft
-* paddingRight
-* right
-* top
-* flexBasis
+- backgroundSize
+- borderBottomWidth
+- borderLeftWidth
+- borderRadius
+- borderRightWidth,
+- borderTopWidth
+- borderWidth
+- bottom
+- fontSize
+- left
+- letterSpacing
+- margin
+- marginTop
+- marginBottom
+- marginLeft
+- marginRight
+- padding
+- paddingTop
+- paddingBottom
+- paddingLeft
+- paddingRight
+- right
+- top
+- flexBasis
 
 </div>
 <div>
@@ -218,22 +210,22 @@ width:5px
 
 <article>
 
-## 缺省单位px或%
+缺省单位px或%
 
-* 值在0-1的范围内用%
-* 大于1用px
+- 值在0-1的范围内用%
+- 大于1用px
 
 <section class="cols2">
 <div>
 
-## 包含的属性名
+包含的属性名
 
-* width
-* height
-* maxWidth
-* minWidth
-* maxHeight
-* minHeight
+- width
+- height
+- maxWidth
+- minWidth
+- maxHeight
+- minHeight
 
 </div>
 <div>
@@ -255,18 +247,18 @@ width:50%
 
 <article>
 
-## 缺省单位ms
+缺省单位ms
 
 
 <section class="cols2">
 <div>
 
-### 包含的属性名
+包含的属性名
 
-* transitionDuration
-* transitionDelay
-* animationDuration
-* animationDelay
+- transitionDuration
+- transitionDelay
+- animationDuration
+- animationDelay
 
 </div>
 <div>
@@ -285,27 +277,49 @@ transitionDelay: 500ms
 </section>
 
 </article>
-@language cn
-@title 单位属性
- */
+
+*
+* @memberof css
+* @name unit
+* @title Unit Property
+*/
+
 export interface Props {
 
 }
 
 
-const M = getDictionaryMonoid(getObjectSemigroup<any>());
-const pxOrPercent = (n: any): any => !isNumber(n) || n > 1 ? px(n) : (n * 100) + '%';
+const M = getMonoid(getObjectSemigroup<any>());
+const pxOrPercent = (n: any): any => !isNumber(n) || n > 1 || n <= 0 ? px(n) : (n * 100) + '%';
 const px = (n: any): any => isNumber(n) ? n + 'px' : n;
 const ms = (n: any): any => isNumber(n) ? n + 'ms' : n;
-export const pxProps = [
+/**
+ * The Prop name that prop value's unit maybe is px
+ * @desczh
+ * 单位为px的属性名集合
+ * 这些属性名对应的值单位是px
+ */
+const pxProps = [
     'backgroundSize', 'borderBottomWidth', 'borderLeftWidth', 'borderRadius', 'borderRightWidth',
     'borderTopWidth', 'borderWidth', 'bottom', 'fontSize',
-    'left', 'letterSpacing', 'lineHeight', 'margin', 'marginTop', 'marginBottom', 'marginLeft', 'marginRight',
+    'left', 'letterSpacing', 'margin', 'marginTop', 'marginBottom', 'marginLeft', 'marginRight',
     'padding', 'paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight', 'right', 'top',
     'flexBasis',
 ];
-export const pxOrPercentProps = ['width', 'height', 'maxWidth', 'minWidth', 'maxHeight', 'minHeight'];
-export const msProps = ['transitionDuration', 'transitionDelay', 'animationDuration', 'animationDelay'];
+/**
+ * The Prop name that prop value's unit maybe is px or Percent
+ * @desczh
+ * 单位为px或Percent的属性名集合
+ * 这些属性名对应的值单位是px或Percent
+ */
+const pxOrPercentProps = ['width', 'height', 'maxWidth', 'minWidth', 'maxHeight', 'minHeight'];
+/**
+ * The Prop name that prop value's unit maybe is ms
+ * @desczh
+ * 单位为ms的属性名集合
+ * 这些属性名对应的值单位是ms
+ */
+const msProps = ['transitionDuration', 'transitionDelay', 'animationDuration', 'animationDelay'];
 const pxArray = pxProps.map((a) => ({
     [a]: ({ value }: any) => ({ [a]: px(value) }),
 }));
@@ -315,7 +329,22 @@ const pxOrPercentArray = pxOrPercentProps.map((a) => ({
 const msPropsArray = msProps.map((a) => ({
     [a]: ({ value }: any) => ({ [a]: ms(value) }),
 }));
-export const rule: OutRule<UnitNumberProps> = {
+/**
+ * Base Rule is output that is origial css
+ * All Rule will final parse to the rule
+ * @desczh
+ * 基本规则输出是原始的css
+ * 所有的规则最后解析到这里
+ * @desczh
+ */
+export type BaseRule = _Rule<{}, {}, BaseProps, {}>
+export type Rule = ExtendRule<BaseRule, UnitNumberProps, {}>
+export const rule: Rule = {
     rule: fold(M)(pxArray.concat(pxOrPercentArray).concat(msPropsArray)),
+
 };
-export type UnitProps = InputOverwrite<UnitNumberProps, BaseProps>;
+export const ruleModule: RuleModule<Rule> = {
+    theme: {},
+    rule,
+
+}

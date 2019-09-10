@@ -12,6 +12,12 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "types": [
+      "jest"
+    ],
     "lib": [
       "dom",
       "es2016",
@@ -31,7 +37,7 @@
     ]
   },
   "include": [
-    "src/**/*", "../mocoolka-ast/src/types.ts", "docs/fs.ts", "docs/fs.spec.ts", "../mocoolka-ast/src/ts/tests/a.ts",
+    "src/**/*",
   ],
   "exclude": [
     "node_modules",

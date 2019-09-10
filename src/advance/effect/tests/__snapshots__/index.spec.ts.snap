@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`text parse mkCollapse 1`] = `
+Object {
+  "display": "none",
+  "height": "0px",
+  "transitionDelay": "0ms",
+  "transitionDuration": "200ms",
+  "transitionProperty": "height",
+  "transitionTimingFunction": "cubic-bezier(0.4, 0, 0.2, 1)",
+}
+`;
+
+exports[`text parse mkCollapse 2`] = `
+Object {
+  "display": "flex",
+  "height": "auto",
+  "transitionDelay": "0ms",
+  "transitionDuration": "200ms",
+  "transitionProperty": "height",
+  "transitionTimingFunction": "cubic-bezier(0.4, 0, 0.2, 1)",
+}
+`;
+
+exports[`text parse mkHoverColor 1`] = `
+Object {
+  "selector": Object {
+    ":hover:not(:disabled)": Object {
+      "backgroundColor": "#26a69a",
+      "color": "#fff",
+    },
+  },
+}
+`;
+
+exports[`text parse mkHoverColor 2`] = `
+Object {
+  "selector": Object {
+    ":hover:not(:disabled)": Object {
+      "backgroundColor": "#f50057",
+      "color": "#fff",
+    },
+  },
+}
+`;
+
+exports[`text parse mkHoverColor 3`] = `
+Object {
+  "selector": Object {
+    ":hover:not(:disabled)": Object {
+      "color": "#00796b",
+    },
+  },
+}
+`;

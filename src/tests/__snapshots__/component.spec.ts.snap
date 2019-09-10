@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should parse component rule 1 should parse empty props 1`] = `
+"font-size: 48px;
+position: static;
+:focus {
+  width: 30px;
+}
+"
+`;
+
+exports[`should parse component rule 2 should parse common props 1`] = `
+"font-size: 48px;
+height: 180px;
+position: static;
+:focus {
+  width: 30px;
+}
+"
+`;
+
+exports[`should parse component rule 3 should parse common props for place rule props 1`] = `
+"font-size: 30px;
+position: static;
+:focus {
+  width: 30px;
+}
+"
+`;
+
+exports[`should parse component rule 4 should parse component props for palce default style  1`] = `
+"font-size: 96px;
+position: static;
+:focus {
+  width: 10px;
+}
+:hover:not(:disabled) {
+  color: #f50057;
+}
+"
+`;
+
+exports[`should parse component rule 5 should parse common props and component props using the order base prop>module prop > advance prop>component prop >component default style 1`] = `
+"font-size: 7px;
+letter-spacing: -0.01562em;
+font-weight: 300;
+font-family: Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+line-height: 6rem;
+text-decoration: inherit;
+text-transform: inherit;
+position: static;
+:focus {
+  width: 10px;
+}
+:hover:not(:disabled) {
+  color: #f50057;
+}
+"
+`;
+
+exports[`should parse component rule 5 should parse common props and component props using the order base prop>module prop > advance prop>component prop >component default style 2`] = `
+"font-size: 14px;
+letter-spacing: -0.01562em;
+font-weight: 300;
+font-family: Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+line-height: 6rem;
+text-decoration: inherit;
+text-transform: inherit;
+position: static;
+:focus {
+  width: 10px;
+}
+:hover:not(:disabled) {
+  color: #f50057;
+}
+"
+`;
+
+exports[`should parse component rule 5 should parse common props and component props using the order base prop>module prop > advance prop>component prop >component default style 3`] = `
+"font-size: 10px;
+position: static;
+:focus {
+  width: 10px;
+}
+:hover:not(:disabled) {
+  color: #f50057;
+}
+"
+`;
+
+exports[`should parse component rule 5 should parse common props and component props using the order base prop>module prop > advance prop>component prop >component default style 4`] = `
+"font-size: 96px;
+position: static;
+:focus {
+  width: 10px;
+}
+:hover:not(:disabled) {
+  color: #f50057;
+}
+"
+`;
+
+exports[`should parse component rule 5 should parse common props and component props using the order base prop>module prop > advance prop>component prop >component default style 5`] = `
+"font-size: 48px;
+position: static;
+:focus {
+  width: 30px;
+}
+"
+`;
+
+exports[`should parse component rule 6 should parse media props 1`] = `
+"font-size: 48px;
+position: static;
+:focus {
+  width: 30px;
+}
+@media screen and (max-width: 80em) {
+  padding: 16px;
+}
+@media screen and (max-width: 50em) {
+  padding: 8px;
+}
+"
+`;
+
+exports[`should parse component rule 7 should parse media props in rule 1`] = `
+"font-size: 60px;
+position: static;
+:focus {
+  width: 10px;
+}
+@media screen and (max-width: 80em) {
+  padding: 16px;
+}
+@media screen and (max-width: 50em) {
+  padding: 8px;
+}
+"
+`;
+
+exports[`should parse component rule 8 should parse advance props 1`] = `
+"bottom: 0px;
+font-size: 48px;
+left: 0px;
+right: 0px;
+width: 100%;
+position: static;
+:focus {
+  width: 30px;
+}
+"
+`;
+
+exports[`should parse theme should parse dark theme 1`] = `
+"font-size: 48px;
+background-color: #00796b;
+color: #fff;
+position: static;
+:focus {
+  width: 30px;
+}
+"
+`;
+
+exports[`should parse theme should parse dark with prop theme 1`] = `
+"font-size: 48px;
+background-color: #00796b;
+color: #fff;
+position: static;
+:focus {
+  width: 30px;
+}
+"
+`;
+
+exports[`should parse theme should parse light theme 1`] = `
+"font-size: 48px;
+background-color: #26a69a;
+color: #fff;
+position: static;
+:focus {
+  width: 30px;
+}
+"
+`;

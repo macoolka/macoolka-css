@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should parse component rule 1 should parse empty props 1`] = `
+"@media screen and (max-width: 50em) {
+  font-size: 96px;
+}
+@media screen and (max-width: 50em) {
+  :focus {
+    width: 10px;
+  }
+}
+@media screen and (max-width: 50em) {
+  :hover:not(:disabled) {
+    color: #f50057;
+  }
+}
+"
+`;
+
+exports[`should parse component rule 2 should parse common props 1`] = `
+"@media screen and (max-width: 93em) {
+  font-size: 96px;
+  opacity: 1;
+}
+@media screen and (max-width: 80em) {
+  font-size: 96px;
+}
+@media screen and (max-width: 50em) {
+  font-size: 60px;
+}
+@media screen and (max-width: 93em) {
+  :focus {
+    width: 10px;
+  }
+}
+@media screen and (max-width: 93em) {
+  :hover:not(:disabled) {
+    color: #f50057;
+  }
+}
+@media screen and (max-width: 80em) {
+  :focus {
+    width: 10px;
+  }
+}
+@media screen and (max-width: 80em) {
+  :hover:not(:disabled) {
+    color: #f50057;
+  }
+}
+@media screen and (max-width: 50em) {
+  :focus {
+    width: 10px;
+  }
+}
+"
+`;

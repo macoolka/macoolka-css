@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse color parse bgColor Snapshot 1`] = `
+Object {
+  "backgroundColor": "#fff",
+  "color": "rgba(0, 0, 0, 0.87)",
+}
+`;
+
+exports[`parse color parse bgColor Snapshot 2`] = `
+Object {
+  "backgroundColor": "#fafafa",
+  "color": "rgba(0, 0, 0, 0.87)",
+}
+`;
+
+exports[`parse color parse bgColor Snapshot 3`] = `
+Object {
+  "backgroundColor": "#26a69a",
+  "color": "#fff",
+}
+`;
+
+exports[`parse color parse bgColor Snapshot 4`] = `
+Object {
+  "backgroundColor": "#66bb6a",
+  "color": "rgba(0, 0, 0, 0.87)",
+}
+`;
+
+exports[`parse color parse bgColor Snapshot 5`] = `
+Object {
+  "backgroundColor": "#ffee58",
+  "color": "rgba(0, 0, 0, 0.87)",
+}
+`;
+
+exports[`parse color parse bgColor Snapshot 6`] = `
+Object {
+  "backgroundColor": "#ef5350",
+  "color": "rgba(0, 0, 0, 0.87)",
+}
+`;
+
+exports[`parse color parse bgColor Snapshot 7`] = `
+Object {
+  "backgroundColor": "#f50057",
+  "color": "#fff",
+}
+`;
+
+exports[`parse color parse bgColor Snapshot 8`] = `
+Object {
+  "backgroundColor": "#e0e0e0",
+  "color": "rgba(0, 0, 0, 0.87)",
+}
+`;
+
+exports[`parse color parse mkBorderColor Snapshot 1`] = `
+Object {
+  "borderColor": "#00796b",
+}
+`;
+
+exports[`parse color parse mkBorderColor Snapshot 2`] = `
+Object {
+  "borderColor": "#388e3c",
+}
+`;
+
+exports[`parse color parse mkBorderColor Snapshot 3`] = `
+Object {
+  "borderColor": "#fbc02d",
+}
+`;
+
+exports[`parse color parse mkBorderColor Snapshot 4`] = `
+Object {
+  "borderColor": "#d32f2f",
+}
+`;
+
+exports[`parse color parse mkBorderColor Snapshot 5`] = `
+Object {
+  "borderColor": "#f50057",
+}
+`;
+
+exports[`parse color parse mkBorderColor Snapshot 6`] = `
+Object {
+  "borderColor": "#e0e0e0",
+}
+`;
+
+exports[`parse color parse mkBorderColor Snapshot 7`] = `
+Object {
+  "borderColor": "rgba(0, 0, 0, 0.38)",
+}
+`;
+
+exports[`parse color parse mkTextColor Snapshot 1`] = `
+Object {
+  "color": "#00796b",
+}
+`;
+
+exports[`parse color parse mkTextColor Snapshot 2`] = `
+Object {
+  "color": "#388e3c",
+}
+`;
+
+exports[`parse color parse mkTextColor Snapshot 3`] = `
+Object {
+  "color": "#fbc02d",
+}
+`;
+
+exports[`parse color parse mkTextColor Snapshot 4`] = `
+Object {
+  "color": "#d32f2f",
+}
+`;
+
+exports[`parse color parse mkTextColor Snapshot 5`] = `
+Object {
+  "color": "#f50057",
+}
+`;
+
+exports[`parse color parse mkTextColor Snapshot 6`] = `
+Object {
+  "color": "rgba(0, 0, 0, 0.87)",
+}
+`;
+
+exports[`parse color parse mkTextColor Snapshot 7`] = `
+Object {
+  "color": "rgba(0, 0, 0, 0.54)",
+}
+`;
+
+exports[`parse color parse mkTextColor Snapshot 8`] = `
+Object {
+  "color": "rgba(0, 0, 0, 0.38)",
+}
+`;

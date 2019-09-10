@@ -10,7 +10,6 @@ import {
     FontSizeProperty,
     LeftProperty,
     LetterSpacingProperty,
-    LineHeightProperty,
     MarginProperty,
     MarginTopProperty,
     MarginBottomProperty,
@@ -33,7 +32,8 @@ import {
     MinHeightProperty,
 
 } from 'csstype';
-import { BaseProps } from '../css';
+//import { BaseProps } from '../CssRule';
+
 export type PxProps = {
     backgroundSize?: BackgroundSizeProperty<number>,
     borderBottomWidth?: BorderBottomWidthProperty<number>,
@@ -46,7 +46,6 @@ export type PxProps = {
     fontSize?: FontSizeProperty<number>,
     left?: LeftProperty<number>,
     letterSpacing?: LetterSpacingProperty<number | string>,
-    lineHeight?: LineHeightProperty<number>,
     margin?: MarginProperty<number>,
     marginTop?: MarginTopProperty<number>,
     marginBottom?: MarginBottomProperty<number>,
@@ -62,11 +61,7 @@ export type PxProps = {
     flexBasis?: FlexBasisProperty<number>,
     outline?: OutlineProperty<number>,
 };
-/* 'backgroundSize' | 'borderBottomWidth' | 'borderLeftWidth' | 'borderRadius' | 'borderRightWidth' |
-    'borderTopWidth' | 'borderWidth' | 'bottom' | 'fontSize' |
-    'left' | 'letterSpacing' | 'lineHeight' | 'margin' | 'marginTop' | 'marginBottom' | 'marginLeft' | 'marginRight' |
-    'padding' | 'paddingTop' | 'paddingBottom' | 'paddingLeft' | 'paddingRight' | 'right' | 'top' |
-    'flexBasis' | 'outline'; */
+
 export type PxOrPercents = {
     width?: WidthProperty<number>,
     height?: HeightProperty<number>,
@@ -76,11 +71,18 @@ export type PxOrPercents = {
     minHeight?: MinHeightProperty<number>
 };
 export type Ms = {
-    transitionDuration?: BaseProps['transition'] | number,
-    transitionDelay?: BaseProps['transitionDelay'] | number,
-    animationDuration?: BaseProps['animationDuration'] | number,
-    animationDelay?: BaseProps['animationDelay'] | number,
+    transitionDuration?: _BaseProps['transition'] | number,
+    transitionDelay?: _BaseProps['transitionDelay'] | number,
+    animationDuration?: _BaseProps['animationDuration'] | number,
+    animationDelay?: _BaseProps['animationDelay'] | number,
 };
 export type UnitNumberProps = Ms & PxOrPercents & PxProps;
-// 'transitionDuration' | 'transitionDelay' | 'animationDuration' | 'animationDelay';
-// export type UnitProps = Overwrite<BaseProps, Ms&PxOrPercents&PxProps>;
+
+import { StandardProperties, SvgProperties, VendorLonghandProperties } from 'csstype';
+
+/**
+ * The Provide MDN CssProperties
+ * @since 0.2.0
+ */
+export type _BaseProps = StandardProperties<string> & SvgProperties<string> & VendorLonghandProperties<string>;
+export type BaseProps=Omit<_BaseProps,keyof UnitNumberProps> & UnitNumberProps

@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse parse children 1`] = `
+"padding: 8px;
+&:focus {
+  padding: 16px;
+  height: 200px;
+}
+> * {
+  min-width: 20px;
+}
+> *:focus {
+  color: red;
+}
+> *:hover:not(:disabled) {
+  border-color: #00796b;
+}
+"
+`;
+
+exports[`parse parse media 1`] = `
+"height: 100px;
+&:focus {
+  border-width: 1px;
+  background-color: #26a69a;
+  color: #fff;
+}
+@media screen and (max-width: 120em) {
+  font-size: 15px;
+  padding: 16px;
+}
+@media screen and (max-width: 93em) {
+  font-size: 14px;
+  padding: 24px;
+}
+@media screen and (max-width: 80em) {
+  font-size: 13px;
+  padding: 16px;
+}
+@media screen and (max-width: 50em) {
+  font-size: 12px;
+  padding: 8px;
+}
+"
+`;
+
+exports[`parse parse media children 1`] = `
+"padding: 8px;
+&:focus {
+  padding: 16px;
+  height: 200px;
+}
+@media screen and (max-width: 80em) {
+}
+@media screen and (max-width: 50em) {
+}
+@media screen and (max-width: 80em) {
+  > * {
+    min-width: 10px;
+  }
+}
+@media screen and (max-width: 80em) {
+  > *:hover:not(:disabled) {
+    border-color: #f50057;
+  }
+}
+@media screen and (max-width: 80em) {
+  > *:focus {
+    color: green;
+  }
+}
+@media screen and (max-width: 50em) {
+  > * {
+    min-width: 20px;
+  }
+}
+@media screen and (max-width: 50em) {
+  > *:hover:not(:disabled) {
+    border-color: #00796b;
+  }
+}
+@media screen and (max-width: 50em) {
+  > *:focus {
+    color: red;
+  }
+}
+"
+`;
+
+exports[`parse parse others prop 1`] = `
+"height: 100px;
+onclick: 15;
+&:focus {
+  border-width: 1px;
+  background-color: #26a69a;
+  color: #fff;
+}
+@media screen and (max-width: 120em) {
+  font-size: 15px;
+  padding: 16px;
+}
+@media screen and (max-width: 93em) {
+  font-size: 14px;
+  padding: 24px;
+}
+@media screen and (max-width: 80em) {
+  font-size: 13px;
+  padding: 16px;
+}
+@media screen and (max-width: 50em) {
+  font-size: 12px;
+  padding: 8px;
+}
+"
+`;
+
+exports[`parse parse stand 1`] = `
+"padding: 8px;
+height: 100px;
+&:focus {
+  padding: 16px;
+  height: 200px;
+}
+"
+`;
